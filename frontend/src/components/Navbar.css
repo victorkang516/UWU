@@ -1,0 +1,110 @@
+
+/* Navbar */
+.navbar {
+  width: 100%;
+  height: 65px;
+  background-color: rgb(20, 24, 70);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  z-index: 50;
+}
+
+
+/* Nav logo */
+.navbar-logo h2 {
+  color: rgb(233,133,0);
+  font-size: 1.4rem;
+  cursor: default;
+}
+
+
+/* Nav links */
+.navbar-links {
+  display: flex;
+  list-style: none;
+  align-items: center;
+}
+
+.navbar-links > li {
+  padding-left: 1.5rem;
+}
+
+.navbar-links > li > a {
+  text-decoration: none;
+  color: rgb(233,133,0);
+  font-size: 1.0rem;
+  display: flex;
+  align-items: center;
+}
+
+
+/* Order */
+.navbar-links > li > a > span {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+}
+
+.order-link {
+  background-color: rgb(28, 35, 126);
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.order-link:hover {
+  background-color: rgb(233,133,0);
+  color: white;
+}
+
+.navbar-cartbadge {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  margin-left: 8px;
+  color: rgb(233,133,0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+
+/* Hamburger Menu */
+.hamburger-menu {
+  width: 20px;
+  height: 20px;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.hamburger-menu > div {
+  width: 100%;
+  height: 3px;
+  background-color: white;
+}
+
+.hamburger-menu:hover > div {
+  background-color: rgb(233,133,0);
+}
+
+@media (max-width: 960px) {
+  .navbar-links {
+    display: none;
+  }
+  .hamburger-menu {
+    display: flex;
+  }
+}
+
+@media (max-width: 500px) {
+  .navbar-logo h2 {
+    font-size: 1.1rem;
+  }
+}
