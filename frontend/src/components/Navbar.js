@@ -1,7 +1,15 @@
 import './Navbar.css'
 import {Link} from 'react-router-dom';
+import auth from '../authentication/auth';
 
 const Navbar = ({click}) => {
+
+  const logout = () => {
+    auth.logout(()=>{
+      window.location.reload(false);
+    })
+  }
+
   return (
     <nav className="navbar">
       {/* logo */}
@@ -17,12 +25,12 @@ const Navbar = ({click}) => {
           </Link>
         </li>
         <li>
-          <Link to="/">
+          <Link to="/myshop">
             MyShop
           </Link>
         </li>
         <li>
-          <Link to="/order" className="order-link">
+          <Link to="/myorder" className="order-link">
             <i className="fas fa-shopping-cart"></i>
             <span>
               MyOrder
@@ -30,6 +38,28 @@ const Navbar = ({click}) => {
             </span>
           </Link>
         </li>
+        <li>
+          {auth.isAuthenticated() ? (
+            <Link to="/myprofile">
+              MyProfile
+            </Link>
+          ) : (
+            <div></div>
+          )}
+        </li>
+        <li>
+          {auth.isAuthenticated() ? (
+            <Link to="/" onClick={logout}>
+              Logout
+            </Link>
+          ) : (
+            <Link to="/login">
+              Sign In
+            </Link>
+          )}
+          
+        </li>
+
       </ul>
 
       {/* Hamburger menu */}
@@ -41,6 +71,7 @@ const Navbar = ({click}) => {
 
     </nav>
   )
+  
 }
 
-export default Navbar
+export default Navbar;

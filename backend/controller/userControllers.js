@@ -10,9 +10,9 @@ const readAllUsers = async (req, res) => {
   }
 }
 
-const readUserById = async (req, res) => {
+const readUserByEmail = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findOne({email:req.params.email});
     res.json(user);
   } catch (error) {
     console.error(error);
@@ -52,7 +52,7 @@ const deleteUserById = async (req, res) => {
 
 module.exports = {
   readAllUsers,
-  readUserById,
+  readUserByEmail,
   createUser,
   updateUserById,
   deleteUserById
