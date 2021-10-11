@@ -3,7 +3,7 @@ import './MyShopScreen.css';
 const MyShopScreen = () => {
   return (
     <div>
-      MyShop
+      <h1>MyShop</h1>
     </div>
   )
 }
