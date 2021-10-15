@@ -3,7 +3,9 @@ import { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import auth from '../authentication/auth';
-
+import logo from './uwupic.png';
+// import sidebar from './sidebar.js';
+// const new_component = NewHOC (sidebar);
 const LoginScreen = (props) => {
 
   const [email,setEmail] = useState('');
@@ -53,8 +55,15 @@ const LoginScreen = (props) => {
   }, [password])
 
   return (
+   
+
     <div className="loginscreen">
-      <h2>Welcome to UWU Shopping Site! Please Login.</h2>
+       <div className="sidebar">
+       <img src={logo}></img>
+        <h2>Welcome to UWU Shopping Site!</h2>
+      </div>
+      {/* {sidebar} */}
+      <h2>Welcome to Login page.</h2>
       <form className="login-form">
 
         <h2>Log In</h2>

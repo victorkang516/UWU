@@ -2,6 +2,7 @@ import './RegisterScreen.css';
 import { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import logo from './uwupic.png';
 
 const RegisterScreen = () => {
   const [email,setEmail] = useState('');
@@ -52,6 +53,12 @@ const RegisterScreen = () => {
 
   return (
     <div className="registerscreen">
+      
+      <div className="sidebar">
+       <img src={logo}></img>
+        <h2>Welcome to UWU Shopping Site!</h2>
+      </div>
+
       <h1>Register</h1>
       <form className="register-form">
 
