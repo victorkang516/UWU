@@ -53,10 +53,10 @@ const RegisterScreen = () => {
 
   return (
     <div className="registerscreen">
-      
+
       <div className="sidebar">
        <img src={logo}></img>
-        <h2>Welcome to UWU Shopping Site!</h2>
+        <h2>Welcome to UWU Shopping Site!!</h2>
       </div>
 
       <h1>Register</h1>
