@@ -32,7 +32,7 @@ const HomeScreen = () => {
 
   return (
     <div className="homescreen">
-      <h2 className="homesreen-title">Latest Products</h2>
+      <h2 className="homesreen-title">Latest Products </h2>
       
       <div className="homescreen-products">
         {products.map((product) =>{

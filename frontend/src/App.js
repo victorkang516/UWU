@@ -42,6 +42,7 @@ function App() {
           <ProtectedRoute exact path="/myorder" component={MyOrderScreen} />
           <ProtectedRoute exact path="/myshop" component={MyShopScreen} />
           <ProtectedRoute exact path="/myprofile" component={MyProfileScreen} />
+          {/* <ProtectedRoute exact path="/" component={HomeScreen} /> */}
 
           {/* If page not found */}
           <Route path="*" component={() => "404 NOT FOUND"} />

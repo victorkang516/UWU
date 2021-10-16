@@ -4,6 +4,24 @@
   margin: 1rem auto;
 }
 
+.sidebar {
+  padding : 70px;
+  height: 100%;
+  width :25%;
+  left : 0;
+  position : absolute; 
+  background-color :#FFB345;
+  color : white ;
+  text-align: center;
+}
+
+.sidebar>img {
+  width :40%;
+  margin-bottom: 20px;
+
+}
+
+
 .loginscreen > h2 {
   margin: 24px 24px;
 }
