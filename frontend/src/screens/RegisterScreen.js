@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import logo from './uwupic.png';
+import auth from '../authentication/auth';
 
-const RegisterScreen = () => {
+const RegisterScreen = (props) => {
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
   const [name,setName] = useState('');
@@ -45,7 +46,11 @@ const RegisterScreen = () => {
     axios.post('http://localhost:5000/users', user)
       .then(res => {
         console.log(res);
-        //this.props.history.push('/home');
+       // {this.props.history.push('/');}
+        auth.login(()=>{
+          props.history.push("/");
+          window.location.reload(false);
+        }, user)
       }).catch(error => {
         console.log(error);
       })
