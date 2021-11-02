@@ -1,10 +1,9 @@
 const Order = require('../models/Order');
-const Product = require('../models/Product');
 
 
-const getAllOrdersByBuyer = async (req, res) => {
+const getAllOrdersByUserId = async (req, res) => {
   try {
-    const orders = await Order.find({ email: req.params.email }).exec();
+    const orders = await Order.find({ userId: req.params.userId }).exec();
     res.json(orders);
   } catch (error) {
     console.error(error);
@@ -24,9 +23,8 @@ const createOrder = async (req, res) => {
 
 const updateOrder = async (req, res) => {
   try {
-    await Order.updateOne({ _id: req.params.id }, { quantity: req.body.quantity })
-    res.json({message:"Data update successfully"});
-
+    await Order.updateOne({ _id: req.params.orderId }, { quantity: req.body.quantity })
+    res.json({message:"Order update successfully"});
   } catch (error) {
     console.error(error);
     res.status(500).json({message: "Server Error"});
@@ -35,9 +33,8 @@ const updateOrder = async (req, res) => {
 
 const deleteOrder = async (req, res) => {
   try {
-    await Order.deleteOne({ _id: req.params.id });
-    res.json({message:"Data deleted successfully"});
-
+    await Order.deleteOne({ _id: req.params.orderId });
+    res.json({message:"Order deleted successfully"});
   } catch (error) {
     console.error(error);
     res.status(500).json({message: "Server Error"});
@@ -45,7 +42,7 @@ const deleteOrder = async (req, res) => {
 }
 
 module.exports = {
-  getAllOrdersByBuyer,
+  getAllOrdersByUserId,
   createOrder,
   updateOrder,
   deleteOrder

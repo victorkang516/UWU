@@ -28,7 +28,7 @@ const LoginScreen = (props) => {
           if (res.data.password === password){
 
             let userData = {
-              email: email,
+              userId: res.data._id,
               name: res.data.name,
               shopId: res.data.shopId
             }

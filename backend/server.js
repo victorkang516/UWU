@@ -11,6 +11,7 @@ const { Server } = require("socket.io");
 const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const shopRoutes = require('./routes/shopRoutes');
 
 
 connectDB();
@@ -53,6 +54,7 @@ io.sockets.on("connection", socket => {
 app.use('/products', productRoutes);
 app.use('/users', userRoutes);
 app.use('/orders', orderRoutes);
+app.use('/shops', shopRoutes);
 
 const PORT = process.env.PORT || 5000;
 

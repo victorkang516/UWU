@@ -1,26 +1,26 @@
 const express = require('express');
 const router = express.Router();
 
-const { getAllOrdersByBuyer, createOrder, updateOrder, deleteOrder } = require('../controller/orderControllers');
+const { getAllOrdersByUserId, createOrder, updateOrder, deleteOrder } = require('../controller/orderControllers');
 
 //@desc GET all orders by buyer from db
 //@route get /orders/:email
 //@access Public
-router.get('/:email', getAllOrdersByBuyer);
+router.get('/:userId', getAllOrdersByUserId);
 
 //@desc INSERT an order into db
 //@route post /orders
 //@access Public
 router.post('/', createOrder);
 
-//@desc UPDATE a product into db
+//@desc UPDATE a order into db
 //@route put /orders/:id
 //@access Public
-router.put('/:id', updateOrder);
+router.put('/:orderId', updateOrder);
 
-//@desc DELETE a product in db
+//@desc DELETE a order in db
 //@route delete /orders/:id
 //@access Public
-router.delete('/:id', deleteOrder);
+router.delete('/:orderId', deleteOrder);
 
 module.exports = router;

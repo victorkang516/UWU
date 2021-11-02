@@ -47,7 +47,7 @@ const ProductScreen = () => {
   const makeOrder = () => {
 
     const order = {
-      email: userData.email,
+      userId: userData.userId,
       productId: product._id,
       quantity: quantity
     };
@@ -94,6 +94,8 @@ const ProductScreen = () => {
             type="number" 
             value={quantity} 
             onChange={(event)=>{setQuantity(event.target.value)}} 
+            min="1" 
+            max={product.countInStock}
           />
         </p>
         <p>
@@ -110,7 +112,7 @@ const ProductScreen = () => {
     {showMessage ? 
     <div className="message">
       <div className="message-content">
-        <h2>Your Order on {quantity} {product.name} is successfully placed</h2>
+        <h2>Your Order on {quantity} quantity of {product.name} is successfully placed</h2>
         <p>View your orders in Myorder.</p>
         <button onClick={()=>setShowMessage(false)}>OK</button>
       </div>
