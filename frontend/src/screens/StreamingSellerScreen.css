@@ -1,0 +1,41 @@
+.streaming {
+  /*  */
+}
+
+.streaming-header {
+  display: block;
+  background-color: white;
+  margin: 0px auto;
+  padding: 10px 10px;
+}
+
+.streaming-body {
+  max-width: 1300px;
+  margin: auto 1rem;
+  display: flex;
+}
+
+.body-left {
+  flex: 2;
+}
+
+.body-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+.right-top {
+  min-height: 200px;
+  padding: 12px;
+}
+
+.right-bottom {
+  min-height: 200px;
+  padding: 12px;
+}
+
+.comment-container {
+  height: 150px;
+}

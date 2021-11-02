@@ -48,7 +48,7 @@ const RegisterScreen = () => {
         //this.props.history.push('/home');
       }).catch(error => {
         console.log(error);
-      })
+      });
   }
 
   return (

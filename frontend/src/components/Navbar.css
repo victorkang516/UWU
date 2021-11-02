@@ -72,6 +72,19 @@
   font-size: 0.9rem;
 }
 
+.streaming-link {
+  background-color: rgb(233,133,0);
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.streaming-link > i {color: black;}
+.streaming-link > span {color: black;}
+
+.streaming-link:hover {
+  background-color: rgb(255, 173, 66);
+}
+
 
 /* Hamburger Menu */
 .hamburger-menu {
