@@ -73,14 +73,20 @@ const StreamingSellerScreen = () => {
 
         {!started ? 
           <div className="body-right">
-            <p>Enter your streaming detail.</p>
-            <input 
-              type="text" 
-              placeholder="Streaming Title" 
-              value={streamId} 
-              onChange={event=>{setStreamId(event.target.value)}} 
-              />
-            <button onClick={startStreaming}>Start</button>
+            <div className="optionmenu">
+              <p>Enter your streaming detail.</p>
+              <p>
+                <input 
+                  type="text" 
+                  placeholder="Streaming Title" 
+                  value={streamId} 
+                  onChange={event=>{setStreamId(event.target.value)}} 
+                />
+              </p>
+              <p>
+                <button onClick={startStreaming}>Start</button>
+              </p>
+            </div>
           </div>
           :
         <div className="body-right">

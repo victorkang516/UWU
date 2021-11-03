@@ -23,7 +23,17 @@ const createShop = async (req, res) => {
 
 const updateShop = async (req, res) => {
   try {
-    await Shop.updateOne({ _id: req.params.shopId }, { shopName: req.body.shopName, shopDescription: req.body.shopDescription, shopImageUrl: req.body.shopImageUrl })
+    await Shop.updateOne(
+      { _id: req.params.shopId }, 
+      { 
+        shopName: req.body.shopName, 
+        shopDescription: req.body.shopDescription, 
+        shopImageUrl: req.body.shopImageUrl,
+        shopAddress: req.body.shopAddress,
+        shopPhone: req.body.shopPhone,
+        shopEmail: req.body.shopEmail
+      }
+    )
     res.json({message:"Data update successfully"});
   } catch (error) {
     console.error(error);

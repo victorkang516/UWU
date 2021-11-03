@@ -15,6 +15,18 @@ const shopSchema = new mongoose.Schema({
   },
   shopImageUrl: {
     type: String
+  },
+  shopAddress: {
+    type: String,
+    required: true
+  },
+  shopPhone: {
+    type: String,
+    required: true
+  },
+  shopEmail: {
+    type: String,
+    reuired: true
   }
 });
 

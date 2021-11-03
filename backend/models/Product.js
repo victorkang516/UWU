@@ -20,6 +20,14 @@ const productSchema = new mongoose.Schema({
   imageUrl: {
     type: String,
     required: true
+  },
+  shopId: {
+    type: String,
+    required: true
+  },
+  shopName: {
+    type: String,
+    required: true
   }
 })
 
