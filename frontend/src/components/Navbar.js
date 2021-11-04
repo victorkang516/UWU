@@ -39,6 +39,14 @@ const Navbar = ({click}) => {
           </Link>
         </li>
         <li>
+          <Link to="/streamingseller" className="streaming-link">
+            <i class="fa fa-video-camera" aria-hidden="true"></i>
+            <span>
+              Start Streaming
+            </span>
+          </Link>
+        </li>
+        <li>
           {auth.isAuthenticated() ? (
             <Link to="/myprofile">
               MyProfile

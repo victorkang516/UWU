@@ -1,6 +1,10 @@
 import './ProductScreen.css';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
+import axios from 'axios';
+
+
+const userData = JSON.parse(localStorage.getItem("userData"));
 
 
 const ProductScreen = () => {
@@ -8,8 +12,12 @@ const ProductScreen = () => {
   let url = `http://localhost:5000/products/${id}`;
 
   const [loading, setLoading] = useState(true);
+  const [showMessage, setShowMessage] = useState(false);
+
   const [product, setProduct] = useState([]);
+  const [quantity, setQuantity] = useState(1);
   const [inStock, setInStock] = useState(true);
+
 
   const fetchData = async () =>{
     try{
@@ -35,6 +43,24 @@ const ProductScreen = () => {
       setInStock(false);
     }
   }
+
+  const makeOrder = () => {
+
+    const order = {
+      userId: userData.userId,
+      productId: product._id,
+      quantity: quantity
+    };
+
+    axios.post('http://localhost:5000/orders', order)
+      .then(res => {
+        console.log(res);
+        setShowMessage(true);
+      }).catch(error => {
+        console.log(error);
+      });
+  }
+
 
   if (loading) {
     return <div className="loadingscreen">
@@ -64,19 +90,36 @@ const ProductScreen = () => {
         </p>
         <p>
           Qty
-          <select>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-          </select>
+          <input 
+            type="number" 
+            value={quantity} 
+            onChange={(event)=>{setQuantity(event.target.value)}} 
+            min="1" 
+            max={product.countInStock}
+          />
         </p>
         <p>
-          <button type="button" disabled={inStock ? false : true}>Order</button>
+          <button 
+            type="button" 
+            disabled={inStock ? false : true} 
+            onClick={makeOrder}
+          >Order
+          </button>
         </p>
       </div>
     </div>
 
+    {showMessage ? 
+    <div className="message">
+      <div className="message-content">
+        <h2>Your Order on {quantity} quantity of {product.name} is successfully placed</h2>
+        <p>View your orders in Myorder.</p>
+        <button onClick={()=>setShowMessage(false)}>OK</button>
+      </div>
+    </div>
+    : 
+    <div></div>
+    }
   </div>
 }
 

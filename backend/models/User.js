@@ -23,8 +23,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  shopId: {
-    type: String,
+  totalSpent: {
+    type: Number,
+    default: 0
   }
 });
 

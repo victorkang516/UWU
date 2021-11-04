@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { getAllProducts, getProductById, createProduct, updateProduct, deleteProduct } = require('../controller/productControllers');
+const { getAllProducts, getProductById, createProduct, updateProduct, updateProductStock, deleteProduct } = require('../controller/productControllers');
 
 //@desc GET all products from db
 //@route get /api/products
@@ -22,6 +22,11 @@ router.post('/', createProduct);
 //@route put /api/products/:id
 //@access Public
 router.put('/:id', updateProduct);
+
+//@desc UPDATE a product stock into db
+//@route put /api/products/:id
+//@access Public
+router.put('/updatestock/:id', updateProductStock);
 
 //@desc DELETE a product in db
 //@route delete /api/products/:id

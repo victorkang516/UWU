@@ -44,6 +44,16 @@ const updateProduct = async (req, res) => {
   }
 }
 
+const updateProductStock = async (req, res) => {
+  try {
+    const product = await Product.updateOne({ _id: req.params.id } ,{countInStock: req.body.countInStock});
+    res.json({message:"Data update successfully"});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message: "Server Error"});
+  }
+}
+
 const deleteProduct = async (req, res) => {
   try {
     await Product.deleteOne({_id:req.params.id});
@@ -61,5 +71,6 @@ module.exports = {
   getProductById,
   createProduct,
   updateProduct,
+  updateProductStock,
   deleteProduct
 }
