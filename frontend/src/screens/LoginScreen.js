@@ -8,86 +8,96 @@ import logo from './uwupic.png';
 // const new_component = NewHOC (sidebar);
 const LoginScreen = (props) => {
 
-  const [email,setEmail] = useState('');
-  const [password,setPassword] = useState('');
+	const [email,setEmail] = useState('');
+	const [password,setPassword] = useState('');
 
-  const onEmailChange = (event) => {
-    setEmail(event.currentTarget.value);
-  }
+	const onEmailChange = (event) => {
+		setEmail(event.currentTarget.value);
+	}
 
-  const onPasswordChange = (event) => {
-    setPassword(event.currentTarget.value);
-  }
+	const onPasswordChange = (event) => {
+		setPassword(event.currentTarget.value);
+	}
 
-  const onSubmit = (event) => {
-    event.preventDefault();
+	const onSubmit = (event) => {
+		event.preventDefault();
+    if (email !== "" && password !== "") {
+      const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+      if (email && regex.test(email) !== false) {
+        axios.get(`http://localhost:5000/users/${email}`)
+			.then(res => {
+				
+        if (res.data&&res.data.email === email&&res.data.password === password){
+					
 
-    axios.get(`http://localhost:5000/users/${email}`)
-      .then(res => {
-        if (res.data.email === email){
-          if (res.data.password === password){
+						let userData = {
+							userId: res.data._id,
+							name: res.data.name,
+							shopId: res.data.shopId
+						}
+						
+						auth.login(()=>{
+							props.history.push("/");
+							window.location.reload(false);
+						}, userData)
 
-            let userData = {
-              email: email,
-              name: res.data.name,
-              shopId: res.data.shopId
-            }
-            
-            auth.login(()=>{
-              props.history.push("/");
-              window.location.reload(false);
-            }, userData)
-
-          }
+					
+				} else {
+          alert("Please key in the right info");
         }
-      }).catch(error => {
-        console.log(error);
-      })
-    
-  }
+			}).catch(error => {
+				console.log(error);
+			})
+		
+      }else {
+        alert("Please key in the right email format");}
+    }else {
+      alert("Fill in the blanks");}
+		
+	}
 
-  useEffect(() => {
-    console.log(email);
-  }, [email])
+	useEffect(() => {
+		console.log(email);
+	}, [email])
 
-  useEffect(() => {
-    console.log(password);
-  }, [password])
+	useEffect(() => {
+		console.log(password);
+	}, [password])
 
-  return (
-   
+	return (
+		<div className="loginscreen">
 
-    <div className="loginscreen">
-       <div className="sidebar">
-       <img src={logo}></img>
-        <h2>Welcome to UWU Shopping Site!!</h2>
-      </div>
-      {/* {sidebar} */}
-      <h2>Welcome to Login page.</h2>
-      <form className="login-form">
+			<div className="sidebar">
+				<img src={logo}></img>
+				<h2>Welcome to UWU Shopping Site!!</h2>
+			</div>
 
-        <h2>Log In</h2>
+			<div className = "login">
+				<h2>Welcome to Login page.</h2>
+				<form className="login-form">
 
-        <div className="form-input">
-          <input name="email" value={email} onChange={onEmailChange} placeholder="Email"/>
-        </div>
-        
-        <div className="form-input">
-          <input name="password" value={password} onChange={onPasswordChange} placeholder="Password"/>
-        </div>
+					<h2>Log In</h2>
 
-        <div className="form-input">
-          <button type="submit" onClick={onSubmit}>Login</button>
-        </div>
+					<div className="form-input">
+						<input name="email" value={email} onChange={onEmailChange} placeholder="Email"/>
+					</div>
+					
+					<div className="form-input">
+						<input type="password" name="password" value={password} onChange={onPasswordChange} placeholder="Password"/>
+					</div>
 
-        <Link to="/register">Did not have an account? <span>Register Here</span></Link>
+					<div className="form-input">
+						<button type="submit" onClick={onSubmit}>Login</button>
+					</div>
 
-      </form>
-      
-    </div>
-  )
-  
-  
+					<Link to="/register">Did not have an account? <span>Register Here</span></Link>
+
+				</form>
+			</div>
+		</div>
+	)
+	
+	
 }
 
 export default LoginScreen;
