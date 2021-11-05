@@ -11,7 +11,7 @@ router.get('/:userId', getAllOrdersByUserId);
 //@desc GET all orders by shopId from db
 //@route get /orders/:shopId
 //@access Public
-router.get('/seller/:shopId', getAllOrdersByUserId);
+router.get('/seller/:shopId', getAllOrdersByShopId);
 
 //@desc INSERT an order into db
 //@route post /orders
