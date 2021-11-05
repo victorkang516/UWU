@@ -12,6 +12,8 @@ const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const shopRoutes = require('./routes/shopRoutes');
+const membershipRoutes = require('./routes/membershipRoutes');
+const streamingRoutes = require('./routes/streamingRoutes');
 
 
 connectDB();
@@ -55,6 +57,8 @@ app.use('/products', productRoutes);
 app.use('/users', userRoutes);
 app.use('/orders', orderRoutes);
 app.use('/shops', shopRoutes);
+app.use('/memberships', membershipRoutes);
+app.use('/streamings', streamingRoutes);
 
 const PORT = process.env.PORT || 5000;
 

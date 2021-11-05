@@ -11,6 +11,16 @@ const getAllOrdersByUserId = async (req, res) => {
   }
 }
 
+const getAllOrdersByShopId = async (req, res) => {
+  try {
+    const orders = await Order.find({ shopId: req.params.shopId }).exec();
+    res.json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message: "Server Error"});
+  }
+}
+
 const createOrder = async (req, res) => {
   try {
     const order = await Order.create(req.body);
@@ -43,6 +53,7 @@ const deleteOrder = async (req, res) => {
 
 module.exports = {
   getAllOrdersByUserId,
+  getAllOrdersByShopId,
   createOrder,
   updateOrder,
   deleteOrder

@@ -2,6 +2,8 @@ import './Navbar.css'
 import {Link} from 'react-router-dom';
 import auth from '../authentication/auth';
 
+const userData = JSON.parse(localStorage.getItem("userData"));
+
 const Navbar = ({click}) => {
 
   const logout = () => {
@@ -49,7 +51,7 @@ const Navbar = ({click}) => {
         <li>
           {auth.isAuthenticated() ? (
             <Link to="/myprofile">
-              MyProfile
+              {userData.name}
             </Link>
           ) : (
             <div></div>
