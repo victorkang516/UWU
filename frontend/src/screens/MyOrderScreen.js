@@ -1,7 +1,29 @@
 import './MyOrderScreen.css';
 import CartItem from '../components/CartItem';
+import { useState,useEffect } from 'react';
+const userData = JSON.parse(localStorage.getItem("userData"));
 
 const MyOrderScreen = () => {
+
+  const [orders, setOrders] = useState([]);
+
+  const fetchData = async () =>{
+    try{
+      const response = await fetch(`http://localhost:5000/orders/${userData.userId}`);
+      const result = await response.json();
+      
+      console.log(result);
+      setOrders(result);
+
+    } catch(error){
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return <div className="cartscreen">
 
     {/* Header */}
@@ -10,8 +32,13 @@ const MyOrderScreen = () => {
     {/* Content */}
     <div className="cartscreen-content">
       <div className="cartscreen-left">
-        <CartItem />
-        <CartItem />
+        {
+          orders.map((order)=>{
+
+            return <CartItem order = {order} /> 
+            //console.log("quantity:"+order.quantity)
+          })
+        }
       </div>
       <div className="cartscreen-right">
         <div className="cartscreen-info">

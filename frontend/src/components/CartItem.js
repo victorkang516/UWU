@@ -1,7 +1,7 @@
 import './CartItem.css';
 import {Link} from 'react-router-dom';
 
-const CartItem = () => {
+const CartItem = (order) => {
   return (
     <div className="cartitem">
       <div className="cartitem-image">
@@ -14,7 +14,7 @@ const CartItem = () => {
 
       <p className="cartitem-price">RM499.99</p>
 
-      <select className="cartitem-select">
+      <select className="cartitem-select" value={order.quantity}>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
