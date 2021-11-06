@@ -5,6 +5,7 @@ import axios from 'axios';
 
 const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder}) => {
 
+  const [qty, setQty] = useState(quantity);
   const [product, setProduct] = useState([]);
   const deleteData = () => {
     axios.delete(`http://localhost:5000/orders/${_id}`).then(res => 
@@ -15,6 +16,19 @@ const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder}) => {
     console.log(error);
   });
 
+  }
+
+  const updateData = () => {
+    const order = {
+      quantity: qty
+    };
+
+    axios.put(`http://localhost:5000/orders/${_id}`, order).then(res =>
+    {
+      console.log(res);
+    }).catch(error=> {
+      console.log(error);
+    });
   }
 
   const fetchData = async () =>{
@@ -45,12 +59,13 @@ const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder}) => {
 
       <p className="cartitem-price">RM{product.price}</p>
 
-      <select className="cartitem-select" value={quantity}>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-      </select>
+      <input 
+            type="number" 
+            value={qty} 
+            onChange={(event)=>{setQty(event.target.value);updateData()}} 
+            min="1" 
+            max={product.countInStock}
+          />
 
       <button className="cartitem-deletebtn" onClick={deleteData}>
         <i className="fas fa-trash"></i>
