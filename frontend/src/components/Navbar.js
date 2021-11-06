@@ -42,7 +42,7 @@ const Navbar = ({click}) => {
         </li>
         <li>
           <Link to="/streamingseller" className="streaming-link">
-            <i class="fa fa-video-camera" aria-hidden="true"></i>
+            <i className="fa fa-video-camera" aria-hidden="true"></i>
             <span>
               Start Streaming
             </span>
