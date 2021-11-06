@@ -24,6 +24,11 @@ const MyOrderScreen = () => {
     fetchData();
   }, []);
 
+  const removeOrder = (id) => {
+    const newOrders = orders.filter((order) => order.id !== id)
+    setOrders(newOrders)
+  }
+
   return <div className="cartscreen">
 
     {/* Header */}
@@ -35,7 +40,7 @@ const MyOrderScreen = () => {
         {
           orders.map((order)=>{
 
-            return <CartItem order = {order} /> 
+            return <CartItem key={order._id} {...order} removeOrder = {removeOrder} /> 
             //console.log("quantity:"+order.quantity)
           })
         }
