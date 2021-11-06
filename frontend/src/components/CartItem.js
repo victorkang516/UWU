@@ -3,10 +3,15 @@ import {Link} from 'react-router-dom';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
 
-const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder}) => {
+const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder, calculateTotalPrice}) => {
 
   const [qty, setQty] = useState(quantity);
   const [product, setProduct] = useState([]);
+
+  const onquantityChange = (event) =>{
+    setQty(event.target.value)
+  }
+
   const deleteData = () => {
     axios.delete(`http://localhost:5000/orders/${_id}`).then(res => 
     {
@@ -16,6 +21,11 @@ const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder}) => {
     console.log(error);
   });
 
+  }
+
+  const calculateSubTotal = () => {
+   const subTotal = qty*product.price
+   calculateTotalPrice(subTotal);
   }
 
   const updateData = () => {
@@ -45,7 +55,13 @@ const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder}) => {
 
   useEffect(() => {
     fetchData();
+    calculateSubTotal();
   }, []);
+
+  useEffect(() => {
+    updateData();
+    calculateSubTotal();
+  }, [qty]);
 
   return (
     <div className="cartitem">
@@ -62,7 +78,7 @@ const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder}) => {
       <input 
             type="number" 
             value={qty} 
-            onChange={(event)=>{setQty(event.target.value);updateData()}} 
+            onChange={onquantityChange} 
             min="1" 
             max={product.countInStock}
           />

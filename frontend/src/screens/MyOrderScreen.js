@@ -5,6 +5,8 @@ const userData = JSON.parse(localStorage.getItem("userData"));
 
 const MyOrderScreen = () => {
 
+  const [totalPrice, settotalPrice] = useState(0);
+
   const [orders, setOrders] = useState([]);
 
   const fetchData = async () =>{
@@ -29,6 +31,11 @@ const MyOrderScreen = () => {
     setOrders(newOrders)
   }
 
+  const calculateTotalPrice = (subTotal) => {
+    const newTotal = totalPrice + subTotal;
+    settotalPrice(newTotal)
+  }
+
   return <div className="cartscreen">
 
     {/* Header */}
@@ -40,15 +47,15 @@ const MyOrderScreen = () => {
         {
           orders.map((order)=>{
 
-            return <CartItem key={order._id} {...order} removeOrder = {removeOrder} /> 
+            return <CartItem key={order._id} {...order} removeOrder = {removeOrder} calculateTotalPrice = {calculateTotalPrice} /> 
             //console.log("quantity:"+order.quantity)
           })
         }
       </div>
       <div className="cartscreen-right">
         <div className="cartscreen-info">
-          <p>Subtotal (0) item</p>
-          <p>RM499.99</p>
+          <p>Total Price (0) item</p>
+          <p>{totalPrice}</p>
         </div>
         <div>
           <button>Proceed To Checkout</button>
