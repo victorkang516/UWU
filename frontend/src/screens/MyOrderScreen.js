@@ -25,7 +25,7 @@ const MyOrderScreen = () => {
   }, []);
 
   const removeOrder = (id) => {
-    const newOrders = orders.filter((order) => order.id !== id)
+    const newOrders = orders.filter((order) => order._id !== id)
     setOrders(newOrders)
   }
 
