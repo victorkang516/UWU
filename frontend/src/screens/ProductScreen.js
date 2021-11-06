@@ -49,7 +49,8 @@ const ProductScreen = () => {
     const order = {
       userId: userData.userId,
       productId: product._id,
-      quantity: quantity
+      quantity: quantity,
+      shopId: product.shopId
     };
 
     axios.post('http://localhost:5000/orders', order)
@@ -76,8 +77,8 @@ const ProductScreen = () => {
       <div className="left-info">
         <p className="left-name">{product.name}</p>
         <p>RM{product.price}</p>
-        <p>{product.description}
-        </p>
+        <p>{product.description}</p>
+        <p>Seller: {product.shopName}</p>
       </div>
     </div>
     <div className="productscreen-right">
