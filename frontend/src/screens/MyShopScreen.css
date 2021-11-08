@@ -1,0 +1,14 @@
+.myshopscreen{
+  max-width: 1300px;
+  margin: 1rem auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.Link{
+    background-color: rgb(233,133,0);
+    padding: 8px;
+    border-radius: 8px;
+    text-decoration: none;
+}

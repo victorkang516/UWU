@@ -12,10 +12,9 @@ const MyShopScreen = () => {
   return (
 
         <div className="myshopscreen">
-      
-        <h3>Start a streaming</h3>
-        <Link to={`/myshop/createmyshop`} className="">
-          <p>Create MyShop!</p>
+
+        <Link to={`/myshop/createmyshop`} className="Link" type="button" >
+          <h1>Create MyShop!</h1>
         </Link>
 
         </div>

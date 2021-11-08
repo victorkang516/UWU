@@ -3,12 +3,12 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import logo from './uwupic.png';
 
-//const userData = JSON.parse(localStorage.getItem("userData"));
+const userData = JSON.parse(localStorage.getItem("userData"));
 
 
 const CreateMyShopScreen = (props) => {
         
-        const [userId, setUserId] = useState('');
+        const [userId, setUserId] = useState(userData.userId);
         const [shopName, setShopName] = useState('');
         const [shopDescription, setShopDescription] = useState('');
         //const [shopImageUrl, setShopImageUrl] = useState('');
@@ -74,34 +74,33 @@ const CreateMyShopScreen = (props) => {
   }
 
 	return (
-        <div className="createshopscreen">
+        <div className="createmyshopscreen">
 
+          <h1 className="title">Create your shop!</h1>
 
-        <div className="login">
-          <h1>Create your shop</h1>
-          <form className="login-form">
+          <form className="register-form">
             <div className="form-input">
               <label>Shop Name: </label>
               <input name="shopName" value={shopName} onChange={onShopNameChange} required />
             </div>
               
             <div className="form-input">
-              <label>Email: </label>
+              <label>Shop Email: </label>
               <input type="email" name="shopEmail" value={shopEmail} onChange={onShopEmailChange} required />
             </div>
   
             <div className="form-input">
-              <label>Description: </label>
+              <label>Shop Description: </label>
               <input name="shopDescription" value={shopDescription} onChange={onShopDescChange} required />
             </div>
   
             <div className="form-input">
-              <label>Address: </label>
+              <label>Shop Address: </label>
               <input name="shopAddress" value={shopAddress} onChange={onShopAddressChange} required />
             </div>
   
             <div className="form-input">
-              <label>Phone: </label>
+              <label>Shop Phone: </label>
               <input name="shopPhone" value={shopPhone} onChange={onShopPhoneChange} required />
             </div>
   
@@ -109,7 +108,6 @@ const CreateMyShopScreen = (props) => {
               <button type="submit" onClick={onSubmit}>Register</button>
             </div>
           </form>
-        </div>
       </div>
 	)
 	
