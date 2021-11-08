@@ -64,7 +64,7 @@ const CreateMyShopScreen = (props) => {
         });
       
         } else {
-          alert("please insert valid email");
+          alert("Please insert valid email");
         }
     } else {
       alert("Please fill in the blanks");
