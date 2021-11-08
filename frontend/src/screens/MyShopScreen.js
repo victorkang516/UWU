@@ -10,6 +10,7 @@ import './MyShopScreen.css';
 const MyShopScreen = () => {
 
   return (
+
         <div className="myshopscreen">
       
         <h3>Start a streaming</h3>
@@ -18,6 +19,7 @@ const MyShopScreen = () => {
         </Link>
 
         </div>
+
   )
 
 }
