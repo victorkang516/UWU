@@ -1,10 +1,13 @@
 import './CreateMyShop.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+//const userData = JSON.parse(localStorage.getItem("userData"));
+import logo from './uwupic.png';
 
 
 
-const createShop = (props) => {
+
+const CreateShopScreen = (props) => {
         
         const [userId, setUserId] = useState('');
         const [shopName, setShopName] = useState('');
@@ -42,6 +45,9 @@ const createShop = (props) => {
       const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
       if (shopEmail && regex.test(shopEmail) !== false) {
 
+        //const response = await fetch(`http://localhost:5000/orders/${userData.userId}`);
+        //const result = await response.json();
+
         const shop = {
           userId: userId,
           shopName: shopName,
@@ -71,11 +77,7 @@ const createShop = (props) => {
 	return (
         <div className="createshopscreen">
 
-        <div className="sidebar">
-          <img src={logo}></img>
-          <h2>Welcome to UWU Shopping Site!!</h2>
-        </div>
-  
+
         <div className="login">
           <h1>Register</h1>
           <form className="login-form">
@@ -115,4 +117,4 @@ const createShop = (props) => {
 	
 }
 
-export default CreateMyShop
+export default CreateShopScreen

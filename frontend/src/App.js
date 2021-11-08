@@ -11,7 +11,7 @@ import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import MyOrderScreen from './screens/MyOrderScreen';
 import RegisterScreen from './screens/RegisterScreen';
-import MyShopScreen from './screens/MyShopScreen';
+import MyShopScreen from './screens/CreateMyShop';
 import MyProfileScreen from './screens/MyProfileScreen';
 import StreamingSellerScreen from './screens/StreamingSellerScreen';
 
