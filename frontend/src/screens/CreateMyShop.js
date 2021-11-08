@@ -1,10 +1,9 @@
 import './CreateMyShop.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-//const userData = JSON.parse(localStorage.getItem("userData"));
 import logo from './uwupic.png';
 
-
+//const userData = JSON.parse(localStorage.getItem("userData"));
 
 
 const CreateShopScreen = (props) => {
@@ -79,7 +78,7 @@ const CreateShopScreen = (props) => {
 
 
         <div className="login">
-          <h1>Register</h1>
+          <h1>Create your shop</h1>
           <form className="login-form">
             <div className="form-input">
               <label>Shop Name: </label>
