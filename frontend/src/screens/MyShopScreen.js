@@ -1,5 +1,7 @@
-import { Router } from 'express';
+
 import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react';
+
 
 import './MyShopScreen.css';
 
@@ -11,7 +13,7 @@ const MyShopScreen = () => {
         <div className="myshopscreen">
       
         <h3>Start a streaming</h3>
-        <Link to={`/createshop`} className="">
+        <Link to={`/myshop/createmyshop`} className="">
           <p>Create MyShop!</p>
         </Link>
 

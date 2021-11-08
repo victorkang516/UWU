@@ -12,7 +12,7 @@ import ProductScreen from './screens/ProductScreen';
 import MyOrderScreen from './screens/MyOrderScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import MyShopScreen from './screens/MyShopScreen';
-import CreateShopScreen from './screens/CreateMyShop';
+import CreateMyShopScreen from './screens/CreateMyShopScreen';
 import MyProfileScreen from './screens/MyProfileScreen';
 import StreamingSellerScreen from './screens/StreamingSellerScreen';
 
@@ -40,11 +40,12 @@ function App() {
           <Route exact path="/" component={HomeScreen}></Route>
           <Route exact path="/product/:id" component={ProductScreen}></Route>
           <Route exact path="/streamingseller" component={StreamingSellerScreen}></Route>
-          <Route exact path="/createshop" component={CreateShopScreen}></Route>
+          
           
           {/* Pages that require login */}
           <ProtectedRoute exact path="/myorder" component={MyOrderScreen} />
           <ProtectedRoute exact path="/myshop" component={MyShopScreen} />
+          <ProtectedRoute exact path="/myshop/createmyshop" component={CreateMyShopScreen} />
           <ProtectedRoute exact path="/myprofile" component={MyProfileScreen} />
           
           {/* <ProtectedRoute exact path="/" component={HomeScreen} /> */}

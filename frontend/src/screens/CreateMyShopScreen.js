@@ -1,4 +1,4 @@
-import './CreateMyShop.css';
+import './CreateMyShopScreen.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import logo from './uwupic.png';
@@ -6,7 +6,7 @@ import logo from './uwupic.png';
 //const userData = JSON.parse(localStorage.getItem("userData"));
 
 
-const CreateShopScreen = (props) => {
+const CreateMyShopScreen = (props) => {
         
         const [userId, setUserId] = useState('');
         const [shopName, setShopName] = useState('');
@@ -116,4 +116,4 @@ const CreateShopScreen = (props) => {
 	
 }
 
-export default CreateShopScreen
+export default CreateMyShopScreen
