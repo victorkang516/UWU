@@ -14,12 +14,12 @@ const MyShopScreen = () => {
   const [shop, setShop] = useState();
   const [loading, setLoading] = useState(true);
 
+
   const fetchData = async () =>{
     try{
       const response = await fetch(`http://localhost:5000/shops/${userData.userId}`);
       const result = await response.json();
 
-      console.log(result);
       setShop(result);
       setLoading(false);
 
@@ -45,13 +45,32 @@ const MyShopScreen = () => {
 
     <div className="myshopscreen">
 
-      <h1>{shop.shopName}</h1>
-      <p>{shop.shopDescription}</p>
+      {shop ?
+        <div>
+          <h1>{shop.shopName}</h1>
+          <p>{shop.shopDescription}</p>
+        </div>
+        :
+        <div>
+          <h1>Welcome to MyShop</h1>
+          <p>Become a seller and start selling products, streaming on our platform!</p>
+        </div>
+      }
 
-  
+      {!shop ? 
       <Link to={`/myshop/createmyshop`} className="Link" type="button" >
         <h1>Create MyShop!</h1>
       </Link>
+      :
+      <div>
+        <Link>
+          <h1>Edit Shop</h1>
+        </Link>
+        <div>
+          <h2>Product List</h2>
+        </div>
+      </div>
+      }
 
     </div>
 

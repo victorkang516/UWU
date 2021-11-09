@@ -58,6 +58,8 @@ const CreateMyShopScreen = (props) => {
 
         axios.post('http://localhost:5000/shops', shop)
         .then(res => {
+          props.history.push("/myshop");
+					window.location.reload(false);
           console.log(res);
         }).catch(error => {
           console.log(error);
