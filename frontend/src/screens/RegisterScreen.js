@@ -50,10 +50,12 @@ const RegisterScreen = (props) => {
         axios.post('http://localhost:5000/users', user)
           .then(res => {
             console.log(res);
-            auth.login(() => {
-              props.history.push("/");
-              window.location.reload(false);
-            }, user)
+            alert ("you have successfully registered!");
+            props.history.push("/login", {success:true});
+            // auth.login(() => {
+            //   props.history.push("/");
+            //   window.location.reload(false);
+            // }, user)
           }).catch(error => {
             console.log(error);
           })
