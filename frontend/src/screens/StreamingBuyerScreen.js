@@ -11,14 +11,16 @@ const socket = io.connect("http://localhost:5000");
 const userData = JSON.parse(localStorage.getItem("userData"));
 
 
+
 const StreamingSellerScreen = () => {
   //const { id } = useParams();
+  let { streamingId } = useParams();
 
   const [streamTitle, setStreamTitle] = useState("");
-  const [streamId, setStreamId] = useState("");
+  const [streamId, setStreamId] = useState(streamingId);
   const [username, setUsername] = useState(userData.name);
 
-  const [started, setStarted] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [currentComment, setCurrentComment] = useState("");
   const [commentList, setCommentList] = useState([]);
 
@@ -26,7 +28,7 @@ const StreamingSellerScreen = () => {
   // UseEffect Callbacks
 
   useEffect(() => {
-    //
+
   });
 
   useEffect(() => {
@@ -37,35 +39,13 @@ const StreamingSellerScreen = () => {
 
   useEffect(() => {
     if (streamId !== ""){
-      socket.emit("start_streaming", streamId);
-      setStarted(true);
-      window.addEventListener("beforeunload", beforeUnloadListener, {capture: true});
+      socket.emit("join_streaming", streamId);
+      setLoading(false);
     }
   }, [streamId]);
 
 
   // Socket functions
-  const startStreaming = async () => {
-
-    if (streamTitle !== ""){
-
-      // Create a new Streaming data into db
-      const streaming = {
-        title: streamTitle,
-        shopId: "6182052c05f674859f8a8ded",
-        shopName: "Amir Shop"
-      }
-
-      await axios.post("http://localhost:5000/streamings", streaming)
-        .then(res =>{
-          console.log(res.data._id);
-          setStreamId(res.data._id);
-        }).catch(error => {
-          console.log(error);
-        })
-      
-    }
-  }
 
   const writeComment = () => {
     if(currentComment !== ""){
@@ -81,33 +61,13 @@ const StreamingSellerScreen = () => {
     }
     
   }
-
-
-  const stopStreaming = async () => {
-
-    const commentData = {
-      room: streamId,
-      author: "System",
-      message: "This streaming is now stopped by host.",
-      time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
-    };
-    socket.emit("stop_streaming", commentData);
-    setCommentList((list) => [...list, commentData]);
-
-
-    await axios.delete(`http://localhost:5000/streamings/${streamId}`)
-      .then(res =>{
-        setStreamId(null);
-      }).catch(error => {
-        console.log(error);
-      })
-  }
-
-  const beforeUnloadListener = (event) => {
-    event.preventDefault();
-    return event.returnValue = "Your streaming are still running. Stop the streaming before you leave.";
-  };
   
+
+  if (loading){
+    return <div className="loadingscreen">
+      <div className="loading"></div>
+    </div>
+  }
 
   // Render Contents
   return (
@@ -115,13 +75,6 @@ const StreamingSellerScreen = () => {
 
       <div className="streaming-header">
         <h1>Seller Streaming - Sofia</h1>
-        <div className="align-right">
-          {started ? 
-          <button onClick={stopStreaming}>Stop Streaming</button>
-          :
-          <div></div>
-          }
-        </div>
       </div>
 
       <div className="streaming-body">
@@ -130,24 +83,6 @@ const StreamingSellerScreen = () => {
           <video></video>
         </div>
 
-        {!started ? 
-          <div className="body-right">
-            <div className="optionmenu">
-              <p>Enter your streaming detail.</p>
-              <p>
-                <input 
-                  type="text" 
-                  placeholder="Streaming Title" 
-                  value={streamTitle} 
-                  onChange={event=>{setStreamTitle(event.target.value)}} 
-                />
-              </p>
-              <p>
-                <button onClick={startStreaming}>Start</button>
-              </p>
-            </div>
-          </div>
-          :
         <div className="body-right">
 
           {/* Shop and product details */}
@@ -189,7 +124,7 @@ const StreamingSellerScreen = () => {
             </div>
           </div>
         </div>
-        }
+        
       </div>
 
     </div>

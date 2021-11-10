@@ -14,7 +14,7 @@ const ProductScreen = () => {
   const [loading, setLoading] = useState(true);
   const [showMessage, setShowMessage] = useState(false);
 
-  const [product, setProduct] = useState([]);
+  const [product, setProduct] = useState();
   const [quantity, setQuantity] = useState(1);
   const [inStock, setInStock] = useState(true);
 

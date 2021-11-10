@@ -3,20 +3,29 @@ import { useState, useEffect } from 'react';
 import Product from '../components/Product';
 import {Link} from 'react-router-dom';
 
-const url = "http://localhost:5000/products";
-
 
 const HomeScreen = () => {
   const [loading,setLoading] = useState(true);
   const [products, setProducts] = useState([]);
+  const [streamings, setStreamings] = useState([]);
 
   const fetchData = async () =>{
     try{
-      const response = await fetch(url);
+      const response = await fetch("http://localhost:5000/products");
       const result = await response.json();
 
       setProducts(result);
       setLoading(false);
+
+    } catch(error){
+      console.log(error);
+    }
+
+    try{
+      const response = await fetch("http://localhost:5000/streamings");
+      const result = await response.json();
+
+      setStreamings(result);
 
     } catch(error){
       console.log(error);
@@ -40,10 +49,12 @@ const HomeScreen = () => {
 
       <h2>Featured Streamings</h2>
       <div>
-        <h3>Start a streaming</h3>
-        <Link to={`/streamingseller/stream1`} className="">
-          <p>Stream 1: Sofia</p>
+        {streamings.map(streaming => {
+          return <Link key={streaming._id} to={`/streamingbuyer/${streaming._id}`} className="">
+          <p>{streaming.title}</p>
         </Link>
+        })}
+        
       </div>
 
 

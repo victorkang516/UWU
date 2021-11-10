@@ -32,8 +32,7 @@ const LoginScreen = (props) => {
 
 						let userData = {
 							userId: res.data._id,
-							name: res.data.name,
-							shopId: res.data.shopId
+							name: res.data.name
 						}
 						
 						auth.login(()=>{

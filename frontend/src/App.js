@@ -16,6 +16,7 @@ import CreateMyShopScreen from './screens/CreateMyShopScreen';
 import EditMyShopScreen from './screens/EditMyShopScreen';
 import MyProfileScreen from './screens/MyProfileScreen';
 import StreamingSellerScreen from './screens/StreamingSellerScreen';
+import StreamingBuyerScreen from './screens/StreamingBuyerScreen';
 
 // Components
 import Navbar from './components/Navbar';
@@ -40,7 +41,7 @@ function App() {
           <Route exact path="/register" component={RegisterScreen}></Route>
           <Route exact path="/" component={HomeScreen}></Route>
           <Route exact path="/product/:id" component={ProductScreen}></Route>
-          <Route exact path="/streamingseller" component={StreamingSellerScreen}></Route>
+          <Route exact path="/streamingbuyer" component={StreamingBuyerScreen}></Route>
           
           
           {/* Pages that require login */}
@@ -49,6 +50,7 @@ function App() {
           <ProtectedRoute exact path="/myshop/createmyshop" component={CreateMyShopScreen} />
           <ProtectedRoute exact path="/myshop/editmyshop" component={EditMyShopScreen} />
           <ProtectedRoute exact path="/myprofile" component={MyProfileScreen} />
+          <ProtectedRoute exact path="/streamingseller" component={StreamingSellerScreen}></ProtectedRoute>
           
           {/* <ProtectedRoute exact path="/" component={HomeScreen} /> */}
 
