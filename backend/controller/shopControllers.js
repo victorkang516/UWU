@@ -41,8 +41,19 @@ const updateShop = async (req, res) => {
   }
 }
 
+const deleteShop = async (req, res) => {
+  try {
+    await Shop.deleteOne({ _id: req.params.shopid });
+    res.json({message:"Data deleted successfully"});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message: "Server Error"});
+  }
+}
+
 module.exports = {
   getShopByUserId,
   createShop,
-  updateShop
+  updateShop,
+  deleteShop
 }

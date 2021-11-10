@@ -5,9 +5,10 @@ const userData = JSON.parse(localStorage.getItem("userData"));
 
 const MyOrderScreen = () => {
 
-  const [totalPrice, settotalPrice] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const [orders, setOrders] = useState([]);
+  const [totalPrice, settotalPrice] = useState(0);
 
   const fetchData = async () =>{
     try{
@@ -16,6 +17,7 @@ const MyOrderScreen = () => {
       
       console.log(result);
       setOrders(result);
+      setLoading(false);
 
     } catch(error){
       console.log(error);
@@ -34,6 +36,13 @@ const MyOrderScreen = () => {
   const calculateTotalPrice = (subTotal) => {
     const newTotal = totalPrice + subTotal;
     settotalPrice(newTotal)
+  }
+
+  
+  if (loading) {
+    return <div className="loadingscreen">
+      <div className="loading"></div>
+    </div>
   }
 
   return <div className="cartscreen">

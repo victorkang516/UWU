@@ -47,7 +47,7 @@ const HomeScreen = () => {
     <div className="homescreen">
 
 
-      <h2>Featured Streamings</h2>
+      {/* <h2>Featured Streamings</h2> */}
       <div>
         {streamings.map(streaming => {
           return <Link key={streaming._id} to={`/streamingbuyer/${streaming._id}`} className="">

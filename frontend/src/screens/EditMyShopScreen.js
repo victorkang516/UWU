@@ -7,22 +7,25 @@ const userData = JSON.parse(localStorage.getItem("userData"));
 
 const EditMyShopScreen = (props) => {
         
-        const [shop, setShop] = useState();
-        const [shopName, setShopName] = useState('');
-        const [shopDescription, setShopDescription] = useState('');
-        //const [shopImageUrl, setShopImageUrl] = useState('');
-        const [shopAddress, setShopAdress] = useState('');
-        const [shopPhone, setShopPhone] = useState('');
-        const [shopEmail, setShopEmail] = useState('');   
+  const [shopId, setShopId] = useState('');
+  const [shopName, setShopName] = useState('');
+  const [shopDescription, setShopDescription] = useState('');
+  //const [shopImageUrl, setShopImageUrl] = useState('');
+  const [shopAddress, setShopAdress] = useState('');
+  const [shopPhone, setShopPhone] = useState('');
+  const [shopEmail, setShopEmail] = useState('');
 
-        const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+
+
+  // Get Shop detail by user Id
 
   const fetchData = async () =>{
     try{
       const response = await fetch(`http://localhost:5000/shops/${userData.userId}`);
       const result = await response.json();
 
-      setShop(result);
+      setShopData(result);
       setLoading(false);
 
     } catch(error){
@@ -34,8 +37,18 @@ const EditMyShopScreen = (props) => {
     fetchData();
   }, [])
 
-    
-   const onShopNameChange = (event) => {
+  const setShopData = (result) => {
+    setShopId(result._id);
+    setShopName(result.shopName);
+    setShopDescription(result.shopDescription);
+    setShopAdress(result.shopAddress);
+    setShopPhone(result.shopPhone);
+    setShopEmail(result.shopEmail);
+  }
+
+
+  // On Data Change
+  const onShopNameChange = (event) => {
     setShopName(event.currentTarget.value);
   }  
      
@@ -55,7 +68,10 @@ const EditMyShopScreen = (props) => {
     setShopEmail(event.currentTarget.value);
   }
 
-  const onSubmit = (event) => {
+
+  // Edit Shop details by Shop Id
+
+  const editShop = (event) => {
     event.preventDefault();
     if (shopName !== "" && shopDescription !== "" && shopAddress !== "" && shopPhone !== "" && shopEmail !== "") {
       const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -69,10 +85,10 @@ const EditMyShopScreen = (props) => {
           shopPhone: shopPhone
         };
 
-        axios.put('http://localhost:5000/shops/${userData.userId}', shop)
+        axios.put(`http://localhost:5000/shops/${shopId}`, shop)
         .then(res => {
           props.history.push("/myshop");
-					window.location.reload(false);
+					//window.location.reload(false);
           console.log(res);
         }).catch(error => {
           console.log(error);
@@ -87,17 +103,24 @@ const EditMyShopScreen = (props) => {
 
   }
 
-  const onDelete = (event) => {
-    axios.delete('http://localhost:5000/shops/${userData.userId}', shop)
-        .then(res => {
-          props.history.push("/myshop");
-					window.location.reload(false);
-          console.log(res);
-        }).catch(error => {
-          console.log(error);
-        });
 
-  }
+  // Delete Shop by Shop Id
+
+  // const deleteShop = () => {
+  //   try {
+  //     axios.delete(`http://localhost:5000/shops/${shopId}`)
+  //     .then(res => {
+  //       props.history.push("/myshop");
+  //       //window.location.reload(false);
+  //       console.log(res);
+  //     }).catch(error => {
+  //       console.log(error);
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+
+  // }
 
 
 
@@ -111,46 +134,46 @@ const EditMyShopScreen = (props) => {
 
 
 	return (
-        <div className="editmyshopscreen">
+    <div className="editmyshopscreen">
 
-          <h1 className="title">Update your shop!</h1>
+      <h1 className="title">Update your shop!</h1>
 
-          <form className="register-form">
-            <div className="form-input">
-              <label>Shop Name: </label>
-              <input name="shopName" value={shop.shopName} onChange={onShopNameChange} required />
-            </div>
-              
-            <div className="form-input">
-              <label>Shop Email: </label>
-              <input type="email" name="shopEmail" value={shop.shopEmail} onChange={onShopEmailChange} required />
-            </div>
-  
-            <div className="form-input">
-              <label>Shop Description: </label>
-              <input name="shopDescription" value={shop.shopDescription} onChange={onShopDescChange} required />
-            </div>
-  
-            <div className="form-input">
-              <label>Shop Address: </label>
-              <input name="shopAddress" value={shop.shopAddress} onChange={onShopAddressChange} required />
-            </div>
-  
-            <div className="form-input">
-              <label>Shop Phone: </label>
-              <input name="shopPhone" value={shop.shopPhone} onChange={onShopPhoneChange} required />
-            </div>
-  
-            <div className="form-input">
-              <button type="submit" onClick={onSubmit}>Update</button>
-            </div>
+      <form className="register-form">
+        <div className="form-input">
+          <label>Shop Name: </label>
+          <input name="shopName" value={shopName} onChange={onShopNameChange} required />
+        </div>
+          
+        <div className="form-input">
+          <label>Shop Email: </label>
+          <input type="email" name="shopEmail" value={shopEmail} onChange={onShopEmailChange} required />
+        </div>
 
-            <div className="form-input">
-              <button>Delete</button>
-            </div>
+        <div className="form-input">
+          <label>Shop Description: </label>
+          <input name="shopDescription" value={shopDescription} onChange={onShopDescChange} required />
+        </div>
 
-          </form>
-      </div>
+        <div className="form-input">
+          <label>Shop Address: </label>
+          <input name="shopAddress" value={shopAddress} onChange={onShopAddressChange} required />
+        </div>
+
+        <div className="form-input">
+          <label>Shop Phone: </label>
+          <input name="shopPhone" value={shopPhone} onChange={onShopPhoneChange} required />
+        </div>
+
+        <div className="form-input">
+          <button type="submit" onClick={editShop}>Update</button>
+        </div>
+
+        {/* <div className="form-input">
+          <button onClick={deleteShop}>Delete</button>
+        </div> */}
+
+      </form>
+  </div>
 	)
 	
 	

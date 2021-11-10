@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { getShopByUserId, createShop, updateShop } = require('../controller/shopControllers');
+const { getShopByUserId, createShop, updateShop, deleteShop } = require('../controller/shopControllers');
 
 //@desc GET shop by userId from db
 //@route get /shops/:userid
@@ -17,5 +17,10 @@ router.post('/', createShop);
 //@route put /shops/:id
 //@access Public
 router.put('/:shopId', updateShop);
+
+//@desc DELETE a shop by shopid in db
+//@route delete /shops/:id
+//@access Public
+router.delete('/:shopid', deleteShop);
 
 module.exports = router;
