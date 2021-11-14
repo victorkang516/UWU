@@ -38,27 +38,40 @@ const RegisterScreen = (props) => {
     if (email !== "" && password !== "" && name !== "" && address !== "" && phone !== "") {
       const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
       if (email && regex.test(email) !== false) {
-
-        const user = {
-          email: email,
-          password: password,
-          name: name,
-          address: address,
-          phone: phone
-        };
-
-        axios.post('http://localhost:5000/users', user)
-          .then(res => {
-            console.log(res);
-            alert ("you have successfully registered!");
-            props.history.push("/login", {success:true});
-            // auth.login(() => {
-            //   props.history.push("/");
-            //   window.location.reload(false);
-            // }, user)
-          }).catch(error => {
-            console.log(error);
-          })
+if (password.length>6){
+  const phoneregex = /^\+60\d{2}(\d{7}|\d{8})$/;
+  if (phoneregex.test(phone)){
+    const user = {
+      email: email,
+      password: password,
+      name: name,
+      address: address,
+      phone: phone
+    };
+  
+    axios.post('http://localhost:5000/users', user)
+      .then(res => {
+        console.log(res);
+        alert ("you have successfully registered!");
+        props.history.push("/login", {success:true});
+        // auth.login(() => {
+        //   props.history.push("/");
+        //   window.location.reload(false);
+        // }, user)
+      }).catch(error => {
+        if (error.response.status==400){
+          alert("email registered");
+        }else{
+        console.log(error);
+      }})
+  }else{
+    alert("your phone number should have this format -> +60123456789");
+  }
+  
+} else{
+  alert("your password needs to have atleast 7 characters");
+}
+      
         } else {
           alert("please insert valid email");
         }

@@ -1,3 +1,4 @@
+const { restart } = require('nodemon');
 const User = require('../models/User');
 
 const readAllUsers = async (req, res) => {
@@ -22,11 +23,19 @@ const readUserByEmail = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const user = await User.create(req.body);
-    res.json(user);
+    const user = await User.findOne({email:req.body.email});
+    if (!user) {
+      const user1 = await User.create(req.body);
+    res.json(user1);
+    }
+    else {
+      res.status(400).json({message: "Email registered"});
+    }
+    // const user = await User.create(req.body);
+    // res.json(user);
   } catch (error) {
     console.error(error);
-    res.status(500).json({message: "Server Error"});
+    res.status(500).json({message: "Server Error"+error});
   }
 }
 
