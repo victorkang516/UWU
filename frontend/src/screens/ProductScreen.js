@@ -79,6 +79,7 @@ const ProductScreen = () => {
         <p>RM{product.price}</p>
         <p>{product.description}</p>
         <p>Seller: {product.shopName}</p>
+        <p>Category: {product.category}</p>
       </div>
     </div>
     <div className="productscreen-right">
