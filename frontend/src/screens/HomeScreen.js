@@ -6,8 +6,11 @@ import {Link} from 'react-router-dom';
 
 const HomeScreen = () => {
   const [loading,setLoading] = useState(true);
+  const [categories, setCategories] = useState(["All"]);
   const [products, setProducts] = useState([]);
   const [streamings, setStreamings] = useState([]);
+
+  const [currentCategory, setCurrentCategory] = useState("All");
 
   const fetchData = async () =>{
     try{
@@ -32,9 +35,23 @@ const HomeScreen = () => {
     }
   }
 
+  const getUniqueCategories = () => {
+    let newCategories = [];
+    products.map(product => {
+      newCategories.push(product.category);
+    });
+    newCategories = Array.from(new Set(newCategories));
+    setCategories(categories => [...categories, ...newCategories]);
+  }
+
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    getUniqueCategories();
+  }, [products]);
+
 
 
   if (loading) {
@@ -46,27 +63,48 @@ const HomeScreen = () => {
   return (
     <div className="homescreen">
 
-
-      {/* <h2>Featured Streamings</h2> */}
-      <div>
-        {streamings.map(streaming => {
-          return <Link key={streaming._id} to={`/streamingbuyer/${streaming._id}`} className="">
-          <p>{streaming.title}</p>
-        </Link>
-        })}
-        
+      <div className="homescreen-streaming">
+        <h2>Featured Streamings</h2>
+          <div>
+            {streamings.map(streaming => {
+              return <Link key={streaming._id} to={`/streamingbuyer/${streaming._id}`} className="">
+              <p>{streaming.title}</p>
+            </Link>
+            })}
+            
+          </div>
       </div>
 
 
       <h2 className="homesreen-title">Latest Products </h2>
-      <div className="homescreen-products">
-        {products.map((product) =>{
-          if (product.countInStock > 0)
-            return <Product key={product._id} {...product}/>
+
+      <div className="homescreen-main">
+        <div className="homescreen-categories">
+          <h3>
+            <i class="fa fa-list" aria-hidden="true"></i>
+            Categories
+          </h3>
+          {categories.map(category => {
+            return <button onClick={()=> setCurrentCategory(category)}>{category}</button>
+          })}
+        </div>
+
+        <div className="homescreen-catalog">
           
-        })}
-        
+          <div className="homescreen-products">
+            {products.filter( product => 
+              currentCategory === product.category || currentCategory === "All"
+            ).map( product =>{
+              if (product.countInStock > 0)
+                return <Product key={product._id} {...product}/>
+              
+            })}
+            
+          </div>
+        </div>
+
       </div>
+      
     </div>
   )
 }
