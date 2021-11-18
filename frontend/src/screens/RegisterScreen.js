@@ -60,7 +60,7 @@ if (password.length>6){
         // }, user)
       }).catch(error => {
         if (error.response.status==400){
-          alert("email registered");
+          alert("email already exist");
         }else{
         console.log(error);
       }})
