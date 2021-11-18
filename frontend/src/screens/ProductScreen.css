@@ -67,11 +67,29 @@
   cursor: pointer;
 }
 
+.right-info p > a {
+  text-decoration: none;
+  text-align: center;
+
+  border: none;
+  grid-column: 1/-1;
+  padding: 10px 16px;
+  background-color: rgb(233,133,0);
+  color: white;
+  cursor: pointer;
+}
+
+
 .right-info select {
   padding: 10px 16px;
 }
 
 .right-info p > button:hover {
+  background-color: rgb(255, 181, 85);
+  color: white;
+}
+
+.right-info p > a:hover {
   background-color: rgb(255, 181, 85);
   color: white;
 }

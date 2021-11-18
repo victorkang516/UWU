@@ -1,20 +1,22 @@
 import './ProductScreen.css';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
+import auth from '../authentication/auth';
 
 
 const userData = JSON.parse(localStorage.getItem("userData"));
 
 
-const ProductScreen = () => {
+const ProductScreen = (props) => {
   let { id } = useParams();
   let url = `http://localhost:5000/products/${id}`;
 
   const [loading, setLoading] = useState(true);
   const [showMessage, setShowMessage] = useState(false);
 
-  const [product, setProduct] = useState();
+  const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [inStock, setInStock] = useState(true);
 
@@ -27,8 +29,6 @@ const ProductScreen = () => {
       setProduct(result);
       setLoading(false);
 
-      checkInStock();
-
     } catch(error){
       console.log(error);
     }
@@ -38,9 +38,14 @@ const ProductScreen = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (product!=null)
+      checkInStock();
+  }, [product])
+
   const checkInStock = () => {
     if (product.countInStock>0){
-      setInStock(false);
+      setInStock(true);
     }
   }
 
@@ -101,12 +106,16 @@ const ProductScreen = () => {
           />
         </p>
         <p>
+          {auth.isAuthenticated() ? 
           <button 
             type="button" 
             disabled={inStock ? false : true} 
             onClick={makeOrder}
           >Order
           </button>
+          :
+          <Link to="/login">Order</Link>
+          }
         </p>
       </div>
     </div>

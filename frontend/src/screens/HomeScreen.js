@@ -81,11 +81,11 @@ const HomeScreen = () => {
       <div className="homescreen-main">
         <div className="homescreen-categories">
           <h3>
-            <i class="fa fa-list" aria-hidden="true"></i>
+            <i className="fa fa-list" aria-hidden="true"></i>
             Categories
           </h3>
           {categories.map(category => {
-            return <button onClick={()=> setCurrentCategory(category)}>{category}</button>
+            return <button key={category} onClick={()=> setCurrentCategory(category)}>{category}</button>
           })}
         </div>
 
