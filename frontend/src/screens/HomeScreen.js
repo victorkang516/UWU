@@ -3,14 +3,33 @@ import { useState, useEffect } from 'react';
 import Product from '../components/Product';
 import {Link} from 'react-router-dom';
 
+import ReactPaginate from 'react-paginate';
+
 
 const HomeScreen = () => {
   const [loading,setLoading] = useState(true);
+
   const [categories, setCategories] = useState(["All"]);
+  const [currentCategory, setCurrentCategory] = useState("All");
+
   const [products, setProducts] = useState([]);
+  const [productsByCategory, setProductsByCategory] = useState([]);
+
   const [streamings, setStreamings] = useState([]);
 
-  const [currentCategory, setCurrentCategory] = useState("All");
+  // We start with an empty list of products.
+  const [itemsPerPage] = useState(8);
+  const [currentItems, setCurrentItems] = useState(null);
+  const [pageCount, setPageCount] = useState(0);
+  // Here we use item offsets; we could also use page offsets
+  // following the API or data you're working with.
+  const [itemOffset, setItemOffset] = useState(0);
+
+
+  // ------------------------- Fetch data -------------------------
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const fetchData = async () =>{
     try{
@@ -35,6 +54,19 @@ const HomeScreen = () => {
     }
   }
 
+
+  // --------------------- Filter Categories ---------------------------
+  useEffect(() => {
+    if (products != null) {
+      getUniqueCategories();
+      filterProductsByCategory();
+    }
+  }, [products]);
+
+  useEffect(() => {
+    filterProductsByCategory();
+  }, [currentCategory]);
+
   const getUniqueCategories = () => {
     let newCategories = [];
     products.map(product => {
@@ -44,16 +76,39 @@ const HomeScreen = () => {
     setCategories(categories => [...categories, ...newCategories]);
   }
 
+  const filterProductsByCategory = () => {
+    let newProducts = products.filter( product => currentCategory === product.category || currentCategory === "All" );
+    setProductsByCategory(newProducts);
+  }
+
+
+  //------------------ Pagination -----------------------
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (productsByCategory !== [])
+    {
+      // Fetch productsByCategory from another resources.
+      const endOffset = itemOffset + itemsPerPage;
+      console.log(`Loading productsByCategory from ${itemOffset} to ${endOffset}`);
+      setCurrentItems(productsByCategory.slice(itemOffset, endOffset));
+      setPageCount(Math.ceil(productsByCategory.length / itemsPerPage));
+    }
+  }, [itemOffset, itemsPerPage, productsByCategory]);
 
-  useEffect(() => {
-    getUniqueCategories();
-  }, [products]);
+  // Invoke when user click to request another page.
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % products.length;
+    console.log(
+      `User requested page number ${event.selected}, which is offset ${newOffset}`
+    );
+    setItemOffset(newOffset);
+  };
+
+  useEffect(()=> {
+    console.log("Current Items done load");
+  }, [currentItems]);
 
 
-
+  // ------------------- Render Contents --------------------
   if (loading) {
     return <div className="loadingscreen">
       <div className="loading"></div>
@@ -92,15 +147,25 @@ const HomeScreen = () => {
         <div className="homescreen-catalog">
           
           <div className="homescreen-products">
-            {products.filter( product => 
-              currentCategory === product.category || currentCategory === "All"
-            ).map( product =>{
+            {currentItems.map( product =>{
               if (product.countInStock > 0)
                 return <Product key={product._id} {...product}/>
               
             })}
-            
+          
           </div>
+
+          <ReactPaginate
+          breakLabel="..."
+          nextLabel=">"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          previousLabel="<"
+          renderOnZeroPageCount={null}
+          className="homescreen-pagination"
+          />
+
         </div>
 
       </div>
