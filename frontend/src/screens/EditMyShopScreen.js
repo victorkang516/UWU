@@ -76,6 +76,8 @@ const EditMyShopScreen = (props) => {
     if (shopName !== "" && shopDescription !== "" && shopAddress !== "" && shopPhone !== "" && shopEmail !== "") {
       const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
       if (shopEmail && regex.test(shopEmail) !== false) {
+        const phoneregex = /^\+60\d{2}(\d{7}|\d{8})$/;
+          if (phoneregex.test(shopPhone)){
 
         const shop = {
           shopName: shopName,
@@ -93,6 +95,10 @@ const EditMyShopScreen = (props) => {
         }).catch(error => {
           console.log(error);
         });
+
+      } else {
+        alert("Your phone number should have this format -> +60123456789")
+      } 
       
         } else {
           alert("Please insert valid email");
