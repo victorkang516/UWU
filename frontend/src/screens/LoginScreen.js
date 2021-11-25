@@ -67,7 +67,7 @@ const LoginScreen = (props) => {
 		<div className="loginscreen">
 
 			<div className="sidebar">
-				<img src={logo}></img>
+				<img src={logo} alt="logo"></img>
 				<h2>Welcome to UWU Shopping Site!!</h2>
 			</div>
 
