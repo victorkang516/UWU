@@ -18,24 +18,23 @@ const EditMyShopScreen = (props) => {
   const [loading, setLoading] = useState(true);
 
 
-  // Get Shop detail by user Id
-
-  const fetchData = async () =>{
-    try{
-      const response = await fetch(`http://localhost:5000/shops/${userData.userId}`);
-      const result = await response.json();
-
-      setShopData(result);
-      setLoading(false);
-
-    } catch(error){
-      console.log(error);
-    }
-  }
-
   useEffect(() => {
+    const fetchData = async () =>{
+      try{
+        const response = await fetch(`http://localhost:5000/shops/${userData.userId}`);
+        const result = await response.json();
+  
+        setShopData(result);
+        setLoading(false);
+  
+      } catch(error){
+        console.log(error);
+      }
+    }
     fetchData();
-  }, [])
+    console.log("Fetch Data");
+  }, []);
+
 
   const setShopData = (result) => {
     setShopId(result._id);
@@ -45,7 +44,6 @@ const EditMyShopScreen = (props) => {
     setShopPhone(result.shopPhone);
     setShopEmail(result.shopEmail);
   }
-
 
   // On Data Change
   const onShopNameChange = (event) => {
