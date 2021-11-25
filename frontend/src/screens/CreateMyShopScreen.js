@@ -1,14 +1,13 @@
 import './CreateMyShopScreen.css';
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import axios from 'axios';
-import logo from './uwupic.png';
 
 const userData = JSON.parse(localStorage.getItem("userData"));
 
 
 const CreateMyShopScreen = (props) => {
         
-        const [userId, setUserId] = useState(userData.userId);
+        const [userId] = useState(userData.userId);
         const [shopName, setShopName] = useState('');
         const [shopDescription, setShopDescription] = useState('');
         //const [shopImageUrl, setShopImageUrl] = useState('');
