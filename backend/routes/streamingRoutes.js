@@ -3,28 +3,28 @@ const router = express.Router();
 
 const { getAllStreamings, getStreamingById, createStreaming, updateStreaming, deleteStreaming } = require('../controller/streamingControllers');
 
-//@desc GET all products from db
-//@route get /api/products
+//@desc GET all streamings from db
+//@route get /streamings/
 //@access Public
 router.get('/', getAllStreamings);
 
-//@desc GET a products by id from db
-//@route get /api/products/:id
+//@desc GET a streaming by streamingid from db
+//@route get /streamings/:streamingId
 //@access Public
-router.get('/:id', getStreamingById);
+router.get('/:streamingId', getStreamingById);
 
-//@desc INSERT a product into db
-//@route post /api/products/
+//@desc INSERT a streaming into db
+//@route post /streamings
 //@access Public
 router.post('/', createStreaming);
 
-//@desc UPDATE a product into db
-//@route put /api/products/:id
+//@desc UPDATE a streaming into db
+//@route put /streamings/streamingId
 //@access Public
 router.put('/:streamingId', updateStreaming);
 
-//@desc DELETE a product in db
-//@route delete /api/products/:id
+//@desc DELETE a streaming in db
+//@route delete /streamings/streamingId
 //@access Public
 router.delete('/:streamingId', deleteStreaming);
 

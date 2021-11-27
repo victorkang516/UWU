@@ -1,21 +1,29 @@
 import './HomeScreen.css';
 import { useState, useEffect } from 'react';
-import Product from '../components/Product';
-import {Link} from 'react-router-dom';
 
+// React Paginate
 import ReactPaginate from 'react-paginate';
+// React Slick
+import React from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+// Components
+import Streaming from '../components/Streaming';
+import Product from '../components/Product';
 
 
-const HomeScreen = () => {
-  const [loading,setLoading] = useState(true);
+
+const HomeScreen = (props) => {
+  const [loadingProducts,setLoadingProducts] = useState(true);
+  const [loadingStreaming, setLoadingStreamings] = useState(true);
 
   const [categories, setCategories] = useState(["All"]);
   const [currentCategory, setCurrentCategory] = useState("All");
 
   const [products, setProducts] = useState([]);
   const [productsByCategory, setProductsByCategory] = useState([]);
-
-  const [streamings, setStreamings] = useState([]);
 
   // We start with an empty list of products.
   const [itemsPerPage] = useState(8);
@@ -25,61 +33,70 @@ const HomeScreen = () => {
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
 
+  
+  // Streaming
+  const [streamings, setStreamings] = useState([]);
+
 
   // ------------------------- Fetch data -------------------------
   useEffect(() => {
+    const fetchData = async () =>{
+      try{
+        const response = await fetch("http://localhost:5000/products");
+        const result = await response.json();
+  
+        setProducts(result);
+        setLoadingProducts(false);
+  
+      } catch(error){
+        console.log(error);
+      }
+  
+      try{
+        const response = await fetch("http://localhost:5000/streamings");
+        const result = await response.json();
+  
+        setStreamings(result);
+        setLoadingStreamings(false);
+  
+      } catch(error){
+        console.log(error);
+      }
+    }
     fetchData();
   }, []);
-
-  const fetchData = async () =>{
-    try{
-      const response = await fetch("http://localhost:5000/products");
-      const result = await response.json();
-
-      setProducts(result);
-      setLoading(false);
-
-    } catch(error){
-      console.log(error);
-    }
-
-    try{
-      const response = await fetch("http://localhost:5000/streamings");
-      const result = await response.json();
-
-      setStreamings(result);
-
-    } catch(error){
-      console.log(error);
-    }
-  }
 
 
   // --------------------- Filter Categories ---------------------------
   useEffect(() => {
+    const getUniqueCategories = () => {
+      let newCategories = [];
+      products.map(product => {
+        newCategories.push(product.category);
+      });
+      newCategories = Array.from(new Set(newCategories));
+      setCategories(categories => [...categories, ...newCategories]);
+    }
+    const filterProductsByCategory = () => {
+      let newProducts = products.filter( product => currentCategory === product.category || currentCategory === "All" );
+      setProductsByCategory(newProducts);
+    }
     if (products != null) {
       getUniqueCategories();
       filterProductsByCategory();
     }
   }, [products]);
 
+  
+
   useEffect(() => {
+    const filterProductsByCategory = () => {
+      let newProducts = products.filter( product => currentCategory === product.category || currentCategory === "All" );
+      setProductsByCategory(newProducts);
+    }
     filterProductsByCategory();
   }, [currentCategory]);
-
-  const getUniqueCategories = () => {
-    let newCategories = [];
-    products.map(product => {
-      newCategories.push(product.category);
-    });
-    newCategories = Array.from(new Set(newCategories));
-    setCategories(categories => [...categories, ...newCategories]);
-  }
-
-  const filterProductsByCategory = () => {
-    let newProducts = products.filter( product => currentCategory === product.category || currentCategory === "All" );
-    setProductsByCategory(newProducts);
-  }
+  
 
 
   //------------------ Pagination -----------------------
@@ -108,8 +125,39 @@ const HomeScreen = () => {
   }, [currentItems]);
 
 
+  var settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    className: "slick",
+    autoplay: true,
+    centerMode: true,
+    centerPadding: '100px',
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerMode: false
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerMode: false
+        }
+      }
+    ]
+  };
+
+
   // ------------------- Render Contents --------------------
-  if (loading) {
+  if (loadingProducts || loadingStreaming) {
     return <div className="loadingscreen">
       <div className="loading"></div>
     </div>
@@ -118,16 +166,17 @@ const HomeScreen = () => {
   return (
     <div className="homescreen">
 
+      <h2 className="label">Featured Streamings</h2>
+
       <div className="homescreen-streaming">
-        <h2>Featured Streamings</h2>
-          <div>
-            {streamings.map(streaming => {
-              return <Link key={streaming._id} to={`/streamingbuyer/${streaming._id}`} className="">
-              <p>{streaming.title}</p>
-            </Link>
-            })}
-            
-          </div>
+        <Slider {...settings}>
+          {streamings.length !== 0 ? streamings.map( streaming => {
+            return <Streaming key={streaming._id} {...streaming}/>
+          })
+          :
+          <div className="no-streaming">No Live streaming</div>
+          }
+        </Slider>
       </div>
 
 

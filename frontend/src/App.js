@@ -41,7 +41,7 @@ function App() {
           <Route exact path="/register" component={RegisterScreen}></Route>
           <Route exact path="/" component={HomeScreen}></Route>
           <Route exact path="/product/:id" component={ProductScreen}></Route>
-          <Route exact path="/streamingbuyer" component={StreamingBuyerScreen}></Route>
+          <Route exact path="/streamingbuyer/:streamingId" component={StreamingBuyerScreen}></Route>
           
           
           {/* Pages that require login */}
