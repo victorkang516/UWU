@@ -11,6 +11,16 @@ const getShopByUserId = async (req, res) => {
   }
 }
 
+const getShopByShopId = async (req, res) => {
+  try {
+    const shop = await Shop.findById(req.params.shopId);
+    res.json(shop);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message: "Server Error"});
+  }
+}
+
 const createShop = async (req, res) => {
   try {
     const shop = await Shop.create(req.body);
@@ -43,7 +53,7 @@ const updateShop = async (req, res) => {
 
 const deleteShop = async (req, res) => {
   try {
-    await Shop.deleteOne({ _id: req.params.shopid });
+    await Shop.deleteOne({ _id: req.params.shopId });
     res.json({message:"Data deleted successfully"});
   } catch (error) {
     console.error(error);
@@ -53,6 +63,7 @@ const deleteShop = async (req, res) => {
 
 module.exports = {
   getShopByUserId,
+  getShopByShopId,
   createShop,
   updateShop,
   deleteShop
