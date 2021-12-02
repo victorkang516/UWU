@@ -3,7 +3,9 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+
 import auth from '../authentication/auth';
+import Loading from "../components/Loading";
 
 
 const userData = JSON.parse(localStorage.getItem("userData"));
@@ -69,9 +71,7 @@ const ProductScreen = (props) => {
 
 
   if (loading) {
-    return <div className="loadingscreen">
-      <div className="loading"></div>
-    </div>
+    return <Loading />
   }
   return <div className="productscreen">
     <div className="productscreen-left">

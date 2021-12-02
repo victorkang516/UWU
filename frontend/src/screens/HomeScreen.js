@@ -10,9 +10,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 // Components
+import Loading from '../components/Loading';
 import Streaming from '../components/Streaming';
 import Product from '../components/Product';
-
 
 
 const HomeScreen = (props) => {
@@ -158,9 +158,7 @@ const HomeScreen = (props) => {
 
   // ------------------- Render Contents --------------------
   if (loadingProducts || loadingStreaming) {
-    return <div className="loadingscreen">
-      <div className="loading"></div>
-    </div>
+    return <Loading />
   }
 
   return (
