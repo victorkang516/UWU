@@ -1,10 +1,9 @@
 import './Product.css';
-import {Link} from 'react-router-dom';
 
 const Product = ({ _id, name, description, price, countInStock, imageUrl}) => {
 
   return (
-    <Link to={`/product/${_id}`} className="product">
+    <div className="product">
       <img src={imageUrl} alt="product_image"/>
       <div className="product-info">
         <p className="info-name">{name}</p>
@@ -14,7 +13,7 @@ const Product = ({ _id, name, description, price, countInStock, imageUrl}) => {
 
         <p className="info-price">RM{price}</p>
       </div>
-    </Link>
+    </div>
   )
 }
 

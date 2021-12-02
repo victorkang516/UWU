@@ -1,5 +1,6 @@
 import './HomeScreen.css';
 import { useState, useEffect } from 'react';
+import {Link} from 'react-router-dom';
 
 // React Paginate
 import ReactPaginate from 'react-paginate';
@@ -196,7 +197,9 @@ const HomeScreen = (props) => {
           <div className="homescreen-products">
             {currentItems.map( product =>{
               if (product.countInStock > 0)
-                return <Product key={product._id} {...product}/>
+                return <Link to={`/product/${product._id}`} key={product._id} className="products">
+                  <Product {...product}/>
+                </Link>
               
             })}
           

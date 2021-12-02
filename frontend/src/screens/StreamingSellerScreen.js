@@ -1,10 +1,14 @@
-import "./StreamingSellerScreen.css";
+import "./StreamingScreen.css";
 
 import { useEffect, useState } from 'react';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import axios from 'axios';
 
 import {socket} from "../service/socket";
+
+// Components
+import Loading from "../components/Loading";
+import Product from "../components/Product";
 
 const userData = JSON.parse(localStorage.getItem("userData"));
 
@@ -25,15 +29,16 @@ const config = {
 
 const StreamingSellerScreen = () => {
 
-  // Shop details
-  const [shop, setShop] = useState("");
+  // Condition booleans
+  const [started, setStarted] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Streaming Details
   const [streamTitle, setStreamTitle] = useState("");
   const [streamId, setStreamId] = useState("");
 
-  // Condition booleans
-  const [started, setStarted] = useState(false);
+  // Shop details
+  const [shop, setShop] = useState(null);
 
   // Comment section
   const [currentComment, setCurrentComment] = useState("");
@@ -65,7 +70,7 @@ const StreamingSellerScreen = () => {
 
       await axios.post("http://localhost:5000/streamings", streaming)
         .then(res =>{
-          console.log(res.data._id);
+          console.log("Streaming "+res.data._id+" has started");
           setStreamId(res.data._id);
         }).catch(error => {
           console.log(error);
@@ -178,18 +183,18 @@ const StreamingSellerScreen = () => {
 
     //-------------------------- Get Shop data -------------------------------
 
-    const fetchData = async () => {
+    const fetchShop = async () => {
       try{
         const response = await fetch(`http://localhost:5000/shops/${userData.userId}`);
         const result = await response.json();
         setShop(result);
+        setLoading(false);
       } catch(error){
         console.log(error);
       }
     }
-    if (shop != null)
-      fetchData();
-
+    if (shop == null)
+      fetchShop();
     
     // ----------------------------- Socket --------------------------------
     
@@ -239,10 +244,36 @@ const StreamingSellerScreen = () => {
       delete peerConnections[id];
     });
   }, []);
-  
 
 
-  // --------------------- Render ------------------------------
+  // --------------------- Sell Product -----------------------
+  // Product
+  const [productOnSale, setProductOnSale] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [showProducts, setShowProducts] = useState(false);
+  const [orderCount, setOrderCount] = useState(0);
+
+  const fetchProducts = async () => {
+    try{
+      const response = await fetch(`http://localhost:5000/products/seller/${shop._id}`);
+      const result = await response.json();
+      setProducts(result);
+      setShowProducts(true);
+    } catch(error){
+      console.log(error);
+    }
+  }
+
+  useEffect(()=>{
+    if (showProducts === true)
+      setShowProducts(false);
+  },[productOnSale])
+
+
+  // ----------------------- Render ------------------------------
+  if (loading) {
+    return <Loading />
+  }
   return (
     <div className="streaming">
 
@@ -268,10 +299,7 @@ const StreamingSellerScreen = () => {
             <div className="setupSection">
 
               {/* Streaming Title */}
-
-              <div>
-                <h2>Setup Streaming</h2>
-              </div>
+              <h2>Setup Streaming</h2>
 
               <div>
                 <input 
@@ -308,7 +336,7 @@ const StreamingSellerScreen = () => {
                 </select>
               </div>
               <div>
-                <button onClick={startStreaming}>Start Streaming</button>
+                <button onClick={startStreaming} className="btn">Start Streaming</button>
               </div>
             </div>
           </div>
@@ -316,9 +344,62 @@ const StreamingSellerScreen = () => {
         <div className="sections">
 
           {/* Shop and product details */}
-          <div className="shopSection">
-            <h2>Shop</h2>
+          <div className="streaming-shop">
+            <h2>{shop.shopName}</h2>
+
+            <div className="streaming-shop-body">
+              <div className="streaming-shelf">
+                <img src="https://media.istockphoto.com/photos/empty-wooden-shelf-picture-id479473084?k=20&m=479473084&s=170667a&w=0&h=yHxDzAysnHsEmWtyL4dGeAqWGeqtA-EzdiRpBaCvkIE=" alt="shelf" className="shelf"></img>
+                {productOnSale ? 
+                <img src={productOnSale.imageUrl} alt="product" className="streaming-product"></img>
+                :
+                <div className="streaming-noproduct">Nothing on sale</div>
+                }
+              </div>
+
+              {productOnSale ? 
+              <div className="productOnSale">
+                <h3>{productOnSale.name}</h3>
+                <div className="productOnSale-detail">
+                  <p>{productOnSale.countInStock} left</p>
+                  <p>{orderCount} ordered</p>
+                  <p>RM {productOnSale.price}</p>
+                </div>
+              </div>
+              :
+              <div></div>
+              }
+
+              {productOnSale ?
+              <div>
+                <button onClick={()=>setProductOnSale(null)} className="btn btn-red">Stop Selling</button>
+              </div>
+              :
+              <div>
+                <button onClick={fetchProducts} className="btn">Sell a product</button>
+              </div>
+              }
+            </div>
           </div>
+
+          {showProducts ? 
+          <div className="infobox">
+            <div className="infobox-content">
+              <h2>Select one For Sale</h2>
+              <div className="productList">
+                {products.map(product => {
+                  return <div key={product._id} onClick={()=>setProductOnSale(product)}>
+                    <Product {...product}/>
+                  </div>
+                })}
+              </div>
+              
+              <button onClick={()=>setShowProducts(false)} className="btn">Cancel</button>
+            </div>
+          </div>
+          : 
+          <div></div>
+          }
 
           {/* Comment section */}
           <div className="commentSection">

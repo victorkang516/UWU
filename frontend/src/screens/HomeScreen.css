@@ -117,6 +117,9 @@
   min-height: 500px;
 }
 
+.products {
+  text-decoration: none;
+}
 
 /* Pagination */
 .homescreen-pagination {
