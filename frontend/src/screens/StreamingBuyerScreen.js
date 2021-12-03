@@ -39,20 +39,21 @@ const StreamingSellerScreen = () => {
 
   // UseEffect Callbacks
 
+  const fetchStreaming = async () => {
+    try{
+      const response = await fetch(`http://localhost:5000/streamings/${streamId}`);
+      const result = await response.json();
+      console.log(result);
+      setStreaming(result);
+      setLoading(false);
+    } catch(error){
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     // Get Streaming data
-    const fetchData = async () => {
-      try{
-        const response = await fetch(`http://localhost:5000/streamings/${streamId}`);
-        const result = await response.json();
-        console.log(result);
-        setStreaming(result);
-        setLoading(false);
-      } catch(error){
-        console.log(error);
-      }
-    }
-    fetchData();
+    fetchStreaming();
   }, [streamId]);
 
   useEffect(()=>{
@@ -133,6 +134,16 @@ const StreamingSellerScreen = () => {
       setCommentList((list) => [...list, data]);
     });
 
+    socket.on("sale_started", (data) => {
+      setCommentList((list) => [...list, data]);
+      fetchProductId();
+    });
+
+    socket.on("sale_ended", (data) => {
+      setCommentList((list) => [...list, data]);
+      setProductOnSaleId("");
+    });
+
     socket.on("streamer_disconnected", ()=>{
       // Video
       
@@ -163,18 +174,72 @@ const StreamingSellerScreen = () => {
       })
   }
 
-  
+  // ----------------------------- Make Order --------------------------------
+  // Product
+  const [productOnSaleId, setProductOnSaleId] = useState("");
+  const [productOnSale, setProductOnSale] = useState(null);
+  const [orderCount, setOrderCount] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  const [showOrderMessage, setShowOrderMessage] = useState(false);
+ 
+  const fetchProductId = async () => {
+    try{
+      const response = await fetch(`http://localhost:5000/streamings/${streamId}`);
+      const result = await response.json();
+      setProductOnSaleId(result.productId);
+    } catch(error){
+      console.log(error);
+    }
+  }
 
-  // #1 Receive signal from broadcaster, emit watcher
-  // socket.on("broadcaster", () => {
-  //   socket.emit("watcher", streamId); // pass streamId here
-  // });
+  const fetchProduct = async () => {
+    try{
+      const response = await fetch(`http://localhost:5000/products/${productOnSaleId}`);
+      const result = await response.json();
+      console.log(result);
+      setProductOnSale(result);
+    } catch(error){
+      console.log(error);
+    }
+  }
 
+  useEffect(() => {
+    if(productOnSaleId!="")
+      fetchProduct();
+    else
+      setProductOnSale(null);
+      
+  },[productOnSaleId]);
 
-  window.onunload = window.onbeforeunload = () => {
-    socket.close();
-    peerConnection.close();
-  };
+  const makeOrder = () => {
+    const order = {
+      userId: userData.userId,
+      productId: productOnSale._id,
+      quantity: quantity,
+      shopId: productOnSale.shopId
+    };
+
+    axios.post('http://localhost:5000/orders', order)
+      .then(res => {
+        console.log(res);
+        setShowOrderMessage(true);
+        makeOrderMessage();
+      }).catch(error => {
+        console.log(error);
+      });
+  }
+
+  const makeOrderMessage = () => {
+    const commentData = {
+      room: streamId,
+      author: "System",
+      message: `${username} made ${quantity} order on ${productOnSale.name}!`,
+      time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
+    };
+    socket.emit("write_comment", commentData);
+    setCommentList((list) => [...list, commentData]);
+  }
+
   
 
   // ------------------------------ Render Contents --------------------------------
@@ -200,9 +265,61 @@ const StreamingSellerScreen = () => {
         <div className="sections">
 
           {/* Shop and product details */}
-          <div className="shopSection">
-            <h2>Shop</h2>
+          <div className="streaming-shop">
+            <h2>{streaming.shopName}</h2>
+
+            <div className="streaming-shop-body">
+              <div className="streaming-shelf">
+                <img src="https://media.istockphoto.com/photos/empty-wooden-shelf-picture-id479473084?k=20&m=479473084&s=170667a&w=0&h=yHxDzAysnHsEmWtyL4dGeAqWGeqtA-EzdiRpBaCvkIE=" alt="shelf" className="shelf"></img>
+                {productOnSale ? 
+                <img src={productOnSale.imageUrl} alt="product" className="streaming-product"></img>
+                :
+                <div className="streaming-noproduct">Nothing on sale</div>
+                }
+              </div>
+
+              {productOnSale ? 
+              <div className="productOnSale">
+                <h3>{productOnSale.name}</h3>
+                <div className="productOnSale-detail">
+                  <p>{productOnSale.countInStock} left</p>
+                  <p>{orderCount} ordered</p>
+                  <p>RM {productOnSale.price}</p>
+                </div>
+              </div>
+              :
+              <div></div>
+              }
+
+              {productOnSale ?
+              <div>
+                <input 
+                  type="number" 
+                  value={quantity} 
+                  onChange={(event)=>{setQuantity(event.target.value)}} 
+                  min="1" 
+                  max={productOnSale.countInStock}
+                />
+                <button onClick={makeOrder} className="btn">Make Order</button>
+              </div>
+              :
+              <div></div>
+              }
+            </div>
           </div>
+
+          {showOrderMessage ? 
+          <div className="message">
+            <div className="message-content">
+              <h2>Your Order on {quantity} quantity of {productOnSale.name} is successfully placed</h2>
+              <p>View your orders in Myorder.</p>
+              <button onClick={()=>setShowOrderMessage(false)}>OK</button>
+            </div>
+          </div>
+          : 
+          <div></div>
+          }
+
 
           {/* Comment section */}
           <div className="commentSection">

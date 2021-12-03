@@ -65,7 +65,8 @@ const StreamingSellerScreen = () => {
       const streaming = {
         title: streamTitle,
         shopId: shop._id,
-        shopName: shop.shopName
+        shopName: shop.shopName,
+        productId: ""
       }
 
       await axios.post("http://localhost:5000/streamings", streaming)
@@ -267,7 +268,62 @@ const StreamingSellerScreen = () => {
   useEffect(()=>{
     if (showProducts === true)
       setShowProducts(false);
-  },[productOnSale])
+    if (productOnSale!=null)
+      dbUpdateStreamingProductId();
+    else
+      dbRemoveStreamingProductId();
+  },[productOnSale]);
+
+
+  const dbUpdateStreamingProductId = () => {
+    const streaming = {
+      productId: productOnSale._id
+    };
+    
+    axios.put(`http://localhost:5000/streamings/${streamId}`, streaming)
+    .then(res => {
+      console.log(res);
+      socketEmitStartSale();
+    }).catch(error => {
+      console.log(error);
+    });
+  }
+
+  const dbRemoveStreamingProductId = () => {
+    const streaming = {
+      productId: ""
+    };
+    
+    axios.put(`http://localhost:5000/streamings/${streamId}`, streaming)
+    .then(res => {
+      console.log(res);
+      socketEmitEndSale();
+    }).catch(error => {
+      console.log(error);
+    });
+  }
+
+  const socketEmitStartSale = () => {
+    const commentData = {
+      room: streamId,
+      author: "System",
+      message: `${productOnSale.name} is for sale!`,
+      time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
+    };
+    setCommentList((list) => [...list, commentData]);
+    socket.emit("start_sale", commentData);
+  }
+
+  const socketEmitEndSale = () => {
+    const commentData = {
+      room: streamId,
+      author: "System",
+      message: `Sale Ended.`,
+      time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
+    };
+    setCommentList((list) => [...list, commentData]);
+    socket.emit("end_sale", commentData);
+  }
 
 
   // ----------------------- Render ------------------------------
