@@ -77,7 +77,7 @@ const MyShopScreen = () => {
 
         {/* Streaming */}
 
-        <Link to="/streamingseller" className="Link">
+        <Link to="/streamingseller" className="Link" type="button">
           <i className="fa fa-video-camera" aria-hidden="true"></i>
           <span>
             Start Streaming
@@ -89,6 +89,11 @@ const MyShopScreen = () => {
 
         <div className="Product">
           <h2 align="center">Product List</h2>
+
+          <Link to={'/myshop/addproduct'} className="Link" type="button" align="center"> 
+          <h2>Add product</h2>
+        </Link>
+
         </div>
 
 
