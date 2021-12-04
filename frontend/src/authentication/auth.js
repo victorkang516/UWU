@@ -14,6 +14,9 @@ class Auth {
     this.authenticated = false;
     cb();
   }
+  getUserData() {
+    return JSON.parse(localStorage.getItem('userData'));
+  }
 
   isAuthenticated() {
     return this.authenticated;

@@ -34,8 +34,8 @@ const MyOrderScreen = () => {
   }
 
   const calculateTotalPrice = (subTotal) => {
-    const newTotal = totalPrice + subTotal;
-    settotalPrice(newTotal)
+    var newTotal = totalPrice + subTotal;
+    settotalPrice(newTotal);
   }
 
   
@@ -56,7 +56,7 @@ const MyOrderScreen = () => {
         {
           orders.map((order)=>{
 
-            return <CartItem key={order._id} {...order} removeOrder = {removeOrder} calculateTotalPrice = {calculateTotalPrice} /> 
+            return <CartItem key={order._id} {...order} removeOrder = {removeOrder} calculateTotalPrice={calculateTotalPrice} /> 
             //console.log("quantity:"+order.quantity)
           })
         }

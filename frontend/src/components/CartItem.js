@@ -3,10 +3,12 @@ import {Link} from 'react-router-dom';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
 
+
 const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder, calculateTotalPrice}) => {
 
   const [qty, setQty] = useState(quantity);
-  const [product, setProduct] = useState([]);
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const onquantityChange = (event) =>{
     setQty(event.target.value)
@@ -24,7 +26,8 @@ const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder, calcul
   }
 
   const calculateSubTotal = () => {
-   const subTotal = qty*product.price
+   const subTotal = qty*parseFloat(product.price);
+   console.log(product.price);
    calculateTotalPrice(subTotal);
   }
 
@@ -47,6 +50,7 @@ const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder, calcul
       const result = await response.json();
 
       setProduct(result);
+      setLoading(false);
 
     } catch(error){
       console.log(error);
@@ -55,13 +59,23 @@ const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder, calcul
 
   useEffect(() => {
     fetchData();
-    calculateSubTotal();
   }, []);
 
   useEffect(() => {
     updateData();
-    calculateSubTotal();
+    if (product != null)
+      calculateSubTotal();
   }, [qty]);
+
+  useEffect(() => {
+    if (product != null)
+      calculateSubTotal();
+  }, [product]);
+
+
+  if (loading){
+    return <div></div>
+  }
 
   return (
     <div className="cartitem">

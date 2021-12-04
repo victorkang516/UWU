@@ -1,19 +1,70 @@
-body {
-    color: #797979;
-    background: #f1f2f7;
-    font-family: 'Open Sans', sans-serif;
-    padding: 0px !important;
-    margin: 0px !important;
-    font-size: 13px;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-font-smoothing: antialiased;
+.profile .account-information {
+    margin: 10px auto;
+    width: 80%;
+    padding: 10px;
 }
 
-.profile-nav, .profile-info{
-    margin-top:30px;   
+.profile form {
+    margin: 10px auto;
+    font-family: "Montserrat", sans-serif;
+    width: 90%;
 }
 
+.profile input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background: none;
+    outline: none;
+    resize: none;
+    border: 0;
+    font-family: "Montserrat", sans-serif;
+    transition: all 0.3s;
+    border-bottom: 2px solid #bebed2;
+}
+
+.profile input:focus {
+    border-bottom: 2px solid #78788c;
+}
+
+.profile p:before {
+    content: attr(type);
+    display: block;
+    margin: 28px 0 0;
+    font-size: 14px;
+    color: #5a5a5a;
+}
+
+.button3 {
+    display: inline-block;
+    padding: 0.3em 1.2em;
+    margin: 0 0.3em 0.3em 0;
+    font-size: 1em;
+    border-radius: 2em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    color: #FFFFFF;
+    background-color: #4eb5f1;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.button3:hover {
+    background-color: #4095c6;
+}
+
+@media all and (max-width: 30em) {
+    .button3 {
+        display: block;
+        margin: 0.2em auto;
+    }
+}
+
+/*
+Profile Header
+ */
 .profile-nav .user-heading {
     background: #fbc02d;
     color: #fff;
@@ -23,10 +74,10 @@ body {
     text-align: center;
 }
 
-.profile-nav .user-heading.round a  {
+.profile-nav .user-heading.round a {
     border-radius: 50%;
     -webkit-border-radius: 50%;
-    border: 10px solid rgba(255,255,255,0.3);
+    border: 10px solid rgba(255, 255, 255, 0.3);
     display: inline-block;
 }
 

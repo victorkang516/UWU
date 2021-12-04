@@ -5,7 +5,6 @@
   height: 65px;
   background-color: rgb(20, 24, 70);
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 0.8rem 1rem;
   z-index: 50;
@@ -13,10 +12,23 @@
 
 
 /* Nav logo */
-.navbar-logo h2 {
+.navbar-logo > a {
+  display: flex;
+
+  align-items: center;
+  text-decoration: none;
+
   color: rgb(233,133,0);
   font-size: 1.4rem;
-  cursor: default;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.navbar-logo > a > img {
+  width: 40px;
+  margin-left: 5px;
+  margin-right: 10px;
 }
 
 
@@ -25,6 +37,8 @@
   display: flex;
   list-style: none;
   align-items: center;
+  justify-content: center;
+  flex: 1;
 }
 
 .navbar-links > li {
@@ -39,6 +53,10 @@
   align-items: center;
 }
 
+.username {
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+}
 
 /* Order */
 .navbar-links > li > a > span {
@@ -72,17 +90,8 @@
   font-size: 0.9rem;
 }
 
-.streaming-link {
-  background-color: rgb(233,133,0);
-  padding: 8px;
-  border-radius: 8px;
-}
-
-.streaming-link > i {color: black;}
-.streaming-link > span {color: black;}
-
-.streaming-link:hover {
-  background-color: rgb(255, 173, 66);
+.space {
+  flex: 1;
 }
 
 

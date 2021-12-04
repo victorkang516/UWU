@@ -1,0 +1,48 @@
+:root {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    
+    height: 100vh;
+    padding: 0px !important;
+    margin: 0px !important;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+}
+
+.column-1 {
+    flex-shrink: 0; /* shrinks to 0 to apply 70% width*/
+    flex-basis: 70%; /* sets initial width to 70%*/
+}
+
+.box {
+    background: #f8f8f8;
+    border: #e7e7e7;
+    padding: 10px;
+    border-radius: 12px;
+    border: 2px solid rgb(116, 113, 113);
+    margin: 1rem;
+    box-shadow: 1px 1px 1px #000;
+}
+
+@media only screen and (max-width: 900px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .box {
+        margin: 0 0 1rem;
+    }
+}
