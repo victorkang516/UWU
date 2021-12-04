@@ -118,7 +118,11 @@ const MyShopAddProductScreen = (props) => {
 
             <form className="register-form">
 
-            <FileUpload refreshFunction={onProductImageChange} />
+            Product Image
+            <div className="form-input">
+              <FileUpload refreshFunction={onProductImageChange} />
+            </div>
+            
 
             <div className="form-input">
               <label>Product Name: </label>
@@ -145,7 +149,7 @@ const MyShopAddProductScreen = (props) => {
             </div>
 
             <div className="form-input">
-              <button type="submit" onClick={onSubmit}>Register</button>
+              <button type="submit" onClick={onSubmit}>Add Product</button>
             </div>
           </form>
             
