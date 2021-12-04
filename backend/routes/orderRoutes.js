@@ -11,7 +11,7 @@ router.get('/unpaid/:userId', getAllUnPaidOrdersByUserId);
 //@desc GET all orders by userId from db
 //@route get /orders/:userId
 //@access Public
-router.get('/unpaid/:userId', getAllPaidOrdersByUserId);
+router.get('/paid/:userId', getAllPaidOrdersByUserId);
 
 //@desc GET all orders by shopId from db
 //@route get /orders/:shopId
