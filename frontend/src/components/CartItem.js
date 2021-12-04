@@ -97,6 +97,8 @@ const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder, calcul
             max={product.countInStock}
           />
 
+      <p className="cartitem-price">RM{qty*product.price}</p>
+      
       <button className="cartitem-deletebtn" onClick={deleteData}>
         <i className="fas fa-trash"></i>
       </button>
