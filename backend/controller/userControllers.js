@@ -10,6 +10,7 @@ const readAllUsers = async (req, res) => {
     res.status(500).json({message: "Server Error"});
   }
 }
+
 const readUserById = async (req, res) => {
   try {
     const user = await User.findOne({_id:req.params.id});
@@ -19,19 +20,10 @@ const readUserById = async (req, res) => {
     res.status(500).json({message: "Server Error"});
   }
 }
+
 const readUserByEmail = async (req, res) => {
   try {
     const user = await User.findOne({email:req.params.email});
-    res.json(user);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({message: "Server Error"});
-  }
-}
-
-const readUserByUserId = async (req, res) => {
-  try {
-    const user = await User.findById(req.params.userId);
     res.json(user);
   } catch (error) {
     console.error(error);
@@ -81,7 +73,6 @@ module.exports = {
   readAllUsers,
   readUserById,
   readUserByEmail,
-  readUserByUserId,
   createUser,
   updateUserById,
   deleteUserById
