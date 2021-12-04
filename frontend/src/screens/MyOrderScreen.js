@@ -1,6 +1,7 @@
 import './MyOrderScreen.css';
 import CartItem from '../components/CartItem';
 import { useState,useEffect } from 'react';
+
 const userData = JSON.parse(localStorage.getItem("userData"));
 
 const MyOrderScreen = () => {
@@ -12,10 +13,10 @@ const MyOrderScreen = () => {
 
   const fetchData = async () =>{
     try{
-      const response = await fetch(`http://localhost:5000/orders/${userData.userId}`);
-      const result = await response.json();
       
-      console.log(result);
+      const response = await fetch(`http://localhost:5000/orders/unpaid/${userData.userId}`);
+      const result = await response.json();
+
       setOrders(result);
       setLoading(false);
 

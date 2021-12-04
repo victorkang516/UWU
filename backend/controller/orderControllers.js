@@ -1,15 +1,26 @@
 const Order = require('../models/Order');
 
 
-const getAllOrdersByUserId = async (req, res) => {
+const getAllUnPaidOrdersByUserId = async (req, res) => {
   try {
-    const orders = await Order.find({ userId: req.params.userId }).exec();
+    const orders = await Order.find({ userId: req.params.userId, isPaid: false }).exec();
     res.json(orders);
   } catch (error) {
     console.error(error);
     res.status(500).json({message: "Server Error"});
   }
 }
+
+const getAllPaidOrdersByUserId = async (req, res) => {
+  try {
+    const orders = await Order.find({ userId: req.params.userId, isPaid: true }).exec();
+    res.json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message: "Server Error"});
+  }
+}
+
 
 const getAllOrdersByShopId = async (req, res) => {
   try {
@@ -52,7 +63,8 @@ const deleteOrder = async (req, res) => {
 }
 
 module.exports = {
-  getAllOrdersByUserId,
+  getAllUnPaidOrdersByUserId,
+  getAllPaidOrdersByUserId,
   getAllOrdersByShopId,
   createOrder,
   updateOrder,

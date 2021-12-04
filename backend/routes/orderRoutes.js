@@ -1,12 +1,17 @@
 const express = require('express');
 const router = express.Router();
 
-const { getAllOrdersByUserId, getAllOrdersByShopId, createOrder, updateOrder, deleteOrder } = require('../controller/orderControllers');
+const { getAllUnPaidOrdersByUserId, getAllPaidOrdersByUserId, getAllOrdersByShopId, createOrder, updateOrder, deleteOrder } = require('../controller/orderControllers');
 
 //@desc GET all orders by userId from db
 //@route get /orders/:userId
 //@access Public
-router.get('/:userId', getAllOrdersByUserId);
+router.get('/unpaid/:userId', getAllUnPaidOrdersByUserId);
+
+//@desc GET all orders by userId from db
+//@route get /orders/:userId
+//@access Public
+router.get('/unpaid/:userId', getAllPaidOrdersByUserId);
 
 //@desc GET all orders by shopId from db
 //@route get /orders/:shopId
