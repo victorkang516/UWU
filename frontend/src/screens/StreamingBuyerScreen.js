@@ -2,11 +2,13 @@ import "./StreamingScreen.css";
 
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
+import {Link} from 'react-router-dom';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import axios from 'axios';
 
 import {socket} from "../service/socket";
 
+import auth from '../authentication/auth';
 
 const userData = JSON.parse(localStorage.getItem("userData"));
 
@@ -30,8 +32,9 @@ const StreamingSellerScreen = () => {
 
   const [streaming, setStreaming] = useState(null);
   const [streamId] = useState(streamingId);
-  const [username] = useState(userData.name);
+  const [username] = useState(userData ? userData.name : "Noname");
 
+  const [showLoginMessage, setShowLoginMessage] = useState(false);
   const [loading, setLoading] = useState(true);
   const [currentComment, setCurrentComment] = useState("");
   const [commentList, setCommentList] = useState([]);
@@ -55,6 +58,12 @@ const StreamingSellerScreen = () => {
     // Get Streaming data
     fetchStreaming();
   }, [streamId]);
+
+  useEffect(() => {
+    if(streaming!=null)
+      if(streaming.productId!="")
+        setProductOnSaleId(streaming.productId);
+  },[streaming])
 
   useEffect(()=>{
     if (!loading){
@@ -178,7 +187,6 @@ const StreamingSellerScreen = () => {
   // Product
   const [productOnSaleId, setProductOnSaleId] = useState("");
   const [productOnSale, setProductOnSale] = useState(null);
-  const [orderCount, setOrderCount] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [showOrderMessage, setShowOrderMessage] = useState(false);
  
@@ -283,7 +291,6 @@ const StreamingSellerScreen = () => {
                 <h3>{productOnSale.name}</h3>
                 <div className="productOnSale-detail">
                   <p>{productOnSale.countInStock} left</p>
-                  <p>{orderCount} ordered</p>
                   <p>RM {productOnSale.price}</p>
                 </div>
               </div>
@@ -292,7 +299,7 @@ const StreamingSellerScreen = () => {
               }
 
               {productOnSale ?
-              <div>
+              <div className="productOnSale-makeorder">
                 <input 
                   type="number" 
                   value={quantity} 
@@ -300,7 +307,11 @@ const StreamingSellerScreen = () => {
                   min="1" 
                   max={productOnSale.countInStock}
                 />
+                {auth.isAuthenticated() ? 
                 <button onClick={makeOrder} className="btn">Make Order</button>
+                :
+                <button onClick={()=>setShowLoginMessage(true)} className="btn">Make Order</button>
+                }
               </div>
               :
               <div></div>
@@ -314,6 +325,18 @@ const StreamingSellerScreen = () => {
               <h2>Your Order on {quantity} quantity of {productOnSale.name} is successfully placed</h2>
               <p>View your orders in Myorder.</p>
               <button onClick={()=>setShowOrderMessage(false)}>OK</button>
+            </div>
+          </div>
+          : 
+          <div></div>
+          }
+
+          {showLoginMessage ? 
+          <div className="message">
+            <div className="message-content">
+              <h2>Signup Required</h2>
+              <p>Please signup <Link to="/login">Here</Link> before making order.</p>
+              <button onClick={()=>setShowLoginMessage(false)}>OK</button>
             </div>
           </div>
           : 
@@ -357,11 +380,6 @@ const StreamingSellerScreen = () => {
           </div>
         </div>
         
-      </div>
-
-      <div className="footer">
-        <p>Copyright © 2021 UWU Shopping Site</p>
-        <p>For course purposes: TTTH3404 Pembangunan Perisian untuk Sistem Multimedia, FTSM, UKM</p>
       </div>
 
     </div>

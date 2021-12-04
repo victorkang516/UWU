@@ -2,6 +2,8 @@ import './Navbar.css'
 import {Link} from 'react-router-dom';
 import auth from '../authentication/auth';
 
+import logo from '../screens/uwupic.png';
+
 const userData = JSON.parse(localStorage.getItem("userData"));
 
 const Navbar = ({click}) => {
@@ -16,7 +18,10 @@ const Navbar = ({click}) => {
     <nav className="navbar">
       {/* logo */}
       <div className="navbar-logo">
-        <h2>UWU Shopping Site</h2>
+        <Link to="/">
+          <img src={logo} alt="logo"/>
+          UWU Shopping Site
+        </Link>
       </div>
 
       {/* Links */}
@@ -40,9 +45,12 @@ const Navbar = ({click}) => {
             </span>
           </Link>
         </li>
+        <li className="space">
+          <div></div>
+        </li>
         <li>
           {auth.isAuthenticated() ? (
-            <Link to="/myprofile">
+            <Link to="/myprofile" className="username">
               {userData.name}
             </Link>
           ) : (
@@ -51,11 +59,11 @@ const Navbar = ({click}) => {
         </li>
         <li>
           {auth.isAuthenticated() ? (
-            <Link to="/" onClick={logout}>
+            <Link to="/" onClick={logout} className="signup">
               Logout
             </Link>
           ) : (
-            <Link to="/login">
+            <Link to="/login" className="signup">
               Sign In
             </Link>
           )}

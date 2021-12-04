@@ -252,7 +252,6 @@ const StreamingSellerScreen = () => {
   const [productOnSale, setProductOnSale] = useState(null);
   const [products, setProducts] = useState([]);
   const [showProducts, setShowProducts] = useState(false);
-  const [orderCount, setOrderCount] = useState(0);
 
   const fetchProducts = async () => {
     try{
@@ -409,7 +408,7 @@ const StreamingSellerScreen = () => {
                 {productOnSale ? 
                 <img src={productOnSale.imageUrl} alt="product" className="streaming-product"></img>
                 :
-                <div className="streaming-noproduct">Nothing on sale</div>
+                <div className="streaming-noproduct noselect">Nothing on sale</div>
                 }
               </div>
 
@@ -418,21 +417,22 @@ const StreamingSellerScreen = () => {
                 <h3>{productOnSale.name}</h3>
                 <div className="productOnSale-detail">
                   <p>{productOnSale.countInStock} left</p>
-                  <p>{orderCount} ordered</p>
                   <p>RM {productOnSale.price}</p>
                 </div>
               </div>
               :
-              <div></div>
+              <div className="center grey noselect">
+                <p>To sell your products, Click "Start Sale" to choose one of your product for sale</p>
+              </div>
               }
 
               {productOnSale ?
               <div>
-                <button onClick={()=>setProductOnSale(null)} className="btn btn-red">Stop Selling</button>
+                <button onClick={()=>setProductOnSale(null)} className="btn btn-red">Stop Sale</button>
               </div>
               :
               <div>
-                <button onClick={fetchProducts} className="btn">Sell a product</button>
+                <button onClick={fetchProducts} className="btn">Start Sale</button>
               </div>
               }
             </div>
@@ -469,7 +469,7 @@ const StreamingSellerScreen = () => {
                   >
                     <div>
                       <div className="comment-content">
-                        <p className="author">{commentContent.author}</p>
+                        <p className="author noselect">{commentContent.author}</p>
                         <p>{commentContent.message}</p>
                       </div>
                     </div>
@@ -478,7 +478,7 @@ const StreamingSellerScreen = () => {
               </ScrollToBottom>
             </div>
             <div className="comment-footer">
-              <p>{shop.shopName}</p>
+              <p className="noselect">{shop.shopName}</p>
               <input 
                 type="text" 
                 placeholder="Write your comments..." 
@@ -493,11 +493,6 @@ const StreamingSellerScreen = () => {
           </div>
         </div>
         }
-      </div>
-
-      <div className="footer">
-        <p>Copyright © 2021 UWU Shopping Site</p>
-        <p>For course purposes: TTTH3404 Pembangunan Perisian untuk Sistem Multimedia, FTSM, UKM</p>
       </div>
 
     </div>
