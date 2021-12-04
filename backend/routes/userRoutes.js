@@ -1,30 +1,35 @@
 const express = require('express');
 const router = express.Router();
 
-const { readAllUsers, readUserByEmail, createUser, updateUserById, deleteUserById } = require('../controller/userControllers');
+const { readAllUsers, readUserByEmail, readUserByUserId, createUser, updateUserById, deleteUserById } = require('../controller/userControllers');
 
 //@desc GET all users from db
-//@route get /api/users
+//@route get /users
 //@access -
 router.get('/', readAllUsers );
 
-//@desc GET a user by Id from db
-//@route get /api/users/:id
+//@desc GET a user by Email from db
+//@route get /users/:id
 //@access -
 router.get('/:email', readUserByEmail );
 
+//@desc GET a user by Id from db
+//@route get /users/:id
+//@access -
+router.get('/userId/:userId', readUserByUserId );
+
 //@desc POST a user into db
-//@route post /api/users
+//@route post /users
 //@access -
 router.post('/', createUser );
 
 //@desc PUT a user by id into db
-//@route put /api/users/:id
+//@route put /users/:id
 //@access -
 router.put('/:id', updateUserById );
 
 //@desc DELETE a user by id in db
-//@route delete /api/users/:id
+//@route delete /users/:id
 //@access -
 router.delete('/:id', deleteUserById );
 

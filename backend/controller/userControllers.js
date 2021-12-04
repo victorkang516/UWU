@@ -21,6 +21,16 @@ const readUserByEmail = async (req, res) => {
   }
 }
 
+const readUserByUserId = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message: "Server Error"});
+  }
+}
+
 const createUser = async (req, res) => {
   try {
     const user = await User.findOne({email:req.body.email});
@@ -62,6 +72,7 @@ const deleteUserById = async (req, res) => {
 module.exports = {
   readAllUsers,
   readUserByEmail,
+  readUserByUserId,
   createUser,
   updateUserById,
   deleteUserById
