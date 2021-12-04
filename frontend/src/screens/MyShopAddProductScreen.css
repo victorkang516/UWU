@@ -22,7 +22,7 @@
     50% {transform: rotate(360deg);}
   }
 
-  .editmyshopscreen{
+  .addproductmyshopscreen{
     max-width: 1300px;
     margin: 1rem auto;
     display: flex;

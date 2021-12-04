@@ -13,6 +13,10 @@ const MyShopScreen = () => {
 
   const [shop, setShop] = useState();
   const [loading, setLoading] = useState(true);
+  const [loadingProducts,setLoadingProducts] = useState(true);
+
+  const [products, setProducts] = useState([]);
+  const [productsByCategory, setProductsByCategory] = useState([]);
 
 
   const fetchData = async () =>{
@@ -26,6 +30,18 @@ const MyShopScreen = () => {
     } catch(error){
       console.log(error);
     }
+
+    try{
+      const response = await fetch("http://localhost:5000/products");
+      const result = await response.json();
+
+      setProducts(result);
+      setLoadingProducts(false);
+
+    } catch(error){
+      console.log(error);
+    }
+
   }
 
   useEffect(() => {
@@ -89,6 +105,7 @@ const MyShopScreen = () => {
 
         <div className="Product">
           <h2 align="center">Product List</h2>
+          
 
           <Link to={'/myshop/addproduct'} className="Link" type="button" align="center"> 
           <h2>Add product</h2>
