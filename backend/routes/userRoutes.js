@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { readAllUsers, readUserByEmail, createUser, updateUserById, deleteUserById } = require('../controller/userControllers');
+const { readAllUsers, readUserById, readUserByEmail, createUser, updateUserById, deleteUserById } = require('../controller/userControllers');
 
 //@desc GET all users from db
 //@route get /api/users
@@ -12,6 +12,8 @@ router.get('/', readAllUsers );
 //@route get /api/users/:id
 //@access -
 router.get('/:email', readUserByEmail );
+
+router.get('/account/:id', readUserById);
 
 //@desc POST a user into db
 //@route post /api/users
