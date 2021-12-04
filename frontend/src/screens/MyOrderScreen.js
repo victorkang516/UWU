@@ -63,7 +63,7 @@ const MyOrderScreen = () => {
       </div>
       <div className="cartscreen-right">
         <div className="cartscreen-info">
-          <p>Grand Total</p>
+          <p>Grand Total:</p>
           <p>RM{totalPrice}</p>
         </div>
         <div>
