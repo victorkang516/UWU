@@ -34,15 +34,81 @@ const CheckOutScreen = () => {
       }
     
       return <div className="cartscreen">
-    
-        {/* Header */}
-        <h2 className="cartscreen-header">Checkout</h2>
-        
-        {/* Content */}
-        <div className="cartscreen-content">
-          <div className="cartscreen-left">
-          </div>
-          </div>
+                <div className="py-3 bg-warning">
+                    <div className="container">
+                        <h6>Checkout</h6>
+                    </div>
+                </div>
+
+                <div className="py-4">
+                    <div className="container">
+                        <div className="row">
+
+                            <div className="col-md-7">
+                                <div className="card">
+                                    <div className="card-header">
+                                        <h4>Basic Information</h4>
+                                    </div>
+                                    <div className="card-body">
+
+                                        <div className="row">
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label>Name </label>
+                                                    <input type="text" name="name" className="form-control" />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label>Email </label>
+                                                    <input type="text" name="name" className="form-control" />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label>Address </label>
+                                                    <input type="text" name="name" className="form-control" />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label>Phone </label>
+                                                    <input type="text" name="name" className="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="col-md-5">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th width="50%" >Product</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr>
+                                            <td>adaewdd</td>
+                                            <td>600</td>
+                                            <td>2</td>
+                                            <td>1200</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
           </div>
 }
 
