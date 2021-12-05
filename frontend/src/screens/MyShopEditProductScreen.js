@@ -120,6 +120,8 @@ const MyShopAddProductScreen = (props) => {
           const onSubmit = (event) => {
             event.preventDefault();
             if (productName !== "" && productDescription !== "" && price !== "" && countInStock !== "" && imageUrl !== "" && category !== "" && shopId !== "" && shopName !== "") {
+              if (price > 0 && countInStock > 0) {
+
     
               const product = {
                 name: productName,
@@ -135,10 +137,16 @@ const MyShopAddProductScreen = (props) => {
         
               axios.put('http://localhost:5000/products/:productid', product)
                 .then(res => {
+                  alert("Successfully edited product!");
+                props.history.push("/myshop");
                 console.log(res);
                 }).catch(error => {
                 console.log(error);
                 });
+              }else{
+                alert("Product Price and Count In Stock must not be 0");
+              }
+              
             
             } else {
               alert("Please fill in the blanks");
@@ -148,6 +156,8 @@ const MyShopAddProductScreen = (props) => {
         const onDelete = () => {
           axios.delete('http://localhost:5000/products/:productid')
             .then(res => {
+              alert("Successfully deleted product!");
+              props.history.push("/myshop");
               console.log(res);
             }).catch(error => {
               console.log(error);

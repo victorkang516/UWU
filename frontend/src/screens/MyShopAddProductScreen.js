@@ -97,6 +97,7 @@ const MyShopAddProductScreen = (props) => {
           const onSubmit = (event) => {
             event.preventDefault();
             if (productName !== "" && productDescription !== "" && price !== "" && countInStock !== "" && category !== "" && imageUrl !== "" && shopId !== "" && shopName !== "") {
+              if (price > 0 && countInStock > 0) {
     
               const product = {
                 name: productName,
@@ -112,11 +113,15 @@ const MyShopAddProductScreen = (props) => {
         
               axios.post('http://localhost:5000/products', product)
               .then(res => {
+                alert("Successfully added product!");
+                props.history.push("/myshop");
                 console.log(res);
               }).catch(error => {
                 console.log(error);
               });
-            
+            }else{
+              alert("Product Price and Count In Stock must not be 0");
+            }
             
             } else {
               alert("Please fill in the blanks");
