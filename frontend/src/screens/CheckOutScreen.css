@@ -41,6 +41,10 @@
     margin-right: 1rem;
     background-color: transparent;
   }
+
+  .cartscreen-left1 div p {
+    margin: 10px;
+  }
   
   .cartscreen-right1 {
     flex: 0.5;
@@ -74,6 +78,17 @@
   .cartscreen-right div button:hover {
     background-color: rgb(255, 181, 85);
     color: white;
+  }
+
+  .cartscreen-btn {
+    border: none;
+    width: 40%;
+    grid-column: 1/-1;
+    padding: 10px 16px;
+    background-color: rgb(233,133,0);
+    color: white;
+    cursor: pointer;
+    margin: 10px;
   }
   
   
