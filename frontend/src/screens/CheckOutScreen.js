@@ -15,7 +15,7 @@ const CheckOutScreen = () => {
           const response = await fetch(`http://localhost:5000/orders/unpaid/${userData.userId}`);
           const result = await response.json();
     
-          setOrders(result);
+          setCheckOut(result);
           setLoading(false);
     
         } catch(error){

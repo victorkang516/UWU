@@ -69,7 +69,7 @@ const MyOrderScreen = () => {
           <p>RM{totalPrice}</p>
         </div>
         <div>
-          <Link to="CheckOutScreen.js" className="btn btn-primary">Proceed to Checkout</Link>
+          <Link to="/checkout" className="btn btn-primary">Proceed to Checkout</Link>
         </div>
       </div>
     </div>
