@@ -90,8 +90,6 @@ const MyShopScreen = () => {
 
 
 
-
-
   
   return (
 
@@ -143,7 +141,9 @@ const MyShopScreen = () => {
           <h2 align="center">Product List</h2>
 
           <div className="productList">
-
+              {shopProducts.map((shopProducts) => (
+                <div className="shopProducts">{shopProducts}</div>
+              ))}
           </div>
             
           <Link to={'/myshop/addproduct'} className="Link" type="button"> 

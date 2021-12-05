@@ -104,7 +104,7 @@ const MyShopAddProductScreen = (props) => {
                 price: price,
                 countInStock: countInStock,
                 category: category,
-                imageUrl: imageUrl,
+                imageUrl: "tempurl",
                 shopId: shopId,
                 shopName: shopName
               };
@@ -133,19 +133,18 @@ const MyShopAddProductScreen = (props) => {
     return (
 
         <div className="addproductmyshopscreen">
-            Not complete yet
             <div className="title">
                 <h2>Add Product</h2>
             </div>
 
             <form className="register-form">
 
-            Product Image
+            {/* Product Image
             <div className="form-input">
               <input type="file" name="myImage" accept="image/*" />
 
-              {/* <FileUpload refreshFunction={onImageUrlChange} /> */}
-            </div>
+               <FileUpload refreshFunction={onImageUrlChange} /> 
+            </div> */}
             
 
             <div className="form-input">
@@ -169,7 +168,7 @@ const MyShopAddProductScreen = (props) => {
 
             <div className="form-input">
               <label>Product Price: </label>
-              <input name="productPrice" value={price} onChange={onPriceChange} required />
+              <input type="number" name="productPrice" value={price} onChange={onPriceChange} required />
             </div>
   
             <div className="form-input">

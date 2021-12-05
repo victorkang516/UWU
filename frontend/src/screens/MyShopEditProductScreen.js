@@ -119,7 +119,7 @@ const MyShopAddProductScreen = (props) => {
 
           const onSubmit = (event) => {
             event.preventDefault();
-            if (productName !== "" && productDescription !== "" && price !== "" && countInStock !== "" && category !== "" && imageUrl !== "" && shopId !== "" && shopName !== "") {
+            if (productName !== "" && productDescription !== "" && price !== "" && countInStock !== "" && imageUrl !== "" && category !== "" && shopId !== "" && shopName !== "") {
     
               const product = {
                 name: productName,
@@ -127,7 +127,7 @@ const MyShopAddProductScreen = (props) => {
                 price: price,
                 countInStock: countInStock,
                 category: category,
-                imageUrl: imageUrl,
+                imageUrl: "tempurl",
                 shopId: shop._id,
                 shopName: shop.shopName
               };
@@ -168,17 +168,17 @@ const MyShopAddProductScreen = (props) => {
     return (
 
         <div className="editproductmyshopscreen">
-            Not complete yet
+            
             <div className="title">
                 <h2>Edit Product</h2>
             </div>
 
             <form className="register-form">
 
-            Product Image
+            {/* Product Image
             <div className="form-input">
               <FileUpload refreshFunction={onImageUrlChange} />
-            </div>
+            </div> */}
             
 
             <div className="form-input">
@@ -202,7 +202,7 @@ const MyShopAddProductScreen = (props) => {
 
             <div className="form-input">
               <label>Product Price: </label>
-              <input name="productPrice" value={price} onChange={onPriceChange} required />
+              <input type="number" name="productPrice" value={price} onChange={onPriceChange} required />
             </div>
   
             <div className="form-input">
