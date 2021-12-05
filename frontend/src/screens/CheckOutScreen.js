@@ -29,7 +29,6 @@ const CheckOutScreen = () => {
 
       useEffect(() => {
         fetchData();
-        console.log(userId)
       }, [userId]);
 
       if (loading) {
@@ -45,7 +44,10 @@ const CheckOutScreen = () => {
 
     <h3 className="cartscreen-header">Basic Information</h3>
         <div>
-        
+        <p>{userInfo.name}</p>
+        <p>{userInfo.email}</p>
+        <p>{userInfo.address}</p>
+        <p>{userInfo.phone}</p>
         </div>
     
     {/* Content */}
