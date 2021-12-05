@@ -36,14 +36,14 @@
     display: flex;
   }
   
-  .cartscreen-left {
-    flex: 0.7;
+  .cartscreen-left1 {
+    flex: 0.5;
     margin-right: 1rem;
     background-color: transparent;
   }
   
-  .cartscreen-right {
-    flex: 0.3;
+  .cartscreen-right1 {
+    flex: 0.5;
     background-color: white;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     height: fit-content;
