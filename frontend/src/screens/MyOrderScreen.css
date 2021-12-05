@@ -59,7 +59,9 @@
 
 .cartscreen-info p {
   padding: 1rem;
+  width: 100%;
 }
+
 
 .cartscreen-right div button {
   border: none;

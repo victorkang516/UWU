@@ -68,8 +68,8 @@ const MyOrderScreen = () => {
           <p>Grand Total:</p>
           <p>RM{totalPrice}</p>
         </div>
-        <div>
-          <Link to="/checkout" className="btn btn-primary">Proceed to Checkout</Link>
+        <div className="cartscreen-info">
+          <p><Link to="/checkout" className="btn btn-primary">Proceed to Checkout</Link></p>
         </div>
       </div>
     </div>
