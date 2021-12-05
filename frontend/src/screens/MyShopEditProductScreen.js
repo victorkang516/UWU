@@ -2,11 +2,9 @@ import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import React from 'react';
 import axios from 'axios';
-import './MyShopAddProductScreen.css';
+import './MyShopEditProductScreen.css';
 import FileUpload from '../components/FileUpload';
 import Loading from '../components/Loading';
-import Product from '../components/Product';
-
 
 
 const userData = JSON.parse(localStorage.getItem("userData"));
@@ -14,10 +12,8 @@ const userData = JSON.parse(localStorage.getItem("userData"));
 
 const MyShopAddProductScreen = (props) => {
 
-        const [categories, setCategories] = useState(["All"]);
-
-
         const [userId] = useState(userData.userId);
+        const [productId, setProductId] = useState('');
         const [productName, setProductName] = useState('');
         const [productDescription, setProductDescription] = useState('');
         const [price, setPrice] = useState('');
@@ -25,6 +21,7 @@ const MyShopAddProductScreen = (props) => {
         const [category, setCategory] = useState('');
         const [imageUrl, setImageUrl] = useState([])
 
+        const [shop, setShop] = useState();
         const [shopId, setShopId] = useState('');
         const [shopName, setShopName] = useState('');
         
@@ -36,21 +33,47 @@ const MyShopAddProductScreen = (props) => {
                 const response = await fetch(`http://localhost:5000/shops/${userData.userId}`);
                 const result = await response.json();
           
-                setShopData(result);
+                setShop(result);
                 setLoading(false);
           
               } catch(error){
                 console.log(error);
               }
+              
+              try {
+                const response = await fetch(`http://localhost:5000/products/seller/shop._id`);
+                const result = await response.json();
+                
+                setShopProducts(result);
+                setLoading(false);
+
+                } catch (error){
+                console.log(error);
+                }
+                
+
             }
             fetchData();
             console.log("Fetch Data");
           }, []);
 
-          const setShopData = (result) => {
-             setShopId(result._id);
-             setShopName(result.shopName);
-           }
+          // const setShop = (result) => {
+          //   setShopId(result._id);
+          //   setShopName(result.shopName);
+          // }
+
+          const setShopProducts = (result) => {
+            setProductId(result._id);
+            setProductName(result.name);
+            setProductDescription(result.description);
+            setPrice(result.price);
+            setCountInStock(result.countInStock);
+            setCategory(result.category);
+            setImageUrl(result.imageUrl);
+            setShopId(result.shopId);
+            setShopName(result.shopName);
+          }
+        
 
 
         const onProductNameChange = (event) => {
@@ -105,23 +128,34 @@ const MyShopAddProductScreen = (props) => {
                 countInStock: countInStock,
                 category: category,
                 imageUrl: imageUrl,
-                shopId: shopId,
-                shopName: shopName
+                shopId: shop._id,
+                shopName: shop.shopName
               };
               
         
-              axios.post('http://localhost:5000/products', product)
-              .then(res => {
+              axios.put('http://localhost:5000/products/:productid', product)
+                .then(res => {
                 console.log(res);
-              }).catch(error => {
+                }).catch(error => {
                 console.log(error);
-              });
-            
+                });
             
             } else {
               alert("Please fill in the blanks");
             }
         }
+
+        const onDelete = () => {
+          axios.delete('http://localhost:5000/products/:productid')
+            .then(res => {
+              console.log(res);
+            }).catch(error => {
+              console.log(error);
+            });
+          }
+          
+
+
 
            
         if (loading)
@@ -130,21 +164,20 @@ const MyShopAddProductScreen = (props) => {
         }
 
 
+
     return (
 
-        <div className="addproductmyshopscreen">
+        <div className="editproductmyshopscreen">
             Not complete yet
             <div className="title">
-                <h2>Add Product</h2>
+                <h2>Edit Product</h2>
             </div>
 
             <form className="register-form">
 
             Product Image
             <div className="form-input">
-              <input type="file" name="myImage" accept="image/*" />
-
-              {/* <FileUpload refreshFunction={onImageUrlChange} /> */}
+              <FileUpload refreshFunction={onImageUrlChange} />
             </div>
             
 
@@ -190,7 +223,9 @@ const MyShopAddProductScreen = (props) => {
             </div>
 
             <div className="form-input">
-              <button type="submit" onClick={onSubmit}>Add Product</button>
+              <button type="submit" onClick={onSubmit}>Edit Product</button>
+              <button type="submit" onClick={onDelete}>Delete Product</button>
+
             </div>
           </form>
             
