@@ -104,7 +104,7 @@ const MyShopAddProductScreen = (props) => {
                 price: price,
                 countInStock: countInStock,
                 category: category,
-                imageUrl: "tempurl",
+                imageUrl: "https://mpama.com/wp-content/uploads/2017/04/default-image.jpg",
                 shopId: shopId,
                 shopName: shopName
               };
