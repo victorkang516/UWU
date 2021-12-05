@@ -1,6 +1,7 @@
 import './MyOrderScreen.css';
 import CartItem from '../components/CartItem';
 import { useState,useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const userData = JSON.parse(localStorage.getItem("userData"));
 
@@ -67,8 +68,8 @@ const MyOrderScreen = () => {
           <p>Grand Total:</p>
           <p>RM{totalPrice}</p>
         </div>
-        <div>
-          <button>Proceed To Checkout</button>
+        <div className="cartscreen-info">
+          <p><Link to="/checkout" className="btn btn-primary">Proceed to Checkout</Link></p>
         </div>
       </div>
     </div>
