@@ -90,8 +90,6 @@ const MyShopScreen = () => {
 
 
 
-
-
   
   return (
 
@@ -99,7 +97,7 @@ const MyShopScreen = () => {
 
       {shop ?
         <div className="welcomeshop">
-          <p>{shop.shopName}</p>
+          <p><b>{shop.shopName}</b></p>
           <p>{shop.shopDescription}</p>
           <p>{shop.shopAddress}</p>
           <p>{shop.shopPhone}</p>
@@ -125,7 +123,7 @@ const MyShopScreen = () => {
         <Link to={'/myshop/editmyshop'} className="Link" type="button"> 
           <span>Edit your MyShop!</span>
         </Link>
-
+&nbsp;
 
         {/* Streaming */}
 
@@ -143,13 +141,15 @@ const MyShopScreen = () => {
           <h2 align="center">Product List</h2>
 
           <div className="productList">
-
+              {shopProducts.map((shopProducts) => (
+                <div className="shopProducts">{shopProducts}</div>
+              ))}
           </div>
-            
+          <center>  
           <Link to={'/myshop/addproduct'} className="Link" type="button"> 
           <h2>Add product</h2>
           </Link>
-
+          </center>
         </div>
 
 

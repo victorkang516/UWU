@@ -119,7 +119,9 @@ const MyShopAddProductScreen = (props) => {
 
           const onSubmit = (event) => {
             event.preventDefault();
-            if (productName !== "" && productDescription !== "" && price !== "" && countInStock !== "" && category !== "" && imageUrl !== "" && shopId !== "" && shopName !== "") {
+            if (productName !== "" && productDescription !== "" && price !== "" && countInStock !== "" && imageUrl !== "" && category !== "" && shopId !== "" && shopName !== "") {
+              if (price > 0 && countInStock > 0) {
+
     
               const product = {
                 name: productName,
@@ -127,7 +129,7 @@ const MyShopAddProductScreen = (props) => {
                 price: price,
                 countInStock: countInStock,
                 category: category,
-                imageUrl: imageUrl,
+                imageUrl: "https://mpama.com/wp-content/uploads/2017/04/default-image.jpg",
                 shopId: shop._id,
                 shopName: shop.shopName
               };
@@ -135,10 +137,16 @@ const MyShopAddProductScreen = (props) => {
         
               axios.put('http://localhost:5000/products/:productid', product)
                 .then(res => {
+                  alert("Successfully edited product!");
+                props.history.push("/myshop");
                 console.log(res);
                 }).catch(error => {
                 console.log(error);
                 });
+              }else{
+                alert("Product Price and Count In Stock must not be 0");
+              }
+              
             
             } else {
               alert("Please fill in the blanks");
@@ -148,6 +156,8 @@ const MyShopAddProductScreen = (props) => {
         const onDelete = () => {
           axios.delete('http://localhost:5000/products/:productid')
             .then(res => {
+              alert("Successfully deleted product!");
+              props.history.push("/myshop");
               console.log(res);
             }).catch(error => {
               console.log(error);
@@ -168,17 +178,17 @@ const MyShopAddProductScreen = (props) => {
     return (
 
         <div className="editproductmyshopscreen">
-            Not complete yet
+            
             <div className="title">
                 <h2>Edit Product</h2>
             </div>
 
             <form className="register-form">
 
-            Product Image
+            {/* Product Image
             <div className="form-input">
               <FileUpload refreshFunction={onImageUrlChange} />
-            </div>
+            </div> */}
             
 
             <div className="form-input">
@@ -202,7 +212,7 @@ const MyShopAddProductScreen = (props) => {
 
             <div className="form-input">
               <label>Product Price: </label>
-              <input name="productPrice" value={price} onChange={onPriceChange} required />
+              <input type="number" name="productPrice" value={price} onChange={onPriceChange} required />
             </div>
   
             <div className="form-input">

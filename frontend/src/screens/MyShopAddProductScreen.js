@@ -97,6 +97,7 @@ const MyShopAddProductScreen = (props) => {
           const onSubmit = (event) => {
             event.preventDefault();
             if (productName !== "" && productDescription !== "" && price !== "" && countInStock !== "" && category !== "" && imageUrl !== "" && shopId !== "" && shopName !== "") {
+              if (price > 0 && countInStock > 0) {
     
               const product = {
                 name: productName,
@@ -104,7 +105,7 @@ const MyShopAddProductScreen = (props) => {
                 price: price,
                 countInStock: countInStock,
                 category: category,
-                imageUrl: imageUrl,
+                imageUrl: "https://mpama.com/wp-content/uploads/2017/04/default-image.jpg",
                 shopId: shopId,
                 shopName: shopName
               };
@@ -112,11 +113,15 @@ const MyShopAddProductScreen = (props) => {
         
               axios.post('http://localhost:5000/products', product)
               .then(res => {
+                alert("Successfully added product!");
+                props.history.push("/myshop");
                 console.log(res);
               }).catch(error => {
                 console.log(error);
               });
-            
+            }else{
+              alert("Product Price and Count In Stock must not be 0");
+            }
             
             } else {
               alert("Please fill in the blanks");
@@ -133,19 +138,18 @@ const MyShopAddProductScreen = (props) => {
     return (
 
         <div className="addproductmyshopscreen">
-            Not complete yet
             <div className="title">
                 <h2>Add Product</h2>
             </div>
 
             <form className="register-form">
 
-            Product Image
+            {/* Product Image
             <div className="form-input">
               <input type="file" name="myImage" accept="image/*" />
 
-              {/* <FileUpload refreshFunction={onImageUrlChange} /> */}
-            </div>
+               <FileUpload refreshFunction={onImageUrlChange} /> 
+            </div> */}
             
 
             <div className="form-input">
@@ -169,7 +173,7 @@ const MyShopAddProductScreen = (props) => {
 
             <div className="form-input">
               <label>Product Price: </label>
-              <input name="productPrice" value={price} onChange={onPriceChange} required />
+              <input type="number" name="productPrice" value={price} onChange={onPriceChange} required />
             </div>
   
             <div className="form-input">
