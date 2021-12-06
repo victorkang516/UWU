@@ -94,6 +94,11 @@ const HomeScreen = (props) => {
     const filterProductsByCategory = () => {
       let newProducts = products.filter( product => currentCategory === product.category || currentCategory === "All" );
       setProductsByCategory(newProducts);
+      if(itemOffset!=0){
+        const newOffset = (0 * itemsPerPage) % products.length;
+        setItemOffset(newOffset);
+        setPageCount(Math.ceil(productsByCategory.length / itemsPerPage));
+      }
     }
     filterProductsByCategory();
   }, [currentCategory]);
@@ -110,11 +115,11 @@ const HomeScreen = (props) => {
       setCurrentItems(productsByCategory.slice(itemOffset, endOffset));
       setPageCount(Math.ceil(productsByCategory.length / itemsPerPage));
     }
-  }, [itemOffset, itemsPerPage, productsByCategory]);
+  }, [itemOffset, productsByCategory]);
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % products.length;
+    const newOffset = (event.selected * itemsPerPage) % productsByCategory.length;
     console.log(
       `User requested page number ${event.selected}, which is offset ${newOffset}`
     );
