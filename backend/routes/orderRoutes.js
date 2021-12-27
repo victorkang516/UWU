@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { getAllUnPaidOrdersByUserId, getAllPaidOrdersByUserId, getAllOrdersByShopId, createOrder, updateOrder, deleteOrder } = require('../controller/orderControllers');
+const { getAllUnPaidOrdersByUserId, getAllPaidOrdersByUserId, getAllOrdersByShopId, createOrder, updateOrderQuantity, updateMultipleOrderIsPaidByUserId, deleteOrder } = require('../controller/orderControllers');
 
 //@desc GET all orders by userId from db
 //@route get /orders/:userId
@@ -23,10 +23,15 @@ router.get('/seller/:shopId', getAllOrdersByShopId);
 //@access Public
 router.post('/', createOrder);
 
-//@desc UPDATE a order into db
+//@desc UPDATE a order's quantity into db
 //@route put /orders/:id
 //@access Public
-router.put('/:orderId', updateOrder);
+router.put('/:orderId', updateOrderQuantity);
+
+//@desc UPDATE many order's Paid into db
+//@route put /orders/ispaid/:userId
+//@access Public
+router.put('/paid/:userId', updateMultipleOrderIsPaidByUserId);
 
 //@desc DELETE a order in db
 //@route delete /orders/:id

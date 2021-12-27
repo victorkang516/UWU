@@ -42,10 +42,21 @@ const createOrder = async (req, res) => {
   }
 }
 
-const updateOrder = async (req, res) => {
+const updateOrderQuantity = async (req, res) => {
   try {
     await Order.updateOne({ _id: req.params.orderId }, { quantity: req.body.quantity })
     res.json({message:"Order update successfully"});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message: "Server Error"});
+  }
+}
+
+const updateMultipleOrderIsPaidByUserId = async (req, res) => {
+  try {
+    await Order.updateMany({ isPaid: false, userId: req.params.userId }, { isPaid: true });
+    //await Order.updateOne({ _id: req.params.orderId }, { quantity: req.body.quantity })
+    res.json({message:"All Orders' isPaid update successfully"});
   } catch (error) {
     console.error(error);
     res.status(500).json({message: "Server Error"});
@@ -67,6 +78,7 @@ module.exports = {
   getAllPaidOrdersByUserId,
   getAllOrdersByShopId,
   createOrder,
-  updateOrder,
+  updateOrderQuantity,
+  updateMultipleOrderIsPaidByUserId,
   deleteOrder
 }

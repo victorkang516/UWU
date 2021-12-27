@@ -7,7 +7,7 @@ const getAllProducts = async (req, res) => {
     res.json(products);
   } catch (error) {
     console.error(error);
-    res.status(500).json({message: "Server Error"});
+    res.status(500).json({ message: "Server Error" });
   }
 }
 
@@ -18,7 +18,7 @@ const getProductById = async (req, res) => {
     res.json(product);
   } catch (error) {
     console.error(error);
-    res.status(500).json({message: "Server Error"});
+    res.status(500).json({ message: "Server Error" });
   }
 }
 
@@ -29,7 +29,7 @@ const getAllProductsByShopId = async (req, res) => {
     res.json(products);
   } catch (error) {
     console.error(error);
-    res.status(500).json({message: "Server Error"});
+    res.status(500).json({ message: "Server Error" });
   }
 }
 
@@ -41,19 +41,19 @@ const createProduct = async (req, res) => {
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({message: "Server Error"});
+    res.status(500).json({ message: "Server Error" });
   }
 }
 
 const updateProduct = async (req, res) => {
   try {
-    const product = await Product.replaceOne({_id:req.params.id} ,req.body);
+    const product = await Product.replaceOne({ _id: req.params.id }, req.body);
 
-    res.json({message:"Data update successfully"});
+    res.json({ message: "Data update successfully" });
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({message: "Server Error"});
+    res.status(500).json({ message: "Server Error" });
   }
 }
 
@@ -62,24 +62,24 @@ const updateProductStock = async (req, res) => {
   try {
     const product = await Product.updateOne(
       { _id: req.params.id },
-      { $set: {countInStock: req.body.countInStock} }
+      { $set: { countInStock: req.body.countInStock } }
     );
-    res.json({message:"Data update successfully"});
+    res.json({ message: "Data update successfully" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({message: "Server Error"});
+    res.status(500).json({ message: "Server Error" });
   }
 }
 
 const deleteProduct = async (req, res) => {
   try {
-    await Product.deleteOne({_id:req.params.id});
+    await Product.deleteOne({ _id: req.params.id });
 
-    res.json({message:"Data deleted successfully"});
+    res.json({ message: "Data deleted successfully" });
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({message: "Server Error"});
+    res.status(500).json({ message: "Server Error" });
   }
 }
 
