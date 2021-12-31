@@ -10,87 +10,63 @@ import Product from '../components/Product';
 import Loading from '../components/Loading';
 
 
-
 const userData = JSON.parse(localStorage.getItem("userData"));
-
 
 
 const MyShopScreen = () => {
 
   const [shop, setShop] = useState();
   const [shopProducts, setShopProducts] = useState([]);
-  const length = shopProducts.length;
-
 
   const [loading, setLoading] = useState(true);
-  const [loadingProducts,setLoadingProducts] = useState(true);
-  const [productsByCategory, setProductsByCategory] = useState([]);
-  
-  
+  const [loadingProducts, setLoadingProducts] = useState(true);
 
 
   useEffect(() => {
-    const fetchData = async () =>{
-      try{
+    const fetchShopData = async () => {
+      try {
         const response = await fetch(`http://localhost:5000/shops/${userData.userId}`);
         const result = await response.json();
-  
+
         setShop(result);
         setLoading(false);
-  
-      } catch(error){
+
+      } catch (error) {
         console.log("failed fetch shop data");
         console.log(error);
       }
-      
+    }
+    fetchShopData();
+    console.log("Fetch Data");
+  }, []); // This UseEffect run when the page first time load
+
+
+  useEffect(() => {
+    const fetchShopProducts = async () => { 
       try {
-        const response = await fetch(`http://localhost:5000/products/seller/shop._id`);
+        const response = await fetch(`http://localhost:5000/products/seller/${shop._id}`); //Add ${} to get variable
         const result = await response.json();
-        
+
         setShopProducts(result);
         setLoadingProducts(false);
 
-        } catch (error){
-          console.log("failed fetch shop's products data");
-          console.log(error);
-          }
-        
-
+      } catch (error) {
+        console.log("failed fetch shop's products data");
+        console.log(error);
+      }
     }
-    fetchData();
-    console.log("Fetch Data");
-  }, []);
+    if (shop != null) // Check if the shopData Null
+      fetchShopProducts();
+  }, [shop]); // This UseEffect run when the shopData loaded
 
 
-  const Card = (props) =>{
-    return(
-      <div className="card">
-        <div className="card__body">
-          <img src={props.img} />
-          <h2 className="card__title">{props.title}</h2>
-          <p className="card__description">{props.description}</p>
-        </div>
-        <Link to={'/myshop/editproduct/:id'} className="Link" type="button" align="center"> 
-          <button className="card__btn">Edit</button>
-        </Link>
-        
 
-      </div>
 
-    )
-  }
-
-  
-
-  // If data not loaded yet, display empty page/loading sign
-  if (loading || loadingProducts)
-  {
+  // If data not loaded yet, display loading sign
+  if (loading || loadingProducts) {
     return <Loading />
   }
 
-
-
-  
   return (
 
     <div className="myshopscreen">
@@ -106,63 +82,67 @@ const MyShopScreen = () => {
         </div>
         :
         <div className="welcomeshop" >
-          <h1 align="center">Welcome to MyShop</h1><br></br> 
+          <h1 align="center">Welcome to MyShop</h1><br></br>
           <p align="center">Become a seller and start selling products, streaming on our platform!</p>
         </div>
       }
 
-      {!shop ? 
-      <Link to={`/myshop/createmyshop`} className="Link" type="button" >
-        <h2>Create your MyShop!</h2>
-      </Link>
-      :
-      <div>
-
-        {/* Edit Product */}
-
-        <Link to={'/myshop/editmyshop'} className="Link" type="button"> 
-          <span>Edit your MyShop!</span>
+      {!shop ?
+        <Link to={`/myshop/createmyshop`} className="Link" type="button" >
+          <h2>Create your MyShop!</h2>
         </Link>
-&nbsp;
+        :
+        <div>
 
-        {/* Streaming */}
+          {/* Edit Product */}
 
-        <Link to="/streamingseller" className="Link" type="button">
-          <i className="fa fa-video-camera" aria-hidden="true"></i>
-          <span>
-            Start Streaming
-          </span>
-        </Link>
-
-
-        {/* Product List */}
-
-        <div className="Product">
-          <h2 align="center">Product List</h2>
-
-          <div className="productList">
-              {shopProducts.map((shopProducts) => (
-                <div className="shopProducts">{shopProducts}</div>
-              ))}
-          </div>
-          <center>  
-          <Link to={'/myshop/addproduct'} className="Link" type="button"> 
-          <h2>Add product</h2>
+          <Link to={'/myshop/editmyshop'} className="Link" type="button">
+            <span>Edit your MyShop!</span>
           </Link>
-          </center>
+          &nbsp;
+
+          {/* Streaming */}
+
+          <Link to="/streamingseller" className="Link" type="button">
+            <i className="fa fa-video-camera" aria-hidden="true"></i>
+            <span>
+              Start Streaming
+            </span>
+          </Link>
+
+
+          {/* Product List */}
+
+          <div className="Product">
+            <h2 align="center">Product List</h2>
+
+            <div className="productList">
+
+              {shopProducts.map((shopProduct) => (
+                <Link to={`/`} key={shopProduct._id} className="products"> {/* The Link "to" should go to your edit product page. */}
+                  <Product {...shopProduct} />                             {/* Reuse Product componenet from HomePage */}
+                </Link>
+              ))}
+
+            </div>
+
+            <center>
+              <Link to={'/myshop/addproduct'} className="Link" type="button">
+                <h2>Add product</h2>
+              </Link>
+            </center>
+
+          </div>
+
+
         </div>
-
-
-        
-
-      </div>
       }
 
     </div>
 
   )
-  
-  
+
+
 
 }
 
