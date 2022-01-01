@@ -225,7 +225,7 @@ const MyShopEditProductScreen = (props) => {
               
             <div className="form-input">
               <label>Product Description: </label>
-              <input name="productDesc" value={productDescription} onChange={onProductDescChange} required />
+              <input name="productDesc" value={productDescription} onChange={onProductDescChange}  required />
             </div>
   
             <div className="form-input">

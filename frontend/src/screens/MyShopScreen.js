@@ -2,9 +2,7 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import React from 'react';
-import ReactPaginate from 'react-paginate';
 
-import axios from 'axios';
 import './MyShopScreen.css';
 import Product from '../components/Product';
 import Loading from '../components/Loading';
@@ -93,6 +91,8 @@ const MyShopScreen = () => {
         </Link>
         :
         <div>
+          
+          <div className="edit-stream-button">
 
           {/* Edit Product */}
 
@@ -110,13 +110,15 @@ const MyShopScreen = () => {
             </span>
           </Link>
 
+          </div>
+
 
           {/* Product List */}
 
-          <div className="Product">
-            <h2 align="center">Product List</h2>
+          <div className="productscreen">
+            <h2 align="center" className="label">Product List</h2>
 
-            <div className="productList">
+            <div className="productlist">
 
               {shopProducts.map((shopProduct) => (
                 <Link to={`/myshop/editproduct/${shopProduct._id}`} key={shopProduct._id} className="products"> {/* The Link "to" should go to your edit product page. */}
@@ -126,11 +128,11 @@ const MyShopScreen = () => {
 
             </div>
 
-            <center>
+            <div className="edit-stream-button">
               <Link to={'/myshop/addproduct'} className="Link" type="button">
-                <h2>Add product</h2>
+                <span>Add product</span>
               </Link>
-            </center>
+            </div>
 
           </div>
 
