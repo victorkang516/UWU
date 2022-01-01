@@ -32,6 +32,11 @@
   margin-bottom: 1rem;
 }
 
+.cartscreen-header2 {
+  margin-bottom: 1rem;
+  padding-top: 20px;
+}
+
 .cartscreen-content {
   display: flex;
 }

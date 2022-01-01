@@ -90,6 +90,34 @@
     cursor: pointer;
     margin: 10px;
   }
+
+  .message-content {
+    width: max-content;
+    height: min-content;
+    background-color: white;
+    z-index: 150;
+    padding: 30px;
+  
+    display: flex;
+    flex-direction: column;
+  
+    justify-content: center;
+    /* align-items: center; */
+  }
+  
+  .message-content > h2 {
+    font-size: 1.0em;
+    margin-bottom: 12px;
+  }
+  
+  .message-content > button {
+    border: none;
+    padding: 10px 16px;
+    background-color: rgb(0, 206, 45);
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+  }
   
   
   

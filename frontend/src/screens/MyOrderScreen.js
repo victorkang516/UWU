@@ -2,15 +2,19 @@ import './MyOrderScreen.css';
 import CartItem from '../components/CartItem';
 import { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import HistoryItem from '../components/HistoryItem';
 
 const userData = JSON.parse(localStorage.getItem("userData"));
 
 const MyOrderScreen = () => {
 
   const [loading, setLoading] = useState(true);
+  const [ploading, setPloading] = useState(true);
 
   const [orders, setOrders] = useState([]);
   const [totalPrice, settotalPrice] = useState(0);
+
+  const [porders, setPorders] = useState([]);
 
   const fetchData = async () =>{
     try{
@@ -26,8 +30,22 @@ const MyOrderScreen = () => {
     }
   }
 
+  const fetchPdata = async () => {
+    try {
+    const response = await fetch(`http://localhost:5000/orders/paid/${userData.userId}`);
+    const result = await response.json();
+    
+      setPorders(result);
+      setPloading(false);
+      console.log(result);
+    } catch (error){
+    console.log(error);
+    }
+  }
+    
   useEffect(() => {
     fetchData();
+    fetchPdata();
   }, []);
 
   const removeOrder = (id) => {
@@ -41,7 +59,7 @@ const MyOrderScreen = () => {
   }
 
   
-  if (loading) {
+  if (loading && ploading) {
     return <div className="loadingscreen">
       <div className="loading"></div>
     </div>
@@ -73,7 +91,18 @@ const MyOrderScreen = () => {
         </div>
       </div>
     </div>
-    
+    <h2 className="cartscreen-header2">Order History</h2>
+    <div className="cartscreen-content">
+      <div className="cartscreen-left">
+        {
+          porders.map((order)=>{
+
+            return <HistoryItem key={order._id} {...order} /> 
+            console.log("quantity:"+order.quantity)
+          })
+        }
+      </div>
+      </div>
   </div>
 }
 
