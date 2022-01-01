@@ -106,7 +106,7 @@ const MyShopScreen = () => {
           <Link to="/streamingseller" className="Link" type="button">
             <i className="fa fa-video-camera" aria-hidden="true"></i>
             <span>
-              Start Streaming
+              Start Streamingdcz
             </span>
           </Link>
 
@@ -119,7 +119,7 @@ const MyShopScreen = () => {
             <div className="productList">
 
               {shopProducts.map((shopProduct) => (
-                <Link to={`/`} key={shopProduct._id} className="products"> {/* The Link "to" should go to your edit product page. */}
+                <Link to={`/myshop/editproduct/${shopProduct._id}`} key={shopProduct._id} className="products"> {/* The Link "to" should go to your edit product page. */}
                   <Product {...shopProduct} />                             {/* Reuse Product componenet from HomePage */}
                 </Link>
               ))}
@@ -128,7 +128,7 @@ const MyShopScreen = () => {
 
             <center>
               <Link to={'/myshop/addproduct'} className="Link" type="button">
-                <h2>Add product</h2>
+                <h2>Add product1212</h2>
               </Link>
             </center>
 
