@@ -11,7 +11,7 @@ import Loading from '../components/Loading';
 const userData = JSON.parse(localStorage.getItem("userData"));
 
 
-const MyShopAddProductScreen = (props) => {
+const MyShopEditProductScreen = (props) => {
         let { id } = useParams();
         let url = `http://localhost:5000/myshop/editproduct/${id}`; 
 
@@ -181,7 +181,7 @@ const MyShopAddProductScreen = (props) => {
             }
         }
 
-        const onDelete = () => {
+        const onDelete = (event) => {
           axios.delete(`http://localhost:5000/products/${id}`)
             .then(res => {
               alert("Successfully deleted product!");
@@ -273,4 +273,4 @@ const MyShopAddProductScreen = (props) => {
 }
 
 
-export default MyShopAddProductScreen
+export default MyShopEditProductScreen
