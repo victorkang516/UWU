@@ -1,16 +1,20 @@
 import './MyProfileScreen.css';
-import { useEffect, useState } from "react";
+import {useEffect, useState, useRef} from "react";
 import auth from "../authentication/auth";
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom'
 
 const MyProfileScreen = () => {
+    const inputFileRef = useState(null);
     const [loading, setLoading] = useState(true);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
+    const [profilePhoto, setProfilePhoto] = useState('');
+    const [photo, setPhoto] = useState('');
+    const [imageHash, setImageHash] = useState('');
 
     const onEmailChange = (event) => {
         setEmail(event.currentTarget.value);
@@ -32,6 +36,10 @@ const MyProfileScreen = () => {
         setPhone(event.currentTarget.value);
     }
 
+    const onPhotoChange = (e) => {
+        setPhoto(e.target.files[0]);
+    }
+
     const fetchAccountInformation = async () => {
         try {
             if (auth.isAuthenticated()) {
@@ -43,6 +51,8 @@ const MyProfileScreen = () => {
                     setEmail(result.email);
                     setPhone(result.phone);
                     setAddress(result.address);
+                    setProfilePhoto(result.imgUrl);
+                    setImageHash(Date.now());
                 } else {
                     throw "Data error";
                 }
@@ -58,42 +68,51 @@ const MyProfileScreen = () => {
     const onSubmit = (event) => {
         event.preventDefault();
 
-        if (email !== "" && password !== "" && name !== "" && address !== "" && phone !== "") {
+        if (email !== "" && name !== "" && address !== "" && phone !== "") {
             const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
             if (email && regex.test(email) !== false) {
-                if (password.length > 6) {
-                    const phoneregex = /^\+60\d{2}(\d{7}|\d{8})$/;
-                    if (phoneregex.test(phone)) {
-                        const user = {
-                            email: email,
-                            password: password,
-                            name: name,
-                            address: address,
-                            phone: phone
-                        };
+                const phoneregex = /^\+60\d{2}(\d{7}|\d{8})$/;
+                if (phoneregex.test(phone)) {
+                    const formData = new FormData();
+                    console.log(name);
 
-                        axios.put(`http://localhost:5000/users/${auth.getUserData().userId}`, user)
-                            .then(res => {
-                                console.log(res);
-                                alert("your information has been updated!");
+                    formData.append('email', email);
+                    formData.append('password', password);
+                    formData.append('name', name);
+                    formData.append('address', address);
+                    formData.append('phone', phone);
+                    formData.append('profile_pic', photo);
 
-                            }).catch(error => {
+                    axios.put(`http://localhost:5000/users/${auth.getUserData().userId}`, formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }).then(res => {
+                        if (res.data.img) {
+                            setImageHash(Date.now());
+                            setProfilePhoto(res.data.img);
+                        }
 
-                                console.log(error);
-                            })
-                    } else {
-                        alert("your phone number should have this format -> +60123456789");
-                    }
+                        alert("your information has been updated!");
+                    }).catch(error => {
+                        console.log(error);
+                    })
+
+                    setPhoto(null);
+                    document.getElementById("imgFile").value = "";
                 } else {
-                    alert("Your password needs to have atleast 7 characters");
+                    alert("your phone number should have this format -> +60123456789");
                 }
             } else {
-                alert("please inser a valid email");
+                alert("please insert a valid email");
             }
         } else {
             alert("Please fill in the blank");
-
         }
+    }
+
+    const onImgClick = () => {
+        inputFileRef.current.click();
     }
 
     useEffect(() => {
@@ -110,8 +129,13 @@ const MyProfileScreen = () => {
         <div className="profile">
             <div className="profile-nav">
                 <div className="user-heading round">
-                    <a href="#">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" />
+                    <a href="#" onClick={onImgClick}>
+                        <img
+                            src={`${process.env.PUBLIC_URL}/images/${profilePhoto}?${imageHash}`}
+                            onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = 'https://bootdey.com/img/Content/avatar/avatar3.png'
+                            }} alt=""/>
                     </a>
                     <h1>{name}</h1>
                     <p>{email}</p>
@@ -123,32 +147,38 @@ const MyProfileScreen = () => {
 
                 <div className="container">
                     <div className="column-1 box">
-                        <form className="form">
+                        <form className="form" method="POST" encType="multipart/form-data">
                             <p type="Name:">
                                 <input type="text" name="name" value={name} onChange={onNameChange}
-                                    placeholder="Full name" required />
+                                       placeholder="Full name" required/>
                             </p>
                             <p type="Email:">
-                                <input type="email" name="name" value={email} onChange={onEmailChange}
-                                    placeholder="Email address" required />
+                                <input type="email" name="email" value={email} onChange={onEmailChange}
+                                       placeholder="Email address" required/>
                             </p>
 
                             <p type="Password:">
                                 <input type="password" name="password" value={password} onChange={onPasswordChange}
-                                    placeholder="Password" required />
+                                       placeholder="Password" required/>
                             </p>
 
                             <p type="Address:">
                                 <input type="text" name="address" value={address} onChange={onAddressChange}
-                                    placeholder="Address" required />
+                                       placeholder="Address" required/>
                             </p>
 
                             <p type="Phone:">
                                 <input type="text" name="phone" value={phone} onChange={onPhoneChange}
-                                    placeholder="Phone" required />
+                                       placeholder="Phone" required/>
                             </p>
 
-                            <br />
+                            <p type="Profile Picture">
+                                <input ref={inputFileRef} id="imgFile" type="file" accept=".png, .jpg, .jpeg"
+                                       name="photo"
+                                       onChange={onPhotoChange}/>
+                            </p>
+
+                            <br/>
 
                             <center>
                                 <button type="submit" className="button3" onClick={onSubmit}>Update</button>
@@ -159,10 +189,12 @@ const MyProfileScreen = () => {
                     <div className="column-2 box">
                         <h1>Membership</h1>
                         <p>
-                            Uwu shopping site membership is an important element of a marketing program designed to build customer loyalty. By applying membership, you can get discounts and offers from us. So apply now!
-                            <br /><br />
+                            Uwu shopping site membership is an important element of a marketing program designed to
+                            build customer loyalty. By applying membership, you can get discounts and offers from us. So
+                            apply now!
+                            <br/><br/>
                             <div className="text-center">
-                                <Link to={'#'} className="Link" type="button">
+                                <Link to={'/membership'} className="Link" type="button">
                                     <span><b>Apply Membership!</b></span>
                                 </Link>
                             </div>

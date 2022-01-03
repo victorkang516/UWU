@@ -23,6 +23,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  imgUrl: {
+    type: String,
+    trim: true,
+    default: "https://bootdey.com/img/Content/avatar/avatar3.png"
+  },
   totalSpent: {
     type: Number,
     default: 0

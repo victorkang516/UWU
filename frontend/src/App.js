@@ -20,6 +20,7 @@ import MyProfileScreen from './screens/MyProfileScreen';
 import StreamingSellerScreen from './screens/StreamingSellerScreen';
 import StreamingBuyerScreen from './screens/StreamingBuyerScreen';
 import CheckOutScreen from './screens/CheckOutScreen';
+import Membership from './screens/Membership';
 
 // Components
 import Navbar from './components/Navbar';
@@ -58,6 +59,8 @@ function App() {
           <ProtectedRoute exact path="/myprofile" component={MyProfileScreen} />
           <ProtectedRoute exact path="/streamingseller" component={StreamingSellerScreen}></ProtectedRoute>
           <ProtectedRoute exact path="/checkout" component={CheckOutScreen}></ProtectedRoute>
+
+          <Route exact path="/membership" component={Membership} /> 
           
           {/* <ProtectedRoute exact path="/" component={HomeScreen} /> */}
 

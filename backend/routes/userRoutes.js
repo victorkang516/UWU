@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const upload = require('../middleware/upload.js');
 
-const { readAllUsers, readUserById, readUserByEmail, createUser, updateUserById, updateUserTotalSpentById, deleteUserById } = require('../controller/userControllers');
+const { readAllUsers, readUserById, readUserByEmail, createUser, updateUserById, deleteUserById } = require('../controller/userControllers');
 
 //@desc GET all users from db
 //@route get /users
@@ -23,9 +24,7 @@ router.post('/', createUser );
 //@desc PUT a user by id into db
 //@route put /users/:id
 //@access -
-router.put('/:id', updateUserById );
-
-router.put('/totalSpent/:id', updateUserTotalSpentById );
+router.put('/:id', upload, updateUserById );
 
 //@desc DELETE a user by id in db
 //@route delete /users/:id
