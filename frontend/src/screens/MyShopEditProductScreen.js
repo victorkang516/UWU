@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react';
 import React from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
 import axios from 'axios';
 import './MyShopEditProductScreen.css';
 import FileUpload from '../components/FileUpload';
@@ -10,10 +11,16 @@ import Loading from '../components/Loading';
 const userData = JSON.parse(localStorage.getItem("userData"));
 
 
-const MyShopAddProductScreen = (props) => {
+const MyShopEditProductScreen = (props) => {
+        let { id } = useParams();
+        let url = `http://localhost:5000/myshop/editproduct/${id}`; 
 
         const [userId] = useState(userData.userId);
         const [productId, setProductId] = useState('');
+
+        const [shopProduct, setShopProduct]= useState(null);
+
+
         const [productName, setProductName] = useState('');
         const [productDescription, setProductDescription] = useState('');
         const [price, setPrice] = useState('');
@@ -25,37 +32,59 @@ const MyShopAddProductScreen = (props) => {
         const [shopId, setShopId] = useState('');
         const [shopName, setShopName] = useState('');
         
-        const [loading, setLoading] = useState(true);
+        const [productLoading, setProductLoading] = useState(true);
+        const [shopLoading, setShopLoading] = useState(true);
         
-        useEffect(() => {
-            const fetchData = async () =>{
-              try{
+        const fetchProductInfo = async () => {
+          try {
+                  const response = await fetch(`http://localhost:5000/products/${id}`);
+                  const result = await response.json();
+  
+                  if (result) {
+                      setProductName(result.name);
+                      setProductDescription(result.description);
+                      setPrice(result.price);
+                      setCountInStock(result.countInStock);
+                      setCategory(result.category);
+
+                  } else {
+                      throw "Data error";
+                  }
+                  setProductLoading(false);
+              
+          } catch (error) {
+              alert("An error has been occurred while trying to fetch product data... Please check console.");
+              console.log(error);
+          }
+      }
+
+      useEffect(() => {
+        fetchProductInfo();
+    }, []);
+
+    const fetchShopInfo = async () => {
+          try{
                 const response = await fetch(`http://localhost:5000/shops/${userData.userId}`);
                 const result = await response.json();
           
-                setShop(result);
-                setLoading(false);
-          
-              } catch(error){
-                console.log(error);
+                if (result) {
+                  setShopId(result._id);
+                  setShopName(result.shopName);
+
+              } else {
+                  throw "Data error";
               }
-              
-              try {
-                const response = await fetch(`http://localhost:5000/products/seller/shop._id`);
-                const result = await response.json();
-                
-                setShopProducts(result);
-                setLoading(false);
+              setShopLoading(false);
+          
+      } catch (error) {
+          alert("An error has been occurred while trying to fetch shop data... Please check console.");
+          console.log(error);
+      }
+  }
 
-                } catch (error){
-                console.log(error);
-                }
-                
-
-            }
-            fetchData();
-            console.log("Fetch Data");
-          }, []);
+  useEffect(() => {
+    fetchShopInfo();
+}, []);
 
           // const setShop = (result) => {
           //   setShopId(result._id);
@@ -130,12 +159,12 @@ const MyShopAddProductScreen = (props) => {
                 countInStock: countInStock,
                 category: category,
                 imageUrl: "https://mpama.com/wp-content/uploads/2017/04/default-image.jpg",
-                shopId: shop._id,
-                shopName: shop.shopName
+                shopId: shopId,
+                shopName: shopName
               };
               
         
-              axios.put('http://localhost:5000/products/:productid', product)
+              axios.put(`http://localhost:5000/products/${id}`, product)
                 .then(res => {
                   alert("Successfully edited product!");
                 props.history.push("/myshop");
@@ -146,15 +175,14 @@ const MyShopAddProductScreen = (props) => {
               }else{
                 alert("Product Price and Count In Stock must not be 0");
               }
-              
-            
+
             } else {
               alert("Please fill in the blanks");
             }
         }
 
-        const onDelete = () => {
-          axios.delete('http://localhost:5000/products/:productid')
+        const onDelete = (event) => {
+          axios.delete(`http://localhost:5000/products/${id}`)
             .then(res => {
               alert("Successfully deleted product!");
               props.history.push("/myshop");
@@ -168,11 +196,10 @@ const MyShopAddProductScreen = (props) => {
 
 
            
-        if (loading)
-        {
+        // If data not loaded yet, display loading sign
+        if (shopLoading || productLoading) {
           return <Loading />
         }
-
 
 
     return (
@@ -198,7 +225,7 @@ const MyShopAddProductScreen = (props) => {
               
             <div className="form-input">
               <label>Product Description: </label>
-              <input name="productDesc" value={productDescription} onChange={onProductDescChange} required />
+              <input name="productDesc" value={productDescription} onChange={onProductDescChange}  required />
             </div>
   
             <div className="form-input">
@@ -246,4 +273,4 @@ const MyShopAddProductScreen = (props) => {
 }
 
 
-export default MyShopAddProductScreen
+export default MyShopEditProductScreen
