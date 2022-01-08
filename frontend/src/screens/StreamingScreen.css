@@ -1,5 +1,5 @@
 /* Common css */
-.btn {
+.uwu-btn {
   width: 100%;
 
   border: none;
@@ -7,19 +7,59 @@
   background-color: rgb(233,133,0);
   color: white;
   cursor: pointer;
+
+  margin: 3px;
 }
 
-.btn:hover {
+.uwu-btn:hover {
   background-color: rgb(255, 181, 85);
   color: white;
 }
 
-.btn-red {
+.uwu-btn:disabled {
+  background-color: rgb(219, 198, 170);
+  color: white;
+  cursor: default;
+}
+
+.uwu-btn-red {
   background-color: rgb(134, 0, 0);
 }
 
-.btn-red:hover {
+.uwu-btn-red:hover {
   background-color: rgb(196, 0, 0);
+}
+
+.uwu-btn-red:disabled {
+  background-color: rgb(226, 172, 172);
+}
+
+.uwu-btn-yellow {
+  background-color: rgb(15, 0, 70);
+}
+
+.uwu-btn-yellow:hover {
+  background-color: rgb(3, 0, 190);
+}
+
+.uwu-btn-yellow:disabled {
+  background-color: rgb(153, 136, 214);
+}
+
+.uwu-input {
+  width: 100%;
+  padding: 10px;
+  margin: 3px;
+}
+
+.uwu-select {
+  width: 100%;
+  padding: 10px;
+}
+
+.uwu-select > option {
+  font-weight: 50;
+  font-size: 1.0rem;
 }
 
 .center {
@@ -38,6 +78,23 @@
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+}
+
+.auction-win-message {
+  background-color: rgb(128, 255, 0);
+  padding: 1rem 0rem;
+
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+
+  animation-name: win-animation;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes win-animation {
+  0% {background-color: rgb(128, 255, 0);}
+  50% {background-color:rgb(229, 255, 0);}
 }
 
 /* top panel */
@@ -93,10 +150,13 @@
   flex: 2;
 
   display: flex;
-  align-self: flex-start;
-  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  flex-direction: column;
 
-  margin-top: 1rem;
+  overflow:hidden;
+  display:block;
+  background-color: black;
 }
 
 .sections {
@@ -117,7 +177,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-
 }
 
 .setupSection > div {
@@ -131,17 +190,8 @@
   padding: 10px 20px;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   border-bottom: 1px solid rgb(0,0,0, 0.2);
-}
 
-.setupSection > div > input {
-  width: 100%;
-  margin-top: 20px;
-  padding: 10px;
-}
-
-.setupSection > div > select {
-  width: 100%;
-  padding: 10px;
+  margin-bottom: 20px;
 }
 
 
@@ -172,7 +222,7 @@
 
 .streaming-shop .streaming-shop-body .streaming-shelf {
   position: relative;
-  width: 60%;
+  width: 40%;
   margin: 1rem auto;
 }
 
@@ -226,190 +276,32 @@
   padding: 10px;
 }
 
-.productOnSale-makeorder {
+.uwu-auctiontimer {
   display: flex;
-  text-align: center;
-
   align-items: center;
-}
-
-.productOnSale-makeorder > input {
-  padding: 8px;
-  margin: 0px 20px;
-}
-
-.infobox {
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0,0,0,0.5);
-  z-index: 100;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
   justify-content: center;
-  align-items: center;
-}
-
-.infobox-content {
-  width: 60%;
-  height: min-content;
-  background-color: white;
-  z-index: 150;
-  padding: 30px;
-
-  display: flex;
   flex-direction: column;
 
-  justify-content: center;
-  /* align-items: center; */
-}
-
-.infobox-content > h2 {
-  font-size: 1.0em;
-  margin-bottom: 12px;
-}
-
-.infobox-content > .productList {
-  display: flex;
-  width: 100%;
-
-  overflow-x: scroll; /* Hide horizontal scrollbar */
-  overflow-y: hidden; /* Add vertical scrollbar */
-}
-
-.message {
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0,0,0,0.5);
-  z-index: 100;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.message-content {
-  width: max-content;
-  height: min-content;
-  background-color: white;
-  z-index: 150;
-  padding: 30px;
-
-  display: flex;
-  flex-direction: column;
-
-  justify-content: center;
-  /* align-items: center; */
-}
-
-.message-content > h2 {
-  font-size: 1.0em;
-  margin-bottom: 12px;
-}
-
-.message-content > button {
-  border: none;
-  padding: 10px 16px;
-  background-color: rgb(0, 206, 45);
+  padding: 20px;
+  background-color: rgb(0, 0, 0);
   color: white;
-  cursor: pointer;
-  margin-top: 20px;
 }
 
-
-/* Comment */
-.commentSection {
-  display: flex;
-  flex-direction: column;
+.uwu-auctiontimer-title {
+  font-weight: bolder;
+  font-size: 1.0rem;
 }
 
-.commentSection > h2 {
-  width: 100%;
-  padding: 10px 20px;
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
-  border-bottom: 1px solid rgb(0,0,0, 0.2);
+.uwu-auctiontimer-time {
+  font-weight: bolder;
+  font-size: 3.0rem;
+
+  animation-name: timer-animation;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
 }
 
-.commentSection .comment-body {
-  height: 200px;
-  position: relative;
-}
-
-.commentSection .comment-body .comment-container {
-  width: 100%;
-  height: 100%;
-  padding: 10px 10px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-
-.commentSection .comment-body .comment {
-  height: auto;
-  padding: 5px;
-  display: flex;
-}
-
-.commentSection .comment-body .comment .comment-content {
-  width: auto;
-  height: auto;
-  min-height: 10px;
-  max-width: 100%;
-  border-radius: 5px;
-  display: grid;
-  grid-template-columns: 100px auto;
-  padding: 0px 5px;
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
-
-.author {
-  color: rgba(0,0,0,0.3);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.comment-footer {
-  height: 40px;
-
-  display: grid;
-  grid-template-columns: 120px auto 50px;
-  align-items: center;
-
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
-  border-bottom: 1px solid rgb(0,0,0, 0.2);
-}
-
-.comment-footer > p {
-  padding: 0px 20px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.comment-footer input {
-  height: 80%;
-  border: 1px solid rgba(0,0,0,0.4);
-  border-radius: 20px;
-  padding: 0 0.7em;
-  font-size: 1em;
-
-  outline: none;
-  font-family: "Open Sans", sans-serif;
-}
-
-.comment-footer button {
-  border: 0;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  flex: 10%;
-  height: 100%;
-  background: transparent;
-  outline: none;
-  font-size: 25px;
-  color: lightgray;
+@keyframes timer-animation {
+  0% {color: rgb(255, 255, 255);}
+  50% {color: rgb(116, 116, 116);}
 }
