@@ -76,6 +76,20 @@ const updateUserById = async (req, res) => {
     }
 }
 
+const updateUserTotalSpentById = async (req, res) => {
+    try {
+      await User.updateOne(
+        { _id: req.params.id },
+        {
+          $set: { totalSpent: req.body.totalSpent }
+        });
+        res.json({ message: "Updated" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Server Error" });
+    }
+}
+
 const deleteUserById = async (req, res) => {
     try {
         const users = await User.deleteOne({_id: req.params.id});
@@ -92,5 +106,6 @@ module.exports = {
     readUserByEmail,
     createUser,
     updateUserById,
+    updateUserTotalSpentById,
     deleteUserById
 }
