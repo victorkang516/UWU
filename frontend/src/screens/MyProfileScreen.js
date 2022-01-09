@@ -3,8 +3,13 @@ import {useEffect, useState, useRef} from "react";
 import auth from "../authentication/auth";
 import axios from 'axios';
 import {Link} from 'react-router-dom'
+import logo from './Membershipgambar.png';
+
 
 const MyProfileScreen = () => {
+
+    
+	
     const inputFileRef = useState(null);
     const [loading, setLoading] = useState(true);
     const [email, setEmail] = useState('');
@@ -15,6 +20,7 @@ const MyProfileScreen = () => {
     const [profilePhoto, setProfilePhoto] = useState('');
     const [photo, setPhoto] = useState('');
     const [imageHash, setImageHash] = useState('');
+    const [totalspent, settotalspent] = useState('');
 
     const onEmailChange = (event) => {
         setEmail(event.currentTarget.value);
@@ -39,6 +45,9 @@ const MyProfileScreen = () => {
     const onPhotoChange = (e) => {
         setPhoto(e.target.files[0]);
     }
+    const ontotalspentChange = (event) => {
+        settotalspent(event.currentTarget.value);
+    }
 
     const fetchAccountInformation = async () => {
         try {
@@ -53,6 +62,8 @@ const MyProfileScreen = () => {
                     setAddress(result.address);
                     setProfilePhoto(result.imgUrl);
                     setImageHash(Date.now());
+                    settotalspent(result.totalSpent);
+                
                 } else {
                     throw "Data error";
                 }
@@ -198,6 +209,9 @@ const MyProfileScreen = () => {
                                     <span><b>Apply Membership!</b></span>
                                 </Link>
                             </div>
+                            <img src={logo} ></img>
+                            <b name="totalspent" onChange={ontotalspentChange}>Your totalspent: {totalspent}</b>
+                            
                         </p>
                     </div>
                 </div>
