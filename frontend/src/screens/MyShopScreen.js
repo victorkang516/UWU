@@ -17,7 +17,6 @@ const MyShopScreen = () => {
   const [shopProducts, setShopProducts] = useState([]);
 
   const [loading, setLoading] = useState(true);
-  const [loadingProducts, setLoadingProducts] = useState(true);
 
 
   useEffect(() => {
@@ -46,7 +45,6 @@ const MyShopScreen = () => {
         const result = await response.json();
 
         setShopProducts(result);
-        setLoadingProducts(false);
 
       } catch (error) {
         console.log("failed fetch shop's products data");
@@ -61,7 +59,7 @@ const MyShopScreen = () => {
 
 
   // If data not loaded yet, display loading sign
-  if (loading || loadingProducts) {
+  if (loading) {
     return <Loading />
   }
 
