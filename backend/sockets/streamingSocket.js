@@ -21,19 +21,19 @@ exports = module.exports = function (socket) {
 
   socket.on("disconnect", () => {
 
-    if (streamer) {
-      socket.to(roomId).emit("streamer_disconnected");
-      console.log("User " + socket.id + " disconnected from streaming " + roomId);
-    } else {
-      socket.to(roomId).emit("disconnectPeer", socket.id);
-      console.log("User " + socket.id + " disconnected from streaming " + roomId);
-    }
+    // if (streamer) {
+    //   socket.to(roomId).emit("streamer_disconnected");
+    //   console.log("User " + socket.id + " disconnected from streaming " + roomId);
+    // } else {
+    //   socket.to(roomId).emit("disconnectPeer", socket.id);
+    //   console.log("User " + socket.id + " disconnected from streaming " + roomId);
+    // }
   });
   
   socket.on("stop_streaming", (data) => {
     socket.to(data.room).emit("receive_comment", data);
     socket.to(data.room).emit("streamer_disconnected");
-    socket.disconnect();
+    //socket.disconnect();
   });
 
   // P2P Connections /////////////////////////////

@@ -74,7 +74,7 @@ const StreamingSellerScreen = () => {
         fetchProduct();
       else
         setProductOnSale(null);
-      
+
       if (streaming.isAuctionEnded)
         setIsAuctionEnded(streaming.isAuctionEnded);
       // For Auction
@@ -182,7 +182,6 @@ const StreamingSellerScreen = () => {
 
     socket.on("streamer_disconnected", () => {
       // Video
-
       var videoElement = document.querySelector("video");
       let stream = videoElement.srcObject;
       if (stream != null) {
@@ -194,21 +193,11 @@ const StreamingSellerScreen = () => {
       peerConnection = null;
 
       // Socket
-      socket.disconnect();
+      //socket.disconnect();
 
-      // Database
-      stopStreaming();
     })
   }, []);
 
-
-  const stopStreaming = async () => {
-    await axios.delete(`http://localhost:5000/streamings/${streamId}`)
-      .then(res => {
-      }).catch(error => {
-        console.log(error);
-      })
-  }
 
   // ----------------------------- Make Order --------------------------------
   // Product
@@ -440,6 +429,9 @@ const StreamingSellerScreen = () => {
                       </div>
                       :
                       <div>
+                        <div className="center grey noselect">
+                          {!isRunning ? "You can only bid after seller start next round." : "Your bid amount must higher than minimum bid."}
+                        </div>
                         <input
                           type="number"
                           value={bid}
