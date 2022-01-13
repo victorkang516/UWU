@@ -6,13 +6,14 @@ import React from 'react';
 import './MyShopOrdersScreen.css';
 import Product from '../components/Product';
 import Loading from '../components/Loading';
+import Orders from '../components/BuyersOrders';
 
 
 const userData = JSON.parse(localStorage.getItem("userData"));
 const MyShopOrdersScreen = () => {
 
     const [shop, setShop] = useState();
-    const [shopProducts, setShopProducts] = useState([]);
+    const [shopOrders , setShopOrders] = useState([]);
   
     const [loading, setLoading] = useState(true);
   
@@ -37,20 +38,21 @@ const MyShopOrdersScreen = () => {
   
   
     useEffect(() => {
-      const fetchShopProducts = async () => { 
+      const fetchShopOrders = async () => { 
         try {
-          const response = await fetch(`http://localhost:5000/products/seller/${shop._id}`); //Add ${} to get variable
+          const response = await fetch(`http://localhost:5000/orders/seller/${shop._id}`); //Add ${} to get variable
           const result = await response.json();
   
-          setShopProducts(result);
+          setShopOrders(result);
+          alert("Success!");
   
         } catch (error) {
-          console.log("failed fetch shop's products data");
+          console.log("failed fetch orders data");
           console.log(error);
         }
       }
       if (shop != null) // Check if the shopData Null
-        fetchShopProducts();
+        fetchShopOrders();
     }, [shop]); // This UseEffect run when the shopData loaded
   
   
@@ -63,10 +65,24 @@ const MyShopOrdersScreen = () => {
   
     return (
   
-      <div className="myshopscreen">
+      <div className="myshoporderscreen">
   
-        
-  
+        TEST
+        {/* Order List */}
+
+          <div className="order-content">
+            <h2 align="center" className="label">Order List</h2>
+
+            <div className="productlist">
+
+              {shopOrders.map((shopOrders) => (
+                  <Orders {...shopOrders} />                             
+              ))}
+
+            </div>
+
+          </div>
+
       </div>
   
     )
