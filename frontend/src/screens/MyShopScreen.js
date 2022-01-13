@@ -107,6 +107,15 @@ const MyShopScreen = () => {
               Start Streaming
             </span>
           </Link>
+          &nbsp;
+
+          {/* View Buyers orders */}
+
+          <Link to="/myshop/orders" className="Link" type="button">
+            <span>
+              View Buyers' Orders
+            </span>
+          </Link>
 
           </div>
 
