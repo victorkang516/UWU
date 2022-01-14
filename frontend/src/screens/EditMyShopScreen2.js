@@ -1,3 +1,4 @@
+import './EditMyShopScreen2.css';
 import { useEffect, useState, useRef } from "react";
 import auth from "../authentication/auth";
 import axios from 'axios';

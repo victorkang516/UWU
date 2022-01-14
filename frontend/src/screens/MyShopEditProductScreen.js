@@ -55,6 +55,7 @@ const MyShopEditProductScreen = (props) => {
           } catch (error) {
               alert("An error has been occurred while trying to fetch product data... Please check console.");
               console.log(error);
+              props.history.push("/myshop");
           }
       }
 
@@ -79,6 +80,7 @@ const MyShopEditProductScreen = (props) => {
       } catch (error) {
           alert("An error has been occurred while trying to fetch shop data... Please check console.");
           console.log(error);
+          props.history.push("/myshop");
       }
   }
 
