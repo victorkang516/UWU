@@ -81,6 +81,7 @@ const EditMyShopScreen = (props) => {
           shopName: shopName,
           shopEmail: shopEmail,
           shopDescription: shopDescription,
+          shopImageUrl: "https://p.kindpng.com/picc/s/9-94468_shop-clipart-hd-png-download.png",
           shopAddress: shopAddress,
           shopPhone: shopPhone
         };

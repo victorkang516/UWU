@@ -69,12 +69,19 @@ const MyShopScreen = () => {
 
       {shop ?
         <div className="welcomeshop">
+
+              <img
+              src={`${process.env.PUBLIC_URL}/images/${shop.shopImageUrl}`}
+              onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = 'https://bootdey.com/img/Content/avatar/avatar3.png'
+              }} alt=""/>
           <p><b>{shop.shopName}</b></p>
           <p>{shop.shopDescription}</p>
           <p>{shop.shopAddress}</p>
           <p>{shop.shopPhone}</p>
           <p>{shop.shopEmail}</p>
-
+          
         </div>
         :
         <div className="welcomeshop" >
@@ -119,7 +126,7 @@ const MyShopScreen = () => {
 
           </div>
 
-
+          
           {/* Product List */}
 
           <div className="productscreen">

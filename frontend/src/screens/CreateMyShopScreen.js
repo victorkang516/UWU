@@ -10,7 +10,7 @@ const CreateMyShopScreen = (props) => {
         const [userId] = useState(userData.userId);
         const [shopName, setShopName] = useState('');
         const [shopDescription, setShopDescription] = useState('');
-        //const [shopImageUrl, setShopImageUrl] = useState('');
+        const [shopImageUrl, setShopImageUrl] = useState('');
         const [shopAddress, setShopAdress] = useState('');
         const [shopPhone, setShopPhone] = useState('');
         const [shopEmail, setShopEmail] = useState('');   
@@ -51,6 +51,7 @@ const CreateMyShopScreen = (props) => {
           userId: userId,
           shopName: shopName,
           shopEmail: shopEmail,
+          shopImageUrl: "https://p.kindpng.com/picc/s/9-94468_shop-clipart-hd-png-download.png",
           shopDescription: shopDescription,
           shopAddress: shopAddress,
           shopPhone: shopPhone

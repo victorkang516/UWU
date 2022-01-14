@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const upload = require('../middleware/upload.js');
+
 
 const { getShopByUserId, getShopByShopId, createShop, updateShop, deleteShop } = require('../controller/shopControllers');
 
@@ -21,7 +23,7 @@ router.post('/', createShop);
 //@desc UPDATE a shop by shopid into db
 //@route put /shops/:shopId
 //@access Public
-router.put('/:shopId', updateShop);
+router.put('/:shopId', upload, updateShop);
 
 //@desc DELETE a shop by shopid in db
 //@route delete /shops/:shopId

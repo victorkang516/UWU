@@ -12,6 +12,7 @@ import ProductScreen from './screens/ProductScreen';
 import MyOrderScreen from './screens/MyOrderScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import MyShopScreen from './screens/MyShopScreen';
+import EditMyShopScreen2 from './screens/EditMyShopScreen2';
 import CreateMyShopScreen from './screens/CreateMyShopScreen';
 import EditMyShopScreen from './screens/EditMyShopScreen';
 import MyShopAddProductScreen from './screens/MyShopAddProductScreen';
@@ -53,7 +54,7 @@ function App() {
           <ProtectedRoute exact path="/myorder" component={MyOrderScreen} />
           <ProtectedRoute exact path="/myshop" component={MyShopScreen} />
           <ProtectedRoute exact path="/myshop/createmyshop" component={CreateMyShopScreen} />
-          <ProtectedRoute exact path="/myshop/editmyshop" component={EditMyShopScreen} />
+          <ProtectedRoute exact path="/myshop/editmyshop" component={EditMyShopScreen2} />
           <ProtectedRoute exact path="/myshop/addproduct" component={MyShopAddProductScreen} />
           <ProtectedRoute exact path="/myshop/editproduct/:id" component={MyShopEditProductScreen} />
           <ProtectedRoute exact path="/myshop/orders" component={MyShopOrdersScreen} />
