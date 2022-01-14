@@ -486,9 +486,11 @@ const StreamingSellerScreen = () => {
   const dbOrderAuctionItemForBidder = () => {
     const order = {
       userId: biddingData.bidderId,
+      shopId: productOnSale.shopId,
       productId: productOnSale._id,
       quantity: 1,
-      shopId: productOnSale.shopId
+      isAuctionItem: true,
+      bidPrice: minimumBid
     };
 
     axios.post('http://localhost:5000/orders', order)

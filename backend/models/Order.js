@@ -23,6 +23,14 @@ const orderSchema = new mongoose.Schema({
   isPaid: {
     type: Boolean,
     default: false
+  },
+  isAuctionItem: {
+    type: Boolean,
+    default: false
+  },
+  bidPrice: {
+    type: Number,
+    default: 0
   }
 });
 

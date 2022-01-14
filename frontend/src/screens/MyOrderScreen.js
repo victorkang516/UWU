@@ -1,8 +1,9 @@
 import './MyOrderScreen.css';
-import CartItem from '../components/CartItem';
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import HistoryItem from '../components/HistoryItem';
+import CartItem from '../components/order/CartItem';
+import HistoryItem from '../components/order/HistoryItem';
+import AuctionItem from '../components/order/AuctionItem';
 
 const userData = JSON.parse(localStorage.getItem("userData"));
 
@@ -16,33 +17,33 @@ const MyOrderScreen = () => {
 
   const [porders, setPorders] = useState([]);
 
-  const fetchData = async () =>{
-    try{
-      
+  const fetchData = async () => {
+    try {
+
       const response = await fetch(`http://localhost:5000/orders/unpaid/${userData.userId}`);
       const result = await response.json();
 
       setOrders(result);
       setLoading(false);
 
-    } catch(error){
+    } catch (error) {
       console.log(error);
     }
   }
 
   const fetchPdata = async () => {
     try {
-    const response = await fetch(`http://localhost:5000/orders/paid/${userData.userId}`);
-    const result = await response.json();
-    
+      const response = await fetch(`http://localhost:5000/orders/paid/${userData.userId}`);
+      const result = await response.json();
+
       setPorders(result);
       setPloading(false);
       console.log(result);
-    } catch (error){
-    console.log(error);
+    } catch (error) {
+      console.log(error);
     }
   }
-    
+
   useEffect(() => {
     fetchData();
     fetchPdata();
@@ -58,7 +59,7 @@ const MyOrderScreen = () => {
     settotalPrice(newTotal);
   }
 
-  
+
   if (loading && ploading) {
     return <div className="loadingscreen">
       <div className="loading"></div>
@@ -69,15 +70,13 @@ const MyOrderScreen = () => {
 
     {/* Header */}
     <h2 className="cartscreen-header">Shopping Cart</h2>
-    
+
     {/* Content */}
     <div className="cartscreen-content">
       <div className="cartscreen-left">
         {
-          orders.map((order)=>{
-
-            return <CartItem key={order._id} {...order} removeOrder = {removeOrder} calculateTotalPrice={calculateTotalPrice} /> 
-            //console.log("quantity:"+order.quantity)
+          orders.filter(order => order.isAuctionItem === false).map((order) => {
+            return <CartItem key={order._id} {...order} removeOrder={removeOrder} calculateTotalPrice={calculateTotalPrice} />
           })
         }
       </div>
@@ -87,22 +86,32 @@ const MyOrderScreen = () => {
           <p>RM{totalPrice}</p>
         </div>
         <div className="cartscreen-info">
-          <p><Link to="/checkout" className="btn btn-primary">Proceed to Checkout</Link></p>
+          <p className='center'><Link to="/checkout" className="uwu-btn">Proceed to Checkout</Link></p>
         </div>
       </div>
     </div>
+
+    <h2 className="cartscreen-header">Auction Cart</h2>
+    <div className="cartscreen-content">
+      <div className="cartscreen-left">
+        {
+          orders.filter(order => order.isAuctionItem === true).map((order) => {
+            return <AuctionItem key={order._id} {...order} />
+          })
+        }
+      </div>
+    </div>
+
     <h2 className="cartscreen-header2">Order History</h2>
     <div className="cartscreen-content">
       <div className="cartscreen-left">
         {
-          porders.map((order)=>{
-
-            return <HistoryItem key={order._id} {...order} /> 
-            console.log("quantity:"+order.quantity)
+          porders.map((order) => {
+            return <HistoryItem key={order._id} {...order} />
           })
         }
       </div>
-      </div>
+    </div>
   </div>
 }
 
