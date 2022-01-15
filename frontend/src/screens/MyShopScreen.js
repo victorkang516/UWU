@@ -131,7 +131,7 @@ const MyShopScreen = (props) => {
           
           {/* Product List */}
             
-                {shopProducts ?
+                {shopProducts.length != 0 ?
                   <div>
                       <div className="productscreen">
                       <h2 align="center" className="label">Product List</h2>
