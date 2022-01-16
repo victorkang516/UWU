@@ -116,7 +116,7 @@ const StreamingSellerScreen = () => {
         peerConnections = {};
 
         // Socket
-        socket.disconnect();
+        //socket.disconnect();
 
       }).catch(error => {
         console.log(error);
@@ -477,7 +477,7 @@ const StreamingSellerScreen = () => {
   }
 
   useEffect(() => {
-    if (isAuctionEnded === true){
+    if (isAuctionEnded === true) {
       dbUpdateAuctionStreaming();
       dbOrderAuctionItemForBidder();
     }
@@ -486,9 +486,11 @@ const StreamingSellerScreen = () => {
   const dbOrderAuctionItemForBidder = () => {
     const order = {
       userId: biddingData.bidderId,
+      shopId: productOnSale.shopId,
       productId: productOnSale._id,
       quantity: 1,
-      shopId: productOnSale.shopId
+      isAuctionItem: true,
+      bidPrice: minimumBid
     };
 
     axios.post('http://localhost:5000/orders', order)
@@ -699,6 +701,7 @@ const StreamingSellerScreen = () => {
                             </div>
                             :
                             <div>
+                              <div className="center grey noselect">{isRunning ? "Wait for someone bids..." : "Buyer will only able to bid after you click next round."}</div>
                               <button onClick={auctionNextRound} className="uwu-btn" disabled={isRunning}>Next Round</button>
                               <button onClick={endAuction} className="uwu-btn uwu-btn-red" disabled={isRunning}>End Auction</button>
                             </div>

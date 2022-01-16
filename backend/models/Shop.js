@@ -14,7 +14,9 @@ const shopSchema = new mongoose.Schema({
     required: true
   },
   shopImageUrl: {
-    type: String
+    type: String,
+    trim: true,
+    default: "https://p.kindpng.com/picc/s/9-94468_shop-clipart-hd-png-download.png"
   },
   shopAddress: {
     type: String,

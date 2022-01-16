@@ -11,7 +11,7 @@ import Loading from '../components/Loading';
 const userData = JSON.parse(localStorage.getItem("userData"));
 
 
-const MyShopScreen = () => {
+const MyShopScreen = (props) => {
 
   const [shop, setShop] = useState();
   const [shopProducts, setShopProducts] = useState([]);
@@ -31,6 +31,7 @@ const MyShopScreen = () => {
       } catch (error) {
         console.log("failed fetch shop data");
         console.log(error);
+        props.history.push("/");
       }
     }
     fetchShopData();
@@ -49,6 +50,7 @@ const MyShopScreen = () => {
       } catch (error) {
         console.log("failed fetch shop's products data");
         console.log(error);
+        props.history.push("/");
       }
     }
     if (shop != null) // Check if the shopData Null
@@ -69,12 +71,19 @@ const MyShopScreen = () => {
 
       {shop ?
         <div className="welcomeshop">
+
+              <img
+              src={`${process.env.PUBLIC_URL}/images/${shop.shopImageUrl}`}
+              onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = 'https://bootdey.com/img/Content/avatar/avatar3.png'
+              }} alt=""/>
           <p><b>{shop.shopName}</b></p>
           <p>{shop.shopDescription}</p>
           <p>{shop.shopAddress}</p>
           <p>{shop.shopPhone}</p>
           <p>{shop.shopEmail}</p>
-
+          
         </div>
         :
         <div className="welcomeshop" >
@@ -107,32 +116,56 @@ const MyShopScreen = () => {
               Start Streaming
             </span>
           </Link>
+          &nbsp;
+
+          {/* View Buyers orders */}
+
+          <Link to="/myshop/orders" className="Link" type="button">
+            <span>
+              View Buyers' Orders
+            </span>
+          </Link>
 
           </div>
 
-
+          
           {/* Product List */}
+            
+                {shopProducts.length != 0 ?
+                  <div>
+                      <div className="productscreen">
+                      <h2 align="center" className="label">Product List</h2>
 
-          <div className="productscreen">
-            <h2 align="center" className="label">Product List</h2>
+                      <div className="productlist">
 
-            <div className="productlist">
+                        {shopProducts.map((shopProduct) => (
+                          <Link to={`/myshop/editproduct/${shopProduct._id}`} key={shopProduct._id} className="products"> {/* The Link "to" should go to your edit product page. */}
+                            <Product {...shopProduct} />                             {/* Reuse Product componenet from HomePage */}
+                          </Link>
+                        ))} 
 
-              {shopProducts.map((shopProduct) => (
-                <Link to={`/myshop/editproduct/${shopProduct._id}`} key={shopProduct._id} className="products"> {/* The Link "to" should go to your edit product page. */}
-                  <Product {...shopProduct} />                             {/* Reuse Product componenet from HomePage */}
-                </Link>
-              ))}
+                        </div>
 
-            </div>
+                    <div className="edit-stream-button">
+                      <Link to={'/myshop/addproduct'} className="Link" type="button">
+                        <span>Add a product!</span>
+                      </Link>
+                    </div>
 
-            <div className="edit-stream-button">
-              <Link to={'/myshop/addproduct'} className="Link" type="button">
-                <span>Add product</span>
-              </Link>
-            </div>
-
-          </div>
+                     
+                    </div>
+                        
+                  </div>
+                  :
+                  <div className="welcomeshop" >
+                    <h1 align="center">You have no products yet!</h1><br></br>
+                      <div className="edit-stream-button">
+                      <Link to={'/myshop/addproduct'} className="Link" type="button">
+                        <span>Add a product!</span>
+                      </Link>
+                    </div>
+                  </div>
+                }
 
 
         </div>

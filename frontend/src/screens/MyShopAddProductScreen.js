@@ -40,7 +40,9 @@ const MyShopAddProductScreen = (props) => {
                 setLoading(false);
           
               } catch(error){
+                alert("An error has been occurred while trying fetch shop data... Please check console.");
                 console.log(error);
+                props.history.push("/myshop");
               }
             }
             fetchData();
@@ -117,7 +119,9 @@ const MyShopAddProductScreen = (props) => {
                 props.history.push("/myshop");
                 console.log(res);
               }).catch(error => {
+                alert("An error has been occurred while trying add product... Please check console.");
                 console.log(error);
+                props.history.push("/myshop");
               });
             }else{
               alert("Product Price and Count In Stock must not be 0");
