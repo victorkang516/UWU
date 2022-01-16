@@ -29,6 +29,7 @@ const MyShopOrdersScreen = () => {
   
         } catch (error) {
           console.log("failed fetch shop data");
+          alert("An error has been occurred while trying to fetch shop data... Please check console.");
           console.log(error);
         }
       }
@@ -44,10 +45,10 @@ const MyShopOrdersScreen = () => {
           const result = await response.json();
   
           setShopOrders(result);
-          alert("Success!");
   
         } catch (error) {
           console.log("failed fetch orders data");
+          alert("An error has been occurred while trying to fetch shop data... Please check console.");
           console.log(error);
         }
       }
@@ -67,7 +68,6 @@ const MyShopOrdersScreen = () => {
   
       <div className="myshoporderscreen">
   
-        TEST
         {/* Order List */}
 
           <div className="order-content">
