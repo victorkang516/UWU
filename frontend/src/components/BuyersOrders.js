@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 const Orders = ({ _id, userId, productId, quantity, isPaid }) => {
 
   const [user, setUser] = useState(null);
+  const [product, setProduct] = useState(null);
+
 
   var orderPaid;
   if (isPaid) {
@@ -25,6 +27,19 @@ const Orders = ({ _id, userId, productId, quantity, isPaid }) => {
     fetchUserData();
   }, [userId])
 
+  useEffect(() => {
+    const fetchProductData = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/products/${productId}`);
+        const result = await response.json();
+        setProduct(result);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchProductData();
+  }, [productId])
+
 
   return (
     <div className="shoporders">
@@ -35,6 +50,20 @@ const Orders = ({ _id, userId, productId, quantity, isPaid }) => {
           <div>
             {/* <p className="info-name">User ID = {userId}</p> */}
             <p className='info-name'>Buyer's name : {user.name}</p>
+            {product ?
+              <div>
+                      <p className="info-name">Product Name : {product.name}</p>
+                      <p className="info-name">Product Quantity : {quantity}</p>
+                      <p className="info-price">Total Price : RM{quantity*product.price}</p>
+
+
+              </div>
+              :
+              <div>
+                      <p className="info-name">Product has been deleted</p>
+
+                </div>
+            }
           </div>
           :
           <div>

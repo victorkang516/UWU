@@ -23,7 +23,9 @@ const productSchema = new mongoose.Schema({
   },
   imageUrl: {
     type: String,
-    required: true
+    required: true,
+    trim: true,
+    default:  "https://mpama.com/wp-content/uploads/2017/04/default-image.jpg"
   },
   shopId: {
     type: String,

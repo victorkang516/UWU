@@ -1,5 +1,5 @@
 .shoporders {
-    width: 100%;
+  width: 100%;
   padding: 1rem;
   margin: 0;
   display: grid;
@@ -7,7 +7,19 @@
   gap: 8px;
   background-color: white;
   border-radius: 2px;
-  place-items: center;
+  place-items: justify;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  align-items: justify;
   }
+
+  .orders-info > p{
+    align-items: center;
+
+  }
+
+  .info-price {
+    font-weight: bold;
+    color: rgb(233,133,0);
+  }
+  
   
