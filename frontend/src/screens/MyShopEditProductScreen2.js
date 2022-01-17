@@ -142,7 +142,7 @@ const MyShopEditProductScreen2 = (props) => {
     return (
         <div className="profile">
             <div className="account-information">
-                <h1 className="text-center">Edit Product</h1>
+                <h1 className="text-center">Edit Product (Dont edit/delete product yet)</h1>
 
                 <div className="container" >
                     <div className="column-1 box" >
