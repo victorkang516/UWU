@@ -35,6 +35,7 @@ const getAllProductsByShopId = async (req, res) => {
 
 const createProduct = async (req, res) => {
   try {
+    
     const product = await Product.create(req.body);
 
     res.json(product);
@@ -44,6 +45,39 @@ const createProduct = async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 }
+
+// const createProduct = async (req, res) => {
+//   try {
+//     let imgPath = '';
+//     const data = {
+//       name: req.body.name, 
+//       description: req.body.description, 
+//       price: req.body.price,
+//       countInStock: req.body.countInStock,
+//       category: req.body.category,
+//       shopId: req.body.shopId,
+//       shopName: req.body.shopName
+//     };
+
+//     console.log(req.params);
+
+//     if (req.fileValidationError) {
+//         res.status(400).json({message: req.fileValidationError});
+//     }
+
+//     if (req.file) {
+//         data['imageUrl'] = req.file.filename;
+//     }
+
+//     await Product.create(data);
+
+//     res.json({message: "Created", img: data.imageUrl});
+// } catch (error) {
+//     console.error(error);
+//     res.status(500).json({message: "Server Error"});
+// }
+// }
+
 
 // const updateProduct = async (req, res) => {
 //   try {
@@ -80,7 +114,7 @@ const updateProduct = async (req, res) => {
           data['imageUrl'] = req.file.filename;
       }
 
-      await Product.findByIdAndUpdate({_id: req.params.productId}, data);
+      await Product.findByIdAndUpdate({_id: req.params.id}, data);
 
       res.json({message: "Updated", img: data.imageUrl});
   } catch (error) {

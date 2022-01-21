@@ -23,7 +23,7 @@ router.get('/seller/:shopId', getAllProductsByShopId);
 //@desc INSERT a product into db
 //@route post /products/
 //@access Public
-router.post('/', createProduct);
+router.post('/', upload , createProduct);
 
 //@desc UPDATE a product into db
 //@route put /products/:id
