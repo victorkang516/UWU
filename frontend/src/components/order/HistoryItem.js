@@ -7,7 +7,7 @@ const CartItem = ({quantity, productId}) => {
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const [imageUrl, setImageUrl] = useState('');
 
   const fetchData = async () =>{
     try{
@@ -15,6 +15,7 @@ const CartItem = ({quantity, productId}) => {
       const result = await response.json();
 
       setProduct(result);
+      setImageUrl(result.imageUrl);
       setLoading(false);
 
     } catch(error){
@@ -33,7 +34,12 @@ const CartItem = ({quantity, productId}) => {
   return (
     <div className="cartitem">
       <div className="cartitem-image">
-        <img src={product.imageUrl} alt="img"></img>
+      <img
+        src={`${process.env.PUBLIC_URL}/images/${imageUrl}?${Date.now()}`}
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = 'https://static.vecteezy.com/system/resources/previews/004/945/593/non_2x/empty-price-tag-icon-shopping-product-label-sign-and-symbol-free-vector.jpg'
+        }} alt="" />
       </div>
 
       <Link to={`/product/${productId}`} className="cartitem-name">

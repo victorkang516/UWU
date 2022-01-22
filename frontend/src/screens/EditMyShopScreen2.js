@@ -62,6 +62,7 @@ const EditMyShopScreen2 = (props) => {
         } catch (error) {
             alert("An error has been occurred while trying to fetch data... Please check console.");
             console.log(error);
+            props.history.push("/myshop");
         }
     }
 

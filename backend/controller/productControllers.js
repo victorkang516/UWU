@@ -33,31 +33,97 @@ const getAllProductsByShopId = async (req, res) => {
   }
 }
 
+// const createProduct = async (req, res) => {
+//   try {
+    
+//     const product = await Product.create(req.body);
+
+//     res.json(product);
+
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Server Error" });
+//   }
+// }
+
 const createProduct = async (req, res) => {
   try {
-    const product = await Product.create(req.body);
+    let imgPath = '';
+    const data = {
+      name: req.body.name, 
+      description: req.body.description, 
+      price: req.body.price,
+      countInStock: req.body.countInStock,
+      category: req.body.category,
+      shopId: req.body.shopId,
+      shopName: req.body.shopName
+    };
 
-    res.json(product);
+    console.log(req.params);
 
-  } catch (error) {
+    if (req.fileValidationError) {
+        res.status(400).json({message: req.fileValidationError});
+    }
+
+    if (req.file) {
+        data['imageUrl'] = req.file.filename;
+    }
+
+    await Product.create(data);
+
+    res.json({message: "Created", img: data.imageUrl});
+} catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Server Error" });
-  }
+    res.status(500).json({message: "Server Error"});
 }
+}
+
+
+// const updateProduct = async (req, res) => {
+//   try {
+//     const product = await Product.replaceOne({ _id: req.params.id }, req.body);
+
+//     res.json({ message: "Data update successfully" });
+
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Server Error" });
+//   }
+// }
 
 const updateProduct = async (req, res) => {
   try {
-    const product = await Product.replaceOne({ _id: req.params.id }, req.body);
+      let imgPath = '';
+      const data = {
+        name: req.body.name, 
+        description: req.body.description, 
+        price: req.body.price,
+        countInStock: req.body.countInStock,
+        category: req.body.category,
+        shopId: req.body.shopId,
+        shopName: req.body.shopName
+      };
 
-    res.json({ message: "Data update successfully" });
+      console.log(req.params);
 
+      if (req.fileValidationError) {
+          res.status(400).json({message: req.fileValidationError});
+      }
+
+      if (req.file) {
+          data['imageUrl'] = req.file.filename;
+      }
+
+      await Product.findByIdAndUpdate({_id: req.params.id}, data);
+
+      res.json({message: "Updated", img: data.imageUrl});
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server Error" });
+      console.error(error);
+      res.status(500).json({message: "Server Error"});
   }
 }
 
-// MyShopScreen? - If seller want to modify the current stock status
+
 const updateProductStock = async (req, res) => {
   try {
     const product = await Product.updateOne(

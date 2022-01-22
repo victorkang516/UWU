@@ -23,6 +23,7 @@ const ProductScreen = (props) => {
   const [inStock, setInStock] = useState(true);
 
 
+
   const fetchData = async () =>{
     try{
       const response = await fetch(url);
@@ -76,7 +77,12 @@ const ProductScreen = (props) => {
   return <div className="productscreen">
     <div className="productscreen-left">
       <div className="left-image">
-        <img src={product.imageUrl} alt="product_image"></img>
+      <img
+        src={`${process.env.PUBLIC_URL}/images/${product.imageUrl}?${Date.now()}`}
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = 'https://static.vecteezy.com/system/resources/previews/004/945/593/non_2x/empty-price-tag-icon-shopping-product-label-sign-and-symbol-free-vector.jpg'
+        }} alt="" />
       </div>
 
       <div className="left-info">
