@@ -9,6 +9,7 @@ const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder, calcul
   const [qty, setQty] = useState(quantity);
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [imageUrl, setImageUrl] = useState('');
 
   const onquantityChange = (event) =>{
     setQty(event.target.value)
@@ -46,11 +47,12 @@ const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder, calcul
 
   const fetchData = async () =>{
     try{
-      const response = await fetch(`http://localhost:5000/products/${productId}`)
+
+      const response = await fetch(`http://localhost:5000/products/${productId}`);
       const result = await response.json();
 
       setProduct(result);
-      setLoading(false);
+      setImageUrl(result.imageUrl);
 
     } catch(error){
       console.log(error);
@@ -59,7 +61,7 @@ const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder, calcul
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [productId]);
 
   useEffect(() => {
     updateData();
@@ -72,6 +74,11 @@ const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder, calcul
       calculateSubTotal();
   }, [product]);
 
+  useEffect(() => {
+    if (imageUrl!='')
+      setLoading(false);
+  },[imageUrl]);
+
 
   if (loading){
     return <div></div>
@@ -80,7 +87,12 @@ const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder, calcul
   return (
     <div className="cartitem">
       <div className="cartitem-image">
-        <img src={product.imageUrl} alt="img"></img>
+      <img
+        src={`${process.env.PUBLIC_URL}/images/${imageUrl}?${Date.now()}`}
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = 'https://static.vecteezy.com/system/resources/previews/004/945/593/non_2x/empty-price-tag-icon-shopping-product-label-sign-and-symbol-free-vector.jpg'
+        }} alt="" />
       </div>
 
       <Link to={`/product/${productId}`} className="cartitem-name">

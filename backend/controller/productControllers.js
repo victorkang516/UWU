@@ -33,50 +33,50 @@ const getAllProductsByShopId = async (req, res) => {
   }
 }
 
-const createProduct = async (req, res) => {
-  try {
-    
-    const product = await Product.create(req.body);
-
-    res.json(product);
-
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server Error" });
-  }
-}
-
 // const createProduct = async (req, res) => {
 //   try {
-//     let imgPath = '';
-//     const data = {
-//       name: req.body.name, 
-//       description: req.body.description, 
-//       price: req.body.price,
-//       countInStock: req.body.countInStock,
-//       category: req.body.category,
-//       shopId: req.body.shopId,
-//       shopName: req.body.shopName
-//     };
+    
+//     const product = await Product.create(req.body);
 
-//     console.log(req.params);
+//     res.json(product);
 
-//     if (req.fileValidationError) {
-//         res.status(400).json({message: req.fileValidationError});
-//     }
-
-//     if (req.file) {
-//         data['imageUrl'] = req.file.filename;
-//     }
-
-//     await Product.create(data);
-
-//     res.json({message: "Created", img: data.imageUrl});
-// } catch (error) {
+//   } catch (error) {
 //     console.error(error);
-//     res.status(500).json({message: "Server Error"});
+//     res.status(500).json({ message: "Server Error" });
+//   }
 // }
-// }
+
+const createProduct = async (req, res) => {
+  try {
+    let imgPath = '';
+    const data = {
+      name: req.body.name, 
+      description: req.body.description, 
+      price: req.body.price,
+      countInStock: req.body.countInStock,
+      category: req.body.category,
+      shopId: req.body.shopId,
+      shopName: req.body.shopName
+    };
+
+    console.log(req.params);
+
+    if (req.fileValidationError) {
+        res.status(400).json({message: req.fileValidationError});
+    }
+
+    if (req.file) {
+        data['imageUrl'] = req.file.filename;
+    }
+
+    await Product.create(data);
+
+    res.json({message: "Created", img: data.imageUrl});
+} catch (error) {
+    console.error(error);
+    res.status(500).json({message: "Server Error"});
+}
+}
 
 
 // const updateProduct = async (req, res) => {
@@ -124,7 +124,6 @@ const updateProduct = async (req, res) => {
 }
 
 
-// MyShopScreen? - If seller want to modify the current stock status
 const updateProductStock = async (req, res) => {
   try {
     const product = await Product.updateOne(
