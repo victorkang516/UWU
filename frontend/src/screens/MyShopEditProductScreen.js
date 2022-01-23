@@ -179,7 +179,6 @@ const MyShopEditProductScreen = (props) => {
                             <div className="form-input" type="Product Category:">
                             <label>Product Category: </label>
                                 <select type="text" name="category" value={category} onChange={onCategoryChange} required>
-                                    <option value selected>Select</option>
                                     <option value="Headphones">Headphones</option>
                                     <option value="Speakers">Speaker</option>
                                     <option value="Smart Device">Smart Device</option>

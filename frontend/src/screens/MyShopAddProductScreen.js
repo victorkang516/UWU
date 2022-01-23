@@ -144,7 +144,6 @@ const MyShopAddProductScreen = (props) => {
                                 <label>Product Category: </label>
                                     <select type="text" name="category" value={category} onChange={onCategoryChange} 
                                     placeholder='Product Category' required>
-                                        <option value selected>Select</option>
                                         <option value="Headphones">Headphones</option>
                                         <option value="Speakers">Speaker</option>
                                         <option value="Smart Device">Smart Device</option>
