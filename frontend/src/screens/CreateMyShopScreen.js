@@ -82,40 +82,54 @@ const CreateMyShopScreen = (props) => {
 
 	return (
         <div className="createmyshopscreen">
+            <div className="account-information1">
+                
 
-          <h1 className="title">Create your shop!</h1>
+                <div className="container1" >
+                    <div className="column-1 box1" >
+                        <form className="form" method="POST" encType="multipart/form-data">
+                            <h1 className="text-center">Create My Shop</h1>
+                            
+                            <div className="form-input" type="Shop Name:">              
+                            <label>Shop Name: </label>
+                                <input type="text" name="name" value={shopName} onChange={onShopNameChange}
+                                    placeholder="Shop name" required />
+                            </div>
+                            <div className="form-input" type="Shop Email:">
+                            <label>Shop Email: </label>
 
-          <form className="register-form">
-            <div className="form-input">
-              <label>Shop Name: </label>
-              <input name="shopName" value={shopName} onChange={onShopNameChange} required />
+                                <input type="text" name="email" value={shopEmail} onChange={onShopEmailChange}
+                                    placeholder="Shop Email" required />
+                            </div>
+                            <div className="form-input" type="Shop Description:">
+                            <label>Shop Description: </label>
+
+                                <input type="text" name="description" value={shopDescription} onChange={onShopDescChange}
+                                    placeholder="Shop Description" required />
+                            </div>
+
+                            <div className="form-input" type="Shop Address:">
+                            <label>Shop Address: </label>
+
+                                <input type="text" name="address" value={shopAddress} onChange={onShopAddressChange}
+                                    placeholder="Shop Address" required />
+                            </div>
+                            <div className="form-input" type="Shop Phone:">
+                            <label>Shop Phone: </label>
+
+                                <input type="text" name="phone" value={shopPhone} onChange={onShopPhoneChange}
+                                    placeholder="Shop Phone" required />
+                            </div>
+                            
+
+                            <center>
+                                <button type="submit" className="button" onClick={onSubmit}>Create</button>
+                            </center>
+                        </form>
+                    </div>
+                </div>
             </div>
-              
-            <div className="form-input">
-              <label>Shop Email: </label>
-              <input type="email" name="shopEmail" value={shopEmail} onChange={onShopEmailChange} required />
-            </div>
-  
-            <div className="form-input">
-              <label>Shop Description: </label>
-              <input name="shopDescription" value={shopDescription} onChange={onShopDescChange} required />
-            </div>
-  
-            <div className="form-input">
-              <label>Shop Address: </label>
-              <input name="shopAddress" value={shopAddress} onChange={onShopAddressChange} required />
-            </div>
-  
-            <div className="form-input">
-              <label>Shop Phone: </label>
-              <input name="shopPhone" value={shopPhone} onChange={onShopPhoneChange} required />
-            </div>
-  
-            <div className="form-input">
-              <button type="submit" onClick={onSubmit}>Register</button>
-            </div>
-          </form>
-      </div>
+        </div>
 	)
 	
 	

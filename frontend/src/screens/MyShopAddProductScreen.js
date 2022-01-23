@@ -1,212 +1,186 @@
-import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react';
-import React from 'react';
-import axios from 'axios';
 import './MyShopAddProductScreen.css';
-import FileUpload from '../components/FileUpload';
+import React from 'react';
+import { useEffect, useState, useRef } from "react";
+import axios from 'axios';
 import Loading from '../components/Loading';
-import Product from '../components/Product';
-
-
 
 const userData = JSON.parse(localStorage.getItem("userData"));
 
-
 const MyShopAddProductScreen = (props) => {
 
-        const [categories, setCategories] = useState(["All"]);
+    const inputFileRef = useState(null);
+    const [photo, setPhoto] = useState('');
+
+    const [productName, setProductName] = useState('');
+    const [productDescription, setProductDescription] = useState('');
+    const [price, setPrice] = useState('');
+    const [countInStock, setCountInStock] = useState('');
+    const [category, setCategory] = useState('');
+    const [shopId, setShopId] = useState('');
+    const [shopName, setShopName] = useState('');
+
+    const [loading, setLoading] = useState(true);
 
 
-        const [userId] = useState(userData.userId);
-        const [productName, setProductName] = useState('');
-        const [productDescription, setProductDescription] = useState('');
-        const [price, setPrice] = useState('');
-        const [countInStock, setCountInStock] = useState('');
-        const [category, setCategory] = useState('');
-        const [imageUrl, setImageUrl] = useState([])
+    const onProductNameChange = (event) => {
+        setProductName(event.currentTarget.value);
+    }
 
-        const [shopId, setShopId] = useState('');
-        const [shopName, setShopName] = useState('');
-        
-        const [loading, setLoading] = useState(true);
-        
-        useEffect(() => {
-            const fetchData = async () =>{
-              try{
+    const onProductDescChange = (event) => {
+        setProductDescription(event.currentTarget.value);
+    }
+
+    const onPriceChange = (event) => {
+        setPrice(event.currentTarget.value);
+    }
+
+    const onCountInStockChange = (event) => {
+        setCountInStock(event.currentTarget.value);
+    }
+
+    const onCategoryChange = (event) => {
+        setCategory(event.currentTarget.value);
+    }
+
+    const onPhotoChange = (e) => {
+        setPhoto(e.target.files[0]);
+    }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
                 const response = await fetch(`http://localhost:5000/shops/${userData.userId}`);
                 const result = await response.json();
-          
-                setShopData(result);
+
+                setShopId(result._id); // _id NOT id
+                setShopName(result.shopName);
                 setLoading(false);
-          
-              } catch(error){
-                alert("An error has been occurred while trying fetch shop data... Please check console.");
+
+            } catch (error) {
                 console.log(error);
-                props.history.push("/myshop");
-              }
             }
-            fetchData();
-            console.log("Fetch Data");
-          }, []);
-
-          const setShopData = (result) => {
-             setShopId(result._id);
-             setShopName(result.shopName);
-           }
-
-
-        const onProductNameChange = (event) => {
-            setProductName(event.currentTarget.value);
-          }  
-             
-          const onProductDescChange = (event) => {
-            setProductDescription(event.currentTarget.value);
-          }
-
-          const onPriceChange = (event) => {
-            setPrice(event.currentTarget.value);
-          }
-        
-          const onCountInStockChange = (event) => {
-            setCountInStock(event.currentTarget.value);
-          }
-        
-          const onCategoryChange = (event) => {
-            setCategory(event.currentTarget.value);
-          }
-        
-          // const onProductImageChange = (event) => {
-          //   setProductImage(event.currentTarget.value);
-          // }
-
-          const onImageUrlChange = (newImageUrl) => {
-            setImageUrl(newImageUrl)
         }
+        fetchData();
+        console.log("Fetch Data");
+    }, []);
 
-      //   router.post("/uploadImage", auth, (req, res) => {
+    if (loading) {
+        return <Loading />
+    }
 
-      //     upload(req, res, err => {
-      //         if (err) {
-      //             return res.json({ success: false, err })
-      //         }
-      //         return res.json({ success: true, image: res.req.file.path, fileName: res.req.file.filename })
-      //     })
-      
-      // });
 
-          
+    const onSubmit = (event) => {
+        event.preventDefault();
 
-          const onSubmit = (event) => {
-            event.preventDefault();
-            if (productName !== "" && productDescription !== "" && price !== "" && countInStock !== "" && category !== "" && imageUrl !== "" && shopId !== "" && shopName !== "") {
-              if (price > 0 && countInStock > 0) {
-    
-              const product = {
-                name: productName,
-                description: productDescription,
-                price: price,
-                countInStock: countInStock,
-                category: category,
-                imageUrl: "https://mpama.com/wp-content/uploads/2017/04/default-image.jpg",
-                shopId: shopId,
-                shopName: shopName
-              };
-              
-        
-              axios.post('http://localhost:5000/products', product)
-              .then(res => {
-                alert("Successfully added product!");
-                props.history.push("/myshop");
-                console.log(res);
-              }).catch(error => {
-                alert("An error has been occurred while trying add product... Please check console.");
-                console.log(error);
-                props.history.push("/myshop");
-              });
-            }else{
-              alert("Product Price and Count In Stock must not be 0");
-            }
-            
+        if (productName !== "" && productDescription !== "" && price !== "" && countInStock !== "" && category !== "" && shopId !== "" && shopName !== "") {
+            if (price > 0 && countInStock > 0) {
+
+                const formData = new FormData();
+
+                formData.append('name', productName);
+                formData.append('description', productDescription);
+                formData.append('price', price);
+                formData.append('countInStock', countInStock); // Capital Error (countinstock should be countInStock)
+                formData.append('category', category);
+                formData.append('profile_pic', photo);
+                formData.append('shopId', shopId); // shopId is required
+                formData.append('shopName', shopName); // shopName is required
+
+                axios.post(`http://localhost:5000/products`, formData, { // only submit 1 data object
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then(res => {
+                    alert("Product added successfully.");
+                    props.history.push("/myshop");
+                    
+                }).catch(error => {
+                    console.log(error);
+                    alert("error occured");
+                })
+
+                setPhoto(null);
+                document.getElementById("imgFile").value = "";
+
             } else {
-              alert("Please fill in the blanks");
+                alert("Product Price and Count In Stock must not be 0");
             }
+        } else {
+            alert("Please fill in the blank");
         }
+    }
 
-           
-        if (loading)
-        {
-          return <Loading />
-        }
 
 
     return (
-
         <div className="addproductmyshopscreen">
-            <div className="title">
-                <h2>Add Product</h2>
-            </div>
+            <div className="account-information1">
 
-            <form className="register-form">
+                <div className="container1" >
+                    <div className="column-1 box1" >
+                        
+                        <form className="form" method="POST" encType="multipart/form-data">
+                        <h1 className='title'>Add Product </h1>
 
-            {/* Product Image
-            <div className="form-input">
-              <input type="file" name="myImage" accept="image/*" />
+                            <div className="form-input" type="Product Name:">              
+                                <label>Product Name: </label>
+                                    <input type="text" name="name" value={productName} onChange={onProductNameChange}
+                                        placeholder="Product name" required />
+                                </div>
+                                <div className="form-input" type="Product Description:">
+                                <label>Product Description: </label>
 
-               <FileUpload refreshFunction={onImageUrlChange} /> 
-            </div> */}
-            
+                                    <input type="text" name="description" value={productDescription} onChange={onProductDescChange}
+                                        placeholder="Product Description" required />
+                                </div>
 
-            <div className="form-input">
-              <label>Product Name: </label>
-              <input name="productName" value={productName} onChange={onProductNameChange} required />
-            </div>
-              
-            <div className="form-input">
-              <label>Product Description: </label>
-              <input name="productDesc" value={productDescription} onChange={onProductDescChange} required />
-            </div>
-  
-            <div className="form-input">
-              <label>Product Count In Stock: </label>
-              <input type="number" 
-                value={countInStock} 
-                onChange={onCountInStockChange} 
-                min="1" 
-                max="100" required />
-            </div>
+                                <div className="form-input" type="Product Price:">
+                                <label>Product Price: </label>
+                                    <input type="number" name="price" value={price} onChange={onPriceChange}
+                                        placeholder="Price" required />
+                                </div>
 
-            <div className="form-input">
-              <label>Product Price: </label>
-              <input type="number" name="productPrice" value={price} onChange={onPriceChange} required />
-            </div>
-  
-            <div className="form-input">
-              <label>Product Category: </label>
-              <label>
-                <select type="text" name="category" value={category} onChange={onCategoryChange} required> 
-                <option value selected>Select</option>
-                <option value="Headphones">Headphones</option>
-                <option value="Speakers">Speaker</option>
-                <option value="Smart Device">Smart Device</option>
-                <option value="Mobile Phone">Mobile Phone</option>
-                <option value="Camera">Camera</option>
-                <option value="Smart Watch">Smart Watch</option>
-                </select>
-              </label>
-                
-              
-            </div>
+                                <div className="form-input" type="Product Category:">
+                                <label>Product Category: </label>
+                                    <select type="text" name="category" value={category} onChange={onCategoryChange} 
+                                    placeholder='Product Category' required>
+                                        <option value selected>Select</option>
+                                        <option value="Headphones">Headphones</option>
+                                        <option value="Speakers">Speaker</option>
+                                        <option value="Smart Device">Smart Device</option>
+                                        <option value="Mobile Phone">Mobile Phone</option>
+                                        <option value="Camera">Camera</option>
+                                        <option value="Smart Watch">Smart Watch</option>
+                                    </select>
+                                </div>
 
-            <div className="form-input">
-              <button type="submit" onClick={onSubmit}>Add Product</button>
+                                <div className="form-input" type="Product Count In Stock:">
+                                <label>Product Count In Stock: </label>
+                                    <input type="number" name="countinstock" placeholder='Count In Stock'
+                                        value={countInStock}
+                                        onChange={onCountInStockChange}
+                                        min="1"
+                                        max="100" required />
+                                </div>
+
+                                <div className="form-input" type="Product Picture">
+                                <label>Product Image: </label>
+                                    <input ref={inputFileRef} id="imgFile" type="file" accept=".png, .jpg, .jpeg"
+                                        name="photo"
+                                        onChange={onPhotoChange} />
+                                </div>
+
+                                <br />
+
+                                <center>
+                                    <button type="submit" className="button" onClick={onSubmit}>Create</button>
+                                </center>
+                        </form>
+                    </div>
+                </div>
             </div>
-          </form>
-            
         </div>
-
     )
-
 }
-
 
 export default MyShopAddProductScreen

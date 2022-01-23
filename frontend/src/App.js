@@ -12,11 +12,10 @@ import ProductScreen from './screens/ProductScreen';
 import MyOrderScreen from './screens/MyOrderScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import MyShopScreen from './screens/MyShopScreen';
-import EditMyShopScreen2 from './screens/EditMyShopScreen2';
+import EditMyShopScreen from './screens/EditMyShopScreen';
 import CreateMyShopScreen from './screens/CreateMyShopScreen';
-import MyShopEditProductScreen2 from './screens/MyShopEditProductScreen2';
-import MyShopAddProductScreen2 from './screens/MyShopAddProductScreen2';
 import MyShopEditProductScreen from './screens/MyShopEditProductScreen';
+import MyShopAddProductScreen from './screens/MyShopAddProductScreen';
 import MyShopOrdersScreen from './screens/MyShopOrdersScreen';
 import MyProfileScreen from './screens/MyProfileScreen';
 import StreamingSellerScreen from './screens/StreamingSellerScreen';
@@ -54,9 +53,9 @@ function App() {
           <ProtectedRoute exact path="/myorder" component={MyOrderScreen} />
           <ProtectedRoute exact path="/myshop" component={MyShopScreen} />
           <ProtectedRoute exact path="/myshop/createmyshop" component={CreateMyShopScreen} />
-          <ProtectedRoute exact path="/myshop/editmyshop" component={EditMyShopScreen2} />
-          <ProtectedRoute exact path="/myshop/addproduct" component={MyShopAddProductScreen2} />
-          <ProtectedRoute exact path="/myshop/editproduct/:id" component={MyShopEditProductScreen2} />
+          <ProtectedRoute exact path="/myshop/editmyshop" component={EditMyShopScreen} />
+          <ProtectedRoute exact path="/myshop/addproduct" component={MyShopAddProductScreen} />
+          <ProtectedRoute exact path="/myshop/editproduct/:id" component={MyShopEditProductScreen} />
           <ProtectedRoute exact path="/myshop/orders" component={MyShopOrdersScreen} />
           <ProtectedRoute exact path="/myprofile" component={MyProfileScreen} />
           <ProtectedRoute exact path="/streamingseller" component={StreamingSellerScreen}></ProtectedRoute>
