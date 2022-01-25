@@ -33,6 +33,7 @@
 }
 
 .info-name {
+  height: 20px;
   font-size: 1rem;
   overflow: hidden;
 }

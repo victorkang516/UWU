@@ -353,7 +353,14 @@ const StreamingSellerScreen = () => {
                 <div className="streaming-shelf">
                   <img src="https://media.istockphoto.com/photos/empty-wooden-shelf-picture-id479473084?k=20&m=479473084&s=170667a&w=0&h=yHxDzAysnHsEmWtyL4dGeAqWGeqtA-EzdiRpBaCvkIE=" alt="shelf" className="shelf"></img>
                   {productOnSale ?
-                    <img src={productOnSale.imageUrl} alt="product" className="streaming-product"></img>
+                    <img
+                      src={`${process.env.PUBLIC_URL}/images/${productOnSale.imageUrl}?${Date.now()}`}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = 'https://static.vecteezy.com/system/resources/previews/004/945/593/non_2x/empty-price-tag-icon-shopping-product-label-sign-and-symbol-free-vector.jpg'
+                      }}
+                      alt=""
+                      className="streaming-product" />
                     :
                     <div className="streaming-noproduct">Nothing on sale</div>
                   }
@@ -403,7 +410,14 @@ const StreamingSellerScreen = () => {
                 <div className="streaming-shelf">
                   <img src={AuctionTablePNG} alt="shelf" className="shelf"></img>
                   {productOnSale ?
-                    <img src={productOnSale.imageUrl} alt="product" className="streaming-product"></img>
+                    <img
+                      src={`${process.env.PUBLIC_URL}/images/${productOnSale.imageUrl}?${Date.now()}`}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = 'https://static.vecteezy.com/system/resources/previews/004/945/593/non_2x/empty-price-tag-icon-shopping-product-label-sign-and-symbol-free-vector.jpg'
+                      }}
+                      alt=""
+                      className="streaming-product" />
                     :
                     <div className="streaming-noproduct">Nothing on auction</div>
                   }
