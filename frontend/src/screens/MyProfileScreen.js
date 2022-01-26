@@ -156,7 +156,7 @@ const MyProfileScreen = () => {
             <div className="account-information">
                 <h1 className="text-center">My Profile</h1>
 
-                <div className="container">
+                <div className="container1">
                     <div className="column-1 box">
                         <form className="form" method="POST" encType="multipart/form-data">
                             <p type="Name:">
@@ -209,7 +209,7 @@ const MyProfileScreen = () => {
                                     <span><b>Apply Membership!</b></span>
                                 </Link>
                             </div>
-                            <img src={logo} ></img>
+                            <img className="logo" src={logo} ></img>
                             <b name="totalspent" onChange={ontotalspentChange}>Your totalspent: {totalspent}</b>
                             
                         </p>
