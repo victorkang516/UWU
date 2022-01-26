@@ -35,10 +35,10 @@
     color: #5a5a5a;
 }
 
-.logo{
-    width: 50%;
-    height: 50%;
+.container1{
+    display: flex;
 }
+
 
 
 .button3 {
