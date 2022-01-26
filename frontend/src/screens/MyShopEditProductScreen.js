@@ -103,7 +103,7 @@ const MyShopEditProductScreen = (props) => {
                     }
                     props.history.push("/myshop");
 
-                    alert("your information has been updated!");
+                    alert("product information has been updated!");
                 }).catch(error => {
                     console.log(error);
                     alert("error occured");
@@ -123,6 +123,7 @@ const MyShopEditProductScreen = (props) => {
     const onDelete = async () => {
         await axios.delete(`http://localhost:5000/products/${id}`)
             .then(res => {
+                alert("Product has been deleted successfully!");
                 props.history.push("/myshop");
             }).catch(error => {
                 console.log(error);
