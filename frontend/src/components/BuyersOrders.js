@@ -6,7 +6,6 @@ const Orders = ({ _id, userId, productId, quantity, isPaid }) => {
   const [user, setUser] = useState(null);
   const [product, setProduct] = useState(null);
 
-
   var orderPaid;
   if (isPaid) {
     orderPaid = "Order paid";
@@ -44,7 +43,7 @@ const Orders = ({ _id, userId, productId, quantity, isPaid }) => {
   return (
     <div className="shoporders">
       <div className="orders-info">
-        <p className="info-name">Order ID : {_id}</p>
+        <p>Order ID : {_id}</p>
 
         {user ? // Some userId's account have been deleted, so thats sometimes why we will get null
           <div>

@@ -75,8 +75,8 @@ const MyShopOrdersScreen = () => {
 
             <div className="productlist">
 
-              {shopOrders.map((shopOrders) => (
-                  <Orders {...shopOrders} />                             
+              {shopOrders.map((shopOrder) => (
+                  <Orders {...shopOrder} key={shopOrder._id} />                             
               ))}
 
             </div>
