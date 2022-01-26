@@ -141,10 +141,10 @@ const MyShopEditProductScreen = (props) => {
         <div className="editproductmyshopscreen">
             <div className="registerform1">
 
-                <div className="container1" >
-                    <div className="column-1 box1" >
+                <div className="container" >
+                    <div className="form1" >
 
-                        <form className="form" method="POST" encType="multipart/form-data">
+                        <form  method="POST" encType="multipart/form-data">
                         <h1 className='title'>Edit Product </h1>
 
                         <div className='form-img'>
@@ -204,13 +204,11 @@ const MyShopEditProductScreen = (props) => {
                                     onChange={onPhotoChange} />
                             </div>
 
-                            <br />
-
-                            <center>
-                                <button type="submit" className="button" onClick={onSubmit}>Update</button>
-                                <button type="delete" className="button" onClick={onDelete}>Delete</button>
-                            </center>
                         </form>
+                        <center>
+                                <button  className="button" onClick={onSubmit}>Update</button>
+                                <button  className="button" onClick={onDelete}>Delete</button>
+                        </center>
                     </div>
                 </div>
             </div>
