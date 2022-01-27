@@ -74,5 +74,48 @@
 <p>Follow this video:https://youtu.be/9a_EuO4g29s </p>
 
 <p>Make sure you have installed node.js. Copy our project github link. Clone it to your pc with Visual Studio Code (anywhere you prefer). </p>
+
 <p>After we succeed to clone the repository, we need to install express js for our backend server:</p>
 <hr>
+
+<p>
+  In your root directory of the project, install express js, mongoose and dotenv.
+  $ npm i express mongoose dotenv
+</p>
+
+<p>
+ Then install some extension:
+$ npm i --save-dev nodemon concurrently
+</p>
+
+<p>What you are doing is installing the packages for our backend server.</p>
+
+<p>After that, we will install react js in the frontend folder:</p>
+<hr>
+
+<p>
+Get into frontend folder
+$ cd frontend
+</p>
+
+<p>
+Install react modules
+$ npm i react
+</p>
+
+<p>
+Install extension
+$ npm i axios react-router-dom
+</p>
+
+<p>
+With these done, we should have completely set up the project. Go back to our root directory.
+$ cd ..
+</p>
+
+<p>
+Now try to run the two server by using this command:
+$ npm run dev
+</p>
+
+You should see our frontend server running on localhost:3000, it will open up in your browser automatically. If not, please tell me so I can help you.
