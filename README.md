@@ -62,3 +62,17 @@
   <li>Products module</li>
   <li>View buyers' orders</li>
 </ul>
+
+<h2>How to Clone, Setup & Run Locally</h2>
+<p>Developer Software Requirements:</p>
+<ul>
+  <li>Install Visual Studio Code</li>
+  <li>Install node.js</li>
+</ul>
+
+<p>Git Repository Link:https://github.com/victorkang516/UWU </p>
+<p>Follow this video:https://youtu.be/9a_EuO4g29s </p>
+
+<p>Make sure you have installed node.js. Copy our project github link. Clone it to your pc with Visual Studio Code (anywhere you prefer). </p>
+<p>After we succeed to clone the repository, we need to install express js for our backend server:</p>
+<hr>
