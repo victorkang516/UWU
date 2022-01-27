@@ -93,29 +93,19 @@ $ npm i --save-dev nodemon concurrently
 <p>After that, we will install react js in the frontend folder:</p>
 <hr>
 
-<p>
-Get into frontend folder
-$ cd frontend
-</p>
+<p>Get into frontend folder</p>
+<p>$ cd frontend</p>
 
-<p>
-Install react modules
-$ npm i react
-</p>
+<p>Install react modules</p>
+<p>$ npm i react</p>
 
-<p>
-Install extension
-$ npm i axios react-router-dom
-</p>
+<p>Install extension</p>
+<p>$ npm i axios react-router-dom</p>
 
-<p>
-With these done, we should have completely set up the project. Go back to our root directory.
-$ cd ..
-</p>
+<p>With these done, we should have completely set up the project. Go back to our root directory.</p>
+<p>$ cd ..</p>
 
-<p>
-Now try to run the two server by using this command:
-$ npm run dev
-</p>
+<p>Now try to run the two server by using this command:</p>
+<p>$ npm run dev</p>
 
 You should see our frontend server running on localhost:3000, it will open up in your browser automatically. If not, please tell me so I can help you.
