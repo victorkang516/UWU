@@ -78,15 +78,11 @@
 <p>After we succeed to clone the repository, we need to install express js for our backend server:</p>
 <hr>
 
-<p>
-  In your root directory of the project, install express js, mongoose and dotenv.
-  $ npm i express mongoose dotenv
-</p>
+<p>In your root directory of the project, install express js, mongoose and dotenv.</p>
+<p>$ npm i express mongoose dotenv</p>
 
-<p>
- Then install some extension:
-$ npm i --save-dev nodemon concurrently
-</p>
+<p>Then install some extension:</p>
+<p>$ npm i --save-dev nodemon concurrently</p>
 
 <p>What you are doing is installing the packages for our backend server.</p>
 
