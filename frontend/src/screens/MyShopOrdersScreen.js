@@ -8,6 +8,8 @@ import Product from '../components/Product';
 import Loading from '../components/Loading';
 import Orders from '../components/BuyersOrders';
 
+import backendUrl from '../service/backendUrl';
+
 
 const userData = JSON.parse(localStorage.getItem("userData"));
 const MyShopOrdersScreen = () => {
@@ -21,7 +23,7 @@ const MyShopOrdersScreen = () => {
     useEffect(() => {
       const fetchShopData = async () => {
         try {
-          const response = await fetch(`http://localhost:5000/shops/${userData.userId}`);
+          const response = await fetch(`${backendUrl}/shops/${userData.userId}`);
           const result = await response.json();
   
           setShop(result);
@@ -41,7 +43,7 @@ const MyShopOrdersScreen = () => {
     useEffect(() => {
       const fetchShopOrders = async () => { 
         try {
-          const response = await fetch(`http://localhost:5000/orders/seller/${shop._id}`); //Add ${} to get variable
+          const response = await fetch(`${backendUrl}/orders/seller/${shop._id}`); //Add ${} to get variable
           const result = await response.json();
   
           setShopOrders(result);

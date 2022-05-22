@@ -2,6 +2,8 @@ import './membership.css';
 import {useEffect, useState, useRef} from "react";
 import auth from "../authentication/auth";
 
+import backendUrl from '../service/backendUrl';
+
 const Membership=()=>{
 	const [rank, setRank] = useState('');
 	const onRankChange = (event) => {
@@ -14,7 +16,7 @@ const Membership=()=>{
 // }
 const fetchData = async () =>{
     try{
-      const response = await fetch(`http://localhost:5000/users/account/${auth.getUserData().userId}`);
+      const response = await fetch(`${backendUrl}/users/account/${auth.getUserData().userId}`);
       const result = await response.json();
 	//   console.log(result);
 

@@ -2,6 +2,8 @@ import './CreateMyShopScreen.css';
 import { useState} from 'react';
 import axios from 'axios';
 
+import backendUrl from '../service/backendUrl';
+
 const userData = JSON.parse(localStorage.getItem("userData"));
 
 
@@ -57,7 +59,7 @@ const CreateMyShopScreen = (props) => {
           shopPhone: shopPhone
         };
 
-        axios.post('http://localhost:5000/shops', shop)
+        axios.post(`${backendUrl}/shops`, shop)
         .then(res => {
           props.history.push("/myshop");
 					//window.location.reload(false);

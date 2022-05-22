@@ -2,6 +2,8 @@ import './CartItem.css';
 import {Link} from 'react-router-dom';
 import { useState,useEffect } from 'react';
 
+import backendUrl from '../../service/backendUrl';
+
 
 const CartItem = ({quantity, productId}) => {
 
@@ -11,7 +13,7 @@ const CartItem = ({quantity, productId}) => {
 
   const fetchData = async () =>{
     try{
-      const response = await fetch(`http://localhost:5000/products/${productId}`)
+      const response = await fetch(`${backendUrl}/products/${productId}`)
       const result = await response.json();
 
       setProduct(result);

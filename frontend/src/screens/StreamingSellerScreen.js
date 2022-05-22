@@ -14,6 +14,8 @@ import ProductForSale from '../components/streaming/ProductForSale';
 
 import AuctionTablePNG from './auction-table.png';
 
+import backendUrl from "../service/backendUrl";
+
 
 const userData = JSON.parse(localStorage.getItem("userData"));
 
@@ -80,7 +82,7 @@ const StreamingSellerScreen = () => {
         isAuctionEnded: false
       }
 
-      await axios.post("http://localhost:5000/streamings", streaming)
+      await axios.post(`${backendUrl}/streamings`, streaming)
         .then(res => {
           console.log("Streaming " + res.data._id + " has started");
           setStreamId(res.data._id);
@@ -104,7 +106,7 @@ const StreamingSellerScreen = () => {
     setCommentList((list) => [...list, commentData]);
 
 
-    await axios.delete(`http://localhost:5000/streamings/${streamId}`)
+    await axios.delete(`${backendUrl}/streamings/${streamId}`)
       .then(res => {
         // Video
         var videoElement = document.querySelector("video");
@@ -183,7 +185,7 @@ const StreamingSellerScreen = () => {
 
     const fetchShop = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/shops/${userData.userId}`);
+        const response = await fetch(`${backendUrl}/shops/${userData.userId}`);
         const result = await response.json();
         setShop(result);
         setLoading(false);
@@ -258,7 +260,7 @@ const StreamingSellerScreen = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/products/seller/${shop._id}`);
+      const response = await fetch(`${backendUrl}/products/seller/${shop._id}`);
       const result = await response.json();
       setProducts(result);
       setShowProducts(true);
@@ -296,7 +298,7 @@ const StreamingSellerScreen = () => {
       productId: productOnSale._id
     };
 
-    axios.put(`http://localhost:5000/streamings/${streamId}`, streaming)
+    axios.put(`${backendUrl}/streamings/${streamId}`, streaming)
       .then(res => {
         console.log(res);
         if (!isAuction)
@@ -311,7 +313,7 @@ const StreamingSellerScreen = () => {
       productId: ""
     };
 
-    axios.put(`http://localhost:5000/streamings/${streamId}`, streaming)
+    axios.put(`${backendUrl}/streamings/${streamId}`, streaming)
       .then(res => {
         console.log(res);
         socketEmitEndSale();
@@ -392,7 +394,7 @@ const StreamingSellerScreen = () => {
 
     console.log(streaming);
 
-    axios.put(`http://localhost:5000/streamings/${streamId}`, streaming)
+    axios.put(`${backendUrl}/streamings/${streamId}`, streaming)
       .then(res => {
         console.log(res);
         if (isAuctionEnded) {
@@ -493,7 +495,7 @@ const StreamingSellerScreen = () => {
       bidPrice: minimumBid
     };
 
-    axios.post('http://localhost:5000/orders', order)
+    axios.post(`${backendUrl}/orders`, order)
       .then(res => {
         console.log(res);
       }).catch(error => {

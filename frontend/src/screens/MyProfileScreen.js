@@ -5,6 +5,8 @@ import axios from 'axios';
 import {Link} from 'react-router-dom'
 import logo from './Membershipgambar.png';
 
+import backendUrl from '../service/backendUrl';
+
 
 const MyProfileScreen = () => {
 
@@ -52,7 +54,7 @@ const MyProfileScreen = () => {
     const fetchAccountInformation = async () => {
         try {
             if (auth.isAuthenticated()) {
-                const response = await fetch(`http://localhost:5000/users/account/${auth.getUserData().userId}`);
+                const response = await fetch(`${backendUrl}/users/account/${auth.getUserData().userId}`);
                 const result = await response.json();
 
                 if (result) {
@@ -94,7 +96,7 @@ const MyProfileScreen = () => {
                     formData.append('phone', phone);
                     formData.append('profile_pic', photo);
 
-                    axios.put(`http://localhost:5000/users/${auth.getUserData().userId}`, formData, {
+                    axios.put(`${backendUrl}/users/${auth.getUserData().userId}`, formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }

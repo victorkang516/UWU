@@ -4,6 +4,8 @@ import { useEffect, useState, useRef } from "react";
 import axios from 'axios';
 import Loading from '../components/Loading';
 
+import backendUrl from '../service/backendUrl';
+
 const userData = JSON.parse(localStorage.getItem("userData"));
 
 const MyShopAddProductScreen = (props) => {
@@ -49,7 +51,7 @@ const MyShopAddProductScreen = (props) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/shops/${userData.userId}`);
+                const response = await fetch(`${backendUrl}/shops/${userData.userId}`);
                 const result = await response.json();
 
                 setShopId(result._id); // _id NOT id
@@ -86,7 +88,7 @@ const MyShopAddProductScreen = (props) => {
                 formData.append('shopId', shopId); // shopId is required
                 formData.append('shopName', shopName); // shopName is required
 
-                axios.post(`http://localhost:5000/products`, formData, { // only submit 1 data object
+                axios.post(`${backendUrl}/products`, formData, { // only submit 1 data object
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }

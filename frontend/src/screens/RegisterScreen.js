@@ -5,6 +5,8 @@ import axios from 'axios';
 import logo from './uwupic.png';
 import auth from '../authentication/auth';
 
+import backendUrl from '../service/backendUrl';
+
 
 const RegisterScreen = (props) => {
   const [email, setEmail] = useState('');
@@ -49,7 +51,7 @@ if (password.length>6){
       phone: phone
     };
   
-    axios.post('http://localhost:5000/users', user)
+    axios.post(`${backendUrl}/users`, user)
       .then(res => {
         console.log(res);
         alert ("you have successfully registered!");

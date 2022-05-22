@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import CheckOutItem from '../components/CheckOutItem';
 import axios from 'axios';
 
+import backendUrl from '../service/backendUrl';
+
 const userData = JSON.parse(localStorage.getItem("userData"));
 
 const CheckOutScreen = (props) => {
@@ -33,7 +35,7 @@ const CheckOutScreen = (props) => {
   const fetchUserData = async () => {
     try {
 
-      const response = await fetch(`http://localhost:5000/users/account/${userId}`);
+      const response = await fetch(`${backendUrl}/users/account/${userId}`);
       const result = await response.json();
 
       setUserInfo(result);
@@ -47,7 +49,7 @@ const CheckOutScreen = (props) => {
   const fetchCheckOut = async () => {
     try {
 
-      const response = await fetch(`http://localhost:5000/orders/unpaid/${userData.userId}`);
+      const response = await fetch(`${backendUrl}/orders/unpaid/${userData.userId}`);
       const result = await response.json();
       console.log(result)
 
@@ -64,7 +66,7 @@ const CheckOutScreen = (props) => {
       isPaid: true
     };
 
-    axios.put(`http://localhost:5000/orders/paid/${userData.userId}`, order)
+    axios.put(`${backendUrl}/orders/paid/${userData.userId}`, order)
       .then(res => {setShowMessage(true)
         console.log(res);
       }).catch(error => {
@@ -77,7 +79,7 @@ const CheckOutScreen = (props) => {
       totalSpent: totalSpent
     };
       
-    axios.put(`http://localhost:5000/users/totalSpent/${userData.userId}`, user)
+    axios.put(`${backendUrl}/users/totalSpent/${userData.userId}`, user)
       .then(res => {
         console.log(res);
       }).catch(error => {

@@ -16,6 +16,8 @@ import auth from '../authentication/auth';
 
 import CommentSection from "../components/streaming/CommentSection";
 
+import backendUrl from "../service/backendUrl";
+
 
 const userData = JSON.parse(localStorage.getItem("userData"));
 
@@ -52,7 +54,7 @@ const StreamingSellerScreen = () => {
 
   const fetchStreaming = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/streamings/${streamId}`);
+      const response = await fetch(`${backendUrl}/streamings/${streamId}`);
       const result = await response.json();
       console.log(result);
       setStreaming(result);
@@ -207,7 +209,7 @@ const StreamingSellerScreen = () => {
 
   const fetchProduct = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/products/${streaming.productId}`);
+      const response = await fetch(`${backendUrl}/products/${streaming.productId}`);
       const result = await response.json();
       console.log(result);
       setProductOnSale(result);
@@ -231,7 +233,7 @@ const StreamingSellerScreen = () => {
       shopId: productOnSale.shopId
     };
 
-    axios.post('http://localhost:5000/orders', order)
+    axios.post(`${backendUrl}/orders`, order)
       .then(res => {
         console.log(res);
         setShowOrderMessage(true);

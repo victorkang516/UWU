@@ -7,13 +7,15 @@ import axios from 'axios';
 import auth from '../authentication/auth';
 import Loading from "../components/Loading";
 
+import backendUrl from '../service/backendUrl';
+
 
 const userData = JSON.parse(localStorage.getItem("userData"));
 
 
 const ProductScreen = (props) => {
   let { id } = useParams();
-  let url = `http://localhost:5000/products/${id}`;
+  let url = `${backendUrl}/products/${id}`;
 
   const [loading, setLoading] = useState(true);
   const [showMessage, setShowMessage] = useState(false);
@@ -61,7 +63,7 @@ const ProductScreen = (props) => {
       shopId: product.shopId
     };
 
-    axios.post('http://localhost:5000/orders', order)
+    axios.post(`${backendUrl}/orders`, order)
       .then(res => {
         console.log(res);
         setShowMessage(true);

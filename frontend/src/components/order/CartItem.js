@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
 
+import backendUrl from '../../service/backendUrl';
+
 
 const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder, calculateTotalPrice}) => {
 
@@ -16,7 +18,7 @@ const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder, calcul
   }
 
   const deleteData = () => {
-    axios.delete(`http://localhost:5000/orders/${_id}`).then(res => 
+    axios.delete(`${backendUrl}/orders/${_id}`).then(res => 
     {
     console.log(res);
     removeOrder(_id);
@@ -37,7 +39,7 @@ const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder, calcul
       quantity: qty
     };
 
-    axios.put(`http://localhost:5000/orders/${_id}`, order).then(res =>
+    axios.put(`${backendUrl}/orders/${_id}`, order).then(res =>
     {
       console.log(res);
     }).catch(error=> {
@@ -48,7 +50,7 @@ const CartItem = ({_id, userId, productId, quantity, isPaid, removeOrder, calcul
   const fetchData = async () =>{
     try{
 
-      const response = await fetch(`http://localhost:5000/products/${productId}`);
+      const response = await fetch(`${backendUrl}/products/${productId}`);
       const result = await response.json();
 
       setProduct(result);

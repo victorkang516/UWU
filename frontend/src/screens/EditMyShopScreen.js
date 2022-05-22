@@ -5,6 +5,8 @@ import axios from 'axios';
 import Loading from '../components/Loading';
 import { Link } from 'react-router-dom'
 
+import backendUrl from '../service/backendUrl';
+
 const userData = JSON.parse(localStorage.getItem("userData"));
 
 const EditMyShopScreen = (props) => {
@@ -47,7 +49,7 @@ const EditMyShopScreen = (props) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/shops/${userData.userId}`);
+            const response = await fetch(`${backendUrl}/shops/${userData.userId}`);
             const result = await response.json();
 
             setShop(result);
@@ -83,7 +85,7 @@ const EditMyShopScreen = (props) => {
                     formData.append('phone', shopPhone);
                     formData.append('profile_pic', photo);
 
-                    axios.put(`http://localhost:5000/shops/${shop._id}`, formData, {
+                    axios.put(`${backendUrl}/shops/${shop._id}`, formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }

@@ -15,6 +15,8 @@ import Loading from '../components/Loading';
 import Streaming from '../components/Streaming';
 import Product from '../components/Product';
 
+import backendUrl from '../service/backendUrl';
+
 
 const HomeScreen = (props) => {
   const [loadingProducts,setLoadingProducts] = useState(true);
@@ -43,7 +45,7 @@ const HomeScreen = (props) => {
   useEffect(() => {
     const fetchData = async () =>{
       try{
-        const response = await fetch("http://localhost:5000/products");
+        const response = await fetch(backendUrl + "/products");
         const result = await response.json();
   
         setProducts(result);
@@ -54,7 +56,7 @@ const HomeScreen = (props) => {
       }
   
       try{
-        const response = await fetch("http://localhost:5000/streamings");
+        const response = await fetch(backendUrl + "/streamings");
         const result = await response.json();
   
         setStreamings(result);

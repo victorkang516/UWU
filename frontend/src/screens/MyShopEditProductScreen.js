@@ -5,6 +5,8 @@ import { useParams } from 'react-router';
 import axios from 'axios';
 import Loading from '../components/Loading';
 
+import backendUrl from '../service/backendUrl';
+
 const userData = JSON.parse(localStorage.getItem("userData"));
 
 const MyShopEditProductScreen = (props) => {
@@ -52,7 +54,7 @@ const MyShopEditProductScreen = (props) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/products/${id}`);
+            const response = await fetch(`${backendUrl}/products/${id}`);
             const result = await response.json();
 
             setProduct(result);
@@ -93,7 +95,7 @@ const MyShopEditProductScreen = (props) => {
                 formData.append('shopId', shopId); // shopId is required
                 formData.append('shopName', shopName); // shopName is required
 
-                axios.put(`http://localhost:5000/products/${id}`, formData, {
+                axios.put(`${backendUrl}/products/${id}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -121,7 +123,7 @@ const MyShopEditProductScreen = (props) => {
     }
 
     const onDelete = async () => {
-        await axios.delete(`http://localhost:5000/products/${id}`)
+        await axios.delete(`${backendUrl}/products/${id}`)
             .then(res => {
                 alert("Product has been deleted successfully!");
                 props.history.push("/myshop");

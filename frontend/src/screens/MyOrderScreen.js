@@ -5,6 +5,8 @@ import CartItem from '../components/order/CartItem';
 import HistoryItem from '../components/order/HistoryItem';
 import AuctionItem from '../components/order/AuctionItem';
 
+import backendUrl from '../service/backendUrl';
+
 const userData = JSON.parse(localStorage.getItem("userData"));
 
 const MyOrderScreen = () => {
@@ -20,7 +22,7 @@ const MyOrderScreen = () => {
   const fetchData = async () => {
     try {
 
-      const response = await fetch(`http://localhost:5000/orders/unpaid/${userData.userId}`);
+      const response = await fetch(`${backendUrl}/orders/unpaid/${userData.userId}`);
       const result = await response.json();
 
       setOrders(result);
@@ -33,7 +35,7 @@ const MyOrderScreen = () => {
 
   const fetchPdata = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/orders/paid/${userData.userId}`);
+      const response = await fetch(`${backendUrl}/orders/paid/${userData.userId}`);
       const result = await response.json();
 
       setPorders(result);

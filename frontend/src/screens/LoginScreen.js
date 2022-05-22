@@ -4,6 +4,9 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import auth from '../authentication/auth';
 import logo from './uwupic.png';
+
+import backendUrl from '../service/backendUrl';
+
 // import sidebar from './sidebar.js';
 // const new_component = NewHOC (sidebar);
 const LoginScreen = (props) => {
@@ -24,7 +27,7 @@ const LoginScreen = (props) => {
     if (email !== "" && password !== "") {
       const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
       if (email && regex.test(email) !== false) {
-        axios.get(`http://localhost:5000/users/${email}`)
+        axios.get(`${backendUrl}/users/${email}`)
 			.then(res => {
 				
         if (res.data&&res.data.email === email&&res.data.password === password){

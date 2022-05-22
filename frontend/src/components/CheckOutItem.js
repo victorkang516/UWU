@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
 
+import backendUrl from '../service/backendUrl';
+
 
 const CheckOutItem = ({_id, userId, productId, quantity, isPaid, calculateTotalPrice}) => {
 
@@ -18,7 +20,7 @@ const CheckOutItem = ({_id, userId, productId, quantity, isPaid, calculateTotalP
 
   const fetchData = async () =>{
     try{
-      const response = await fetch(`http://localhost:5000/products/${productId}`)
+      const response = await fetch(`${backendUrl}/products/${productId}`)
       const result = await response.json();
 
       setProduct(result);

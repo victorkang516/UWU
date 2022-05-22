@@ -1,6 +1,8 @@
 import './BuyerOrders.css';
 import { useEffect, useState } from 'react';
 
+import backendUrl from '../service/backendUrl';
+
 const Orders = ({ _id, userId, productId, quantity, isPaid }) => {
 
   const [user, setUser] = useState(null);
@@ -16,7 +18,7 @@ const Orders = ({ _id, userId, productId, quantity, isPaid }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/users/account/${userId}`);
+        const response = await fetch(`${backendUrl}/users/account/${userId}`);
         const result = await response.json();
         setUser(result);
       } catch (error) {
@@ -29,7 +31,7 @@ const Orders = ({ _id, userId, productId, quantity, isPaid }) => {
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/products/${productId}`);
+        const response = await fetch(`${backendUrl}/products/${productId}`);
         const result = await response.json();
         setProduct(result);
       } catch (error) {
