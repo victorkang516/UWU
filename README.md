@@ -3,7 +3,7 @@
 <p>Year: 2021/2022</p>
 <p>Course Name: PEMBANGUNAN PERISIAN UNTUK SISTEM MULTIMEDIA </p>
 <p>Group Name: UWU</p>
-View the website here: https://uwushoppingsite.netlify.app
+<p>View the website here: https://uwushoppingsite.netlify.app</p>
 <p>Group Members: </p>
 <table>
   <tr>
