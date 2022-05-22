@@ -105,3 +105,20 @@
 <p>$ npm run dev</p>
 
 You should see our frontend server running on localhost:3000, it will open up in your browser automatically. If not, please tell me so I can help you.
+
+
+<h2>How to Deploy on Internet</h2>
+Backend server deployed to Heroku, while frontend server deploy to Netlify.
+Both platform are free.
+
+Tutorial Link: https://www.youtube.com/watch?v=7kHqE2xh-xQ
+
+Any update to the web and wants to commit new changes of backend to Heroku:
+$ git add .
+$ git commit -am "make it better"
+$ git push heroku master
+
+For frontend:
+$ npm run build
+$ netlify deploy
+$ netlify deploy --prod
