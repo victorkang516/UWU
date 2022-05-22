@@ -114,12 +114,18 @@ Both platform are free.</p>
 
 <p>Tutorial Link: https://www.youtube.com/watch?v=7kHqE2xh-xQ</p>
 
-<p>Any update to the web and wants to commit new changes of backend to Heroku:</p>
+<hr>
+<p>For backend, commit changes to Heroku with these code. Write these at the root directory.</p>
 <p>$ git add . </p>
 <p>$ git commit -am "make it better"</p>
 <p>$ git push heroku master</p>
 
-<p>For frontend:</p>
+<p>Make sure you install Heroku CLI.</p>
+
+<hr>
+<p>For frontend, commit changes to Netlify with these code. Write in frontend directory:</p>
 <p>$ npm run build</p>
 <p>$ netlify deploy</p>
 <p>$ netlify deploy --prod</p>
+
+<p>Make sure you install Netlify CLI.</p>
