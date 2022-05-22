@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://uwushoppingsite.netlify.app/",
+    origin: "https://uwushoppingsite.netlify.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
   },
 });
