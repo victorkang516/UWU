@@ -1,4 +1,3 @@
-const {restart} = require('nodemon');
 const User = require('../models/User');
 
 const readAllUsers = async (req, res) => {
