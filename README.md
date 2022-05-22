@@ -3,7 +3,7 @@
 <p>Year: 2021/2022</p>
 <p>Course Name: PEMBANGUNAN PERISIAN UNTUK SISTEM MULTIMEDIA </p>
 <p>Group Name: UWU</p>
-<p>View the website here: https://uwushoppingsite.netlify.app</p>
+<p>View our website here: https://uwushoppingsite.netlify.app</p>
 <p>Group Members: </p>
 <table>
   <tr>
@@ -109,7 +109,7 @@ You should see our frontend server running on localhost:3000, it will open up in
 
 
 <h2>How to Deploy on Internet</h2>
-Backend server deployed to Heroku, while frontend server deploy to Netlify.
+Backend server deployed to <b>Heroku</b>, while frontend server deploy to <b>Netlify</b>.
 Both platform are free.
 
 Tutorial Link: https://www.youtube.com/watch?v=7kHqE2xh-xQ
