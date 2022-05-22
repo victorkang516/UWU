@@ -118,7 +118,7 @@ const MyShopAddProductScreen = (props) => {
         <div className="addproductmyshopscreen">
             <div className="account-information1">
 
-                <div className="container1" >
+                <div className="container" >
                     <div className="column-1 box1" >
                         
                         <form className="form" method="POST" encType="multipart/form-data">
@@ -144,8 +144,9 @@ const MyShopAddProductScreen = (props) => {
 
                                 <div className="form-input" type="Product Category:">
                                 <label>Product Category: </label>
-                                    <select type="text" name="category" value={category} onChange={onCategoryChange} 
+                                    <select name="category" value={category} onChange={onCategoryChange} 
                                     placeholder='Product Category' required>
+                                        <option value="" selected disabled hidden>Choose here</option>
                                         <option value="Headphones">Headphones</option>
                                         <option value="Speakers">Speaker</option>
                                         <option value="Smart Device">Smart Device</option>

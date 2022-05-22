@@ -125,9 +125,8 @@ const EditMyShopScreen = (props) => {
     return (
         <div className="editmyshopscreen">
             <div className="account-information1">
-                
 
-                <div className="container1" >
+                <div className="container" >
                     <div className="column-1 box1" >
                         <form className="form" method="POST" encType="multipart/form-data">
                             <h1 className="text-center">Edit My Shop</h1>

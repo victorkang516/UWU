@@ -62,3 +62,63 @@
   <li>Products module</li>
   <li>View buyers' orders</li>
 </ul>
+
+<h2>How to Clone, Setup & Run Locally</h2>
+<p>Developer Software Requirements:</p>
+<ul>
+  <li>Install Visual Studio Code</li>
+  <li>Install node.js</li>
+</ul>
+
+<p>Git Repository Link:https://github.com/victorkang516/UWU </p>
+<p>Follow this video:https://youtu.be/9a_EuO4g29s </p>
+
+<p>Make sure you have installed node.js. Copy our project github link. Clone it to your pc with Visual Studio Code (anywhere you prefer). </p>
+
+<p>After we succeed to clone the repository, we need to install express js for our backend server:</p>
+<hr>
+
+<p>In your root directory of the project, install express js, mongoose and dotenv.</p>
+<p>$ npm i express mongoose dotenv</p>
+
+<p>Then install some extension:</p>
+<p>$ npm i --save-dev nodemon concurrently</p>
+
+<p>What you are doing is installing the packages for our backend server.</p>
+
+<p>After that, we will install react js in the frontend folder:</p>
+<hr>
+
+<p>Get into frontend folder</p>
+<p>$ cd frontend</p>
+
+<p>Install react modules</p>
+<p>$ npm i react</p>
+
+<p>Install extension</p>
+<p>$ npm i axios react-router-dom</p>
+
+<p>With these done, we should have completely set up the project. Go back to our root directory.</p>
+<p>$ cd ..</p>
+
+<p>Now try to run the two server by using this command:</p>
+<p>$ npm run dev</p>
+
+You should see our frontend server running on localhost:3000, it will open up in your browser automatically. If not, please tell me so I can help you.
+
+
+<h2>How to Deploy on Internet</h2>
+Backend server deployed to Heroku, while frontend server deploy to Netlify.
+Both platform are free.
+
+Tutorial Link: https://www.youtube.com/watch?v=7kHqE2xh-xQ
+
+Any update to the web and wants to commit new changes of backend to Heroku:
+$ git add .
+$ git commit -am "make it better"
+$ git push heroku master
+
+For frontend:
+$ npm run build
+$ netlify deploy
+$ netlify deploy --prod
