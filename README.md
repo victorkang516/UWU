@@ -109,17 +109,17 @@ You should see our frontend server running on localhost:3000, it will open up in
 
 
 <h2>How to Deploy on Internet</h2>
-Backend server deployed to <b>Heroku</b>, while frontend server deploy to <b>Netlify</b>.
-Both platform are free.
+<p>Backend server deployed to <b>Heroku</b>, while frontend server deploy to <b>Netlify</b>.
+Both platform are free.</p>
 
-Tutorial Link: https://www.youtube.com/watch?v=7kHqE2xh-xQ
+<p>Tutorial Link: https://www.youtube.com/watch?v=7kHqE2xh-xQ</p>
 
-Any update to the web and wants to commit new changes of backend to Heroku:
-$ git add .
-$ git commit -am "make it better"
-$ git push heroku master
+<p>Any update to the web and wants to commit new changes of backend to Heroku:</p>
+<p>$ git add . </p>
+<p>$ git commit -am "make it better"</p>
+<p>$ git push heroku master</p>
 
-For frontend:
-$ npm run build
-$ netlify deploy
-$ netlify deploy --prod
+<p>For frontend:</p>
+<p>$ npm run build</p>
+<p>$ netlify deploy</p>
+<p>$ netlify deploy --prod</p>
