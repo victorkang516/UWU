@@ -4,7 +4,7 @@
 <p>Course Name: PEMBANGUNAN PERISIAN UNTUK SISTEM MULTIMEDIA </p>
 <p>Group Name: UWU</p>
 <p>View our frontend website here: https://uwushoppingsite.netlify.app </p>
-<p>View our backend website here: https://uwushoppingsite.herokuapp.com/ </p>
+<p>View our backend website here: https://uwushoppingsite.herokuapp.com </p>
 <p>Group Members: </p>
 <table>
   <tr>
